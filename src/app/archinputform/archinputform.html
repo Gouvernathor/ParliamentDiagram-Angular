@@ -1,0 +1,41 @@
+<div class="block card">
+    <div class="card-body">
+        <div class="row"><div class="col-12">
+            <button type="button" class="btn btn-primary" [class.active]="!isAdvancedHidden" [ariaPressed]="!isAdvancedHidden" (click)="toggleAdvanced()">
+                Advanced parameters
+            </button>
+        </div></div>
+
+        <div id="advanced-body" class="row" [hidden]="isAdvancedHidden">
+            <div class="col-12 mt-2">
+                @for (item of [
+                    { n: FillingStrategy.DEFAULT, title: "Default, evenly filled" },
+                    { n: FillingStrategy.EMPTY_INNER, title: "Empty inner rows" },
+                    { n: FillingStrategy.OUTER_PRIORITY, title: "Outer rows priority" }
+                ]; track item.n) {
+                    <div class="form-check">
+                        <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
+                        <input class="form-check-input" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy === item.n" (change)="fillingStrategy = item.n"/>
+                        <label class="form-check-label" for="fillingStrategy{{item.n}}">{{item.title}}</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="block card">
+    <div class="card-body">
+        <button id="addpartymanual" class="btn btn-success">+ Add a party manually</button>
+        <div id="partylistcontainer" class="sortableContainer"></div>
+    </div>
+</div>
+
+<button id="diagrammaker" class="btn btn-primary">Make my diagram</button>
+
+<div class="block card" id="togglablepost" hidden>
+    <div class="card-body">
+        <div id="postcontainer"></div>
+        <div id="postcontainerbutton"></div>
+    </div>
+</div>
