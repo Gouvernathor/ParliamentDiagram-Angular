@@ -35,30 +35,30 @@
                 <div id="party{{party.nId}}" class="card partycard">
                     <div class="card-body">
                         <form class="form-floating">
-                            <input type="text" class="form-control" name="partyName{{party.nId}}" value="{{party.name}}" [class.is-invalid]="!party.name.trim()" (change)="party.name = $event.target.value.trim()"/>
+                            <input type="text" class="form-control" name="partyName{{party.nId}}" value="{{party.name()}}" [class.is-invalid]="!party.name().trim()" (change)="party.name.set($event.target.value.trim())"/>
                             <label for="partyName{{party.nId}}">Party {{party.nId}} Name</label>
                         </form>
 
                         <form class="form-floating">
-                            <input type="number" class="form-control" name="partySeats{{party.nId}}" min="0" step="1" value="{{party.nSeats}}" [class.is-invalid]="party.nSeats < 0 || !isInt(party.nSeats)" (change)="party.nSeats = $event.target.valueAsNumber"/>
+                            <input type="number" class="form-control" name="partySeats{{party.nId}}" min="0" step="1" value="{{party.nSeats()}}" [class.is-invalid]="party.nSeats() < 0 || !isInt(party.nSeats())" (change)="party.nSeats.set($event.target.valueAsNumber)"/>
                             <label for="partySeats{{party.nId}}">Party {{party.nId}} Seats</label>
                         </form>
 
                         <form class="form-floating">
                             <!-- TODO make a proper color input -->
                             <!-- <input type="color" class="form-control form-control-color" name="partyColor{{party.nId}}" value="{{party.fillColor}}" (change)="party.fillColor = $event.target.value"/> -->
-                            <input type="text" class="form-control" name="partyColor{{party.nId}}" value="{{party.fillColor}}" (change)="party.fillColor = $event.target.value"/>
+                            <input type="text" class="form-control" name="partyColor{{party.nId}}" value="{{party.fillColor()}}" (change)="party.fillColor.set($event.target.value)"/>
                             <label for="partyColor{{party.nId}}">Party {{party.nId}} Color</label>
                         </form>
 
                         <form class="form-floating">
-                            <input type="range" class="form-control form-range" name="partyBorderWidth{{party.nId}}" min="0" step=".001" max="1" value="{{party.borderWidth}}" (change)="party.borderWidth = $event.target.valueAsNumber"/>
-                            <label for="partyBorderWidth{{party.nId}}">Party {{party.nId}} Border Width : {{(party.borderWidth*100).toFixed()}}%</label>
+                            <input type="range" class="form-control form-range" name="partyBorderWidth{{party.nId}}" min="0" step=".001" max="1" value="{{party.borderWidth()}}" (change)="party.borderWidth.set($event.target.valueAsNumber)"/>
+                            <label for="partyBorderWidth{{party.nId}}">Party {{party.nId}} Border Width : {{(party.borderWidth()*100).toFixed()}}%</label>
                         </form>
 
                         <form class="form-floating">
                             <!-- TODO same -->
-                            <input type="text" class="form-control" name="partyBorderColor{{party.nId}}" value="{{party.borderColor}}" (change)="party.borderColor = $event.target.value"/>
+                            <input type="text" class="form-control" name="partyBorderColor{{party.nId}}" value="{{party.borderColor()}}" (change)="party.borderColor.set($event.target.value)"/>
                             <label for="partyBorderColor{{party.nId}}">Party {{party.nId}} Border Color</label>
                         </form>
 
@@ -73,7 +73,7 @@
     </div>
 </div>
 
-<button id="diagrammaker" class="btn btn-primary" (click)="makeDiagram()">Make my diagram</button>
+<button id="diagrammaker" class="btn btn-primary" (click)="makeDiagram()" [disabled]="totalSeats() < 1">Make my diagram</button>
 
 <div class="block card" id="togglablepost" hidden>
     <div class="card-body">

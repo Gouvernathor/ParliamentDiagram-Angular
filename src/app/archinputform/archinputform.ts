@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal, WritableSignal } from '@angular/core';
+import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
 
 interface Party {
     readonly nId: number;
-    name: string;
-    nSeats: number;
-    fillColor: string;
-    borderWidth: number;
-    borderColor: string;
+    name: WritableSignal<string>;
+    nSeats: WritableSignal<number>;
+    fillColor: WritableSignal<string>;
+    borderWidth: WritableSignal<number>;
+    borderColor: WritableSignal<string>;
 }
 
 @Component({
@@ -24,6 +25,8 @@ export class Archinputform {
     fillingStrategy = FillingStrategy.DEFAULT;
     isAdvancedHidden = true;
     readonly partylist: Party[] = [];
+    readonly totalSeats = computed(() =>
+        this.partylist.reduce((sum, party) => sum + party.nSeats(), 0));
 
     toggleAdvanced() {
         this.isAdvancedHidden = !this.isAdvancedHidden;
@@ -58,11 +61,11 @@ export class Archinputform {
 
         this.partylist.push({
             nId,
-            name: newName,
-            nSeats: newNSeats,
-            fillColor: newColor,
-            borderWidth: 0,
-            borderColor: "#000000",
+            name: signal(newName),
+            nSeats: signal(newNSeats),
+            fillColor: signal(newColor),
+            borderWidth: signal(0),
+            borderColor: signal("#000000"),
         });
     }
 
