@@ -6,24 +6,26 @@
             </button>
         </div></div>
 
-        <div id="advanced-body" class="row" [hidden]="isAdvancedHidden">
-            <div class="col-12 mt-2">
-                <h5>Filling strategy</h5>
-                <ul class="list-group">
-                    @for (item of [
-                        { n: FillingStrategy.DEFAULT, title: "Evenly filled (default)" },
-                        { n: FillingStrategy.EMPTY_INNER, title: "Empty inner rows" },
-                        { n: FillingStrategy.OUTER_PRIORITY, title: "Outer rows priority" }
-                    ]; track item.n) {
-                        <li class="list-group-item">
-                            <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
-                            <input class="form-check-input me-1" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy === item.n" (change)="fillingStrategy = item.n"/>
-                            <label class="form-check-label stretched-link" for="fillingStrategy{{item.n}}">{{item.title}}</label>
-                        </li>
-                    }
-                </ul>
+        @if (!isAdvancedHidden) {
+            <div id="advanced-body" class="row">
+                <div class="col-12 mt-2">
+                    <h5>Filling strategy</h5>
+                    <ul class="list-group">
+                        @for (item of [
+                            { n: FillingStrategy.DEFAULT, title: "Evenly filled (default)" },
+                            { n: FillingStrategy.EMPTY_INNER, title: "Empty inner rows" },
+                            { n: FillingStrategy.OUTER_PRIORITY, title: "Outer rows priority" }
+                        ]; track item.n) {
+                            <li class="list-group-item">
+                                <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
+                                <input class="form-check-input me-1" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy === item.n" (change)="fillingStrategy = item.n"/>
+                                <label class="form-check-label stretched-link" for="fillingStrategy{{item.n}}">{{item.title}}</label>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -31,7 +33,7 @@
     <div class="card-body">
         <button id="addpartymanual" class="btn btn-success" (click)="addPartyManual()">+ Add a party manually</button>
         <div id="partylistcontainer" class="sortableContainer">
-            @for (party of partylist; track party.nId) {
+            @for (party of partylist(); track party.nId) {
                 <div id="party{{party.nId}}" class="card partycard">
                     <div class="card-body">
                         <form class="form-floating">
@@ -53,7 +55,7 @@
 
                         <form class="form-floating">
                             <input type="range" class="form-control form-range" name="partyBorderWidth{{party.nId}}" min="0" step=".001" max="1" value="{{party.borderWidth()}}" (change)="party.borderWidth.set($event.target.valueAsNumber)"/>
-                            <label for="partyBorderWidth{{party.nId}}">Party {{party.nId}} Border Width : {{(party.borderWidth()*100).toFixed()}}%</label>
+                            <label for="partyBorderWidth{{party.nId}}">Party {{party.nId}} Border Width&nbsp;: {{(party.borderWidth()*100).toFixed()}}%</label>
                         </form>
 
                         <form class="form-floating">
@@ -75,9 +77,18 @@
 
 <button id="diagrammaker" class="btn btn-primary" (click)="makeDiagram()" [disabled]="totalSeats() < 1">Make my diagram</button>
 
-<div class="block card" id="togglablepost" hidden>
-    <div class="card-body">
-        <div id="postcontainer"></div>
-        <div id="postcontainerbutton"></div>
+@if (svgs.length) {
+    <div class="block card">
+        <div class="card-body" id="svgcontainer">
+            @for (svg of svgs; track svgs.length - $index) {
+                <p #p id="svgp-{{$count-$index}}">
+                    <!-- diagram ends up here -->
+                    <br/>
+                    <button class="btn btn-success" (click)="downloadSVG(svg)">Download</button>
+                    <!-- <hr/> then Legend template for use in Wikipedia&nbsp;: then the template -->
+                </p>
+                @let _ = setPFirstChild(p, svg);
+            }
+        </div>
     </div>
-</div>
+}
