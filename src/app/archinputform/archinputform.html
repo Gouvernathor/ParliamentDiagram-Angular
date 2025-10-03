@@ -81,13 +81,12 @@
     <div class="block card">
         <div class="card-body" id="svgcontainer">
             @for (svg of svgs; track svgs.length - $index) {
-                <p #p id="svgp-{{$count-$index}}">
+                <p #p id="svgp-{{$count-$index}}" [appFirstChild]="svg">
                     <!-- diagram ends up here -->
                     <br/>
                     <button class="btn btn-success" (click)="downloadSVG(svg)">Download</button>
                     <!-- <hr/> then Legend template for use in Wikipedia&nbsp;: then the template -->
                 </p>
-                @let _ = setPFirstChild(p, svg);
             }
         </div>
     </div>

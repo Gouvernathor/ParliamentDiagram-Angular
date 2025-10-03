@@ -1,6 +1,7 @@
 import { Component, computed, ElementRef, inject, Renderer2, signal, WritableSignal } from '@angular/core';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
+import { FirstChildDirective } from '../first-child.directive';
 
 interface Party {
     readonly nId: number;
@@ -12,10 +13,10 @@ interface Party {
 }
 
 @Component({
-  selector: 'app-archinputform',
-  imports: [],
-  templateUrl: './archinputform.html',
-  styleUrl: './archinputform.scss'
+    selector: 'app-archinputform',
+    imports: [ FirstChildDirective ],
+    templateUrl: './archinputform.html',
+    styleUrl: './archinputform.scss'
 })
 export class Archinputform {
     // imports for the template
@@ -92,12 +93,5 @@ export class Archinputform {
         // TODO add the other options here to the advanced options form
         const arch = getSVGFromAttribution(attrib, { fillingStrategy: this.fillingStrategy });
         this.svgs.unshift(arch);
-    }
-
-    setPFirstChild(p: HTMLParagraphElement, svg: SVGSVGElement) {
-        const firstChild = p.firstChild;
-        if (firstChild !== svg) {
-            p.insertBefore(svg, firstChild);
-        }
     }
 }
