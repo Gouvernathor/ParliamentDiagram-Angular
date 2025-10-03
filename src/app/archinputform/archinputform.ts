@@ -90,7 +90,7 @@ export class Archinputform {
         }, party.nSeats()]));
 
         // TODO add the other options here to the advanced options form
-        const arch = getSVGFromAttribution(attrib, undefined, { fillingStrategy: this.fillingStrategy }, {});
+        const arch = getSVGFromAttribution(attrib, { fillingStrategy: this.fillingStrategy });
         this.svgs.unshift(arch);
     }
 
