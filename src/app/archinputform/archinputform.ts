@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, Renderer2, signal, WritableSignal } from '@angular/core';
+import { Component, computed, signal, WritableSignal } from '@angular/core';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
 import { FirstChildDirective } from '../first-child.directive';
@@ -29,9 +29,6 @@ export class Archinputform {
     readonly totalSeats = computed(() =>
         this.partylist().reduce((sum, party) => sum + party.nSeats(), 0));
     readonly svgs: SVGSVGElement[] = [];
-
-    readonly renderer = inject(Renderer2);
-    readonly elementRef = inject<ElementRef<Element>>(ElementRef);
 
     toggleAdvanced() {
         this.isAdvancedHidden = !this.isAdvancedHidden;
