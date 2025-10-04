@@ -1,4 +1,5 @@
 import { Component, computed, signal, WritableSignal } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
 import { FirstChildDirective } from '../first-child.directive';
@@ -14,7 +15,7 @@ interface Party {
 
 @Component({
     selector: 'app-archinputform',
-    imports: [ FirstChildDirective ],
+    imports: [FirstChildDirective, CdkDrag, CdkDropList, CdkDragHandle],
     templateUrl: './archinputform.html',
     styleUrl: './archinputform.scss'
 })
@@ -41,6 +42,12 @@ export class Archinputform {
     deleteParty(nId: number) {
         const newPartylist = this.partylist().filter(party => party.nId !== nId);
         this.partylist.set(newPartylist);
+    }
+
+    drop(event: CdkDragDrop<Party[]>) {
+        const partylist = this.partylist().slice();
+        moveItemInArray(partylist, event.previousIndex, event.currentIndex);
+        this.partylist.set(partylist);
     }
 
     makeDiagram() {
