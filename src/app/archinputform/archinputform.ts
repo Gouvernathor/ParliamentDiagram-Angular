@@ -1,4 +1,4 @@
-import { Component, computed, signal, WritableSignal } from '@angular/core';
+import { Component, computed, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
@@ -20,11 +20,13 @@ interface Party {
     styleUrl: './archinputform.scss'
 })
 export class Archinputform {
+    readonly document = inject(DOCUMENT);
+
     // imports for the template
     FillingStrategy = FillingStrategy;
     isInt = Number.isInteger;
-
     fillingStrategy = FillingStrategy.DEFAULT;
+
     isAdvancedHidden = true;
     readonly partylist = signal<readonly Party[]>([]);
     readonly totalSeats = computed(() =>
@@ -55,7 +57,13 @@ export class Archinputform {
     }
 
     downloadSVG(svg: SVGSVGElement) {
-        // TODO
+        // @ts-expect-error // TODO
+        using disposer = new DisposableStack();
+        const a = this.document.createElement("a");
+        const url = disposer.adopt(URL.createObjectURL(new Blob([svg.outerHTML], { type: "image/svg+xml" })), URL.revokeObjectURL);
+        a.href = url;
+        a.download = "parliamentdiagram.svg";
+        a.click();
     }
 
     private addParty({
