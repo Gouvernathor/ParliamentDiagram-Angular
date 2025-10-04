@@ -3,6 +3,7 @@ import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } fro
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
 import { FirstChildDirective } from '../first-child.directive';
+import { randomColor } from '../../util/random-color';
 
 interface Party {
     readonly nId: number;
@@ -73,7 +74,7 @@ export class Archinputform {
 
     private addParty({
         newName = "",
-        newColor = "#c60", // TODO default to randomcolor
+        newColor = randomColor(),
         newNSeats = 0,
     } = {}) {
         const partylist = this.partylist();
