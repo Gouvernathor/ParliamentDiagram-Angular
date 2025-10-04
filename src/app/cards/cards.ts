@@ -14,7 +14,7 @@ export class Cards {
 
     readonly arch: SVGSVGElement;
     readonly westminster: SVGSVGElement;
-    readonly vote!: SVGSVGElement;
+    readonly vote!: SVGSVGElement; // TODO
 
     constructor() {
         globalThis.document ??= this.document;
