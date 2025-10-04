@@ -58,10 +58,8 @@ export class Archinputform {
     } = {}) {
         const partylist = this.partylist();
         let nId = 1;
-        for (const party of partylist) {
-            if (party.nId >= nId) {
-                nId = party.nId + 1;
-            }
+        while (partylist.some(party => party.nId === nId)) {
+            nId++;
         }
 
         newName ||= `Party ${nId}`;
