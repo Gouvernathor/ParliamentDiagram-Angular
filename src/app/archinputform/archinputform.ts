@@ -57,13 +57,18 @@ export class Archinputform {
     }
 
     downloadSVG(svg: SVGSVGElement) {
-        // @ts-expect-error // TODO
-        using disposer = new DisposableStack();
         const a = this.document.createElement("a");
-        const url = disposer.adopt(URL.createObjectURL(new Blob([svg.outerHTML], { type: "image/svg+xml" })), URL.revokeObjectURL);
-        a.href = url;
-        a.download = "parliamentdiagram.svg";
-        a.click();
+        let url = "";
+        try {
+            url = URL.createObjectURL(new Blob([svg.outerHTML], { type: "image/svg+xml" }));
+            a.href = url;
+            a.download = "parliamentdiagram.svg";
+            a.click();
+        } finally {
+            if (url) {
+                URL.revokeObjectURL(url);
+            }
+        }
     }
 
     private addParty({
