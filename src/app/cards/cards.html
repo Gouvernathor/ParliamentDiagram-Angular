@@ -1,0 +1,13 @@
+<div class="block card-group">
+    <!-- TODO add the images, maybe generate it all from the component -->
+    @for (item of [
+        { img: "", href: "archinputform", title: "Arch-style diagram" },
+        { img: "", href: "westminster", title: "Westminster-style diagram" },
+        { img: "", href: "vote", title: "Vote calculator" },
+    ]; track $index) {
+        <a class="card text-center btn" [href]="item.href">
+            <img class="mt-5 card-img-top" [src]="item.img" [alt]="item.title" [title]="item.title" width="90%"/>
+            <p class="card-text pt-3">{{ item.title }}</p>
+        </a>
+    }
+</div>
