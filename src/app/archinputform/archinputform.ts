@@ -78,7 +78,6 @@ export class Archinputform {
     private callDiagramScript() {
         // TODO create mediawiki markup legend
         const attrib = new Map(this.partylist().map(party => [{
-            id: party.nId.toFixed(),
             data: party.name(),
             color: party.fillColor(),
             borderSize: party.borderWidth(),
