@@ -7,11 +7,11 @@ import { randomColor } from '../../util/random-color';
 
 interface Party {
     readonly nId: number;
-    name: WritableSignal<string>;
-    nSeats: WritableSignal<number>;
-    fillColor: WritableSignal<string>;
-    borderWidth: WritableSignal<number>;
-    borderColor: WritableSignal<string>;
+    readonly name: WritableSignal<string>;
+    readonly nSeats: WritableSignal<number>;
+    readonly fillColor: WritableSignal<string>;
+    readonly borderWidth: WritableSignal<number>;
+    readonly borderColor: WritableSignal<string>;
 }
 
 @Component({
