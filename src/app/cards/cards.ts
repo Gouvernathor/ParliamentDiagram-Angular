@@ -37,18 +37,18 @@ export class Cards {
 
         const westAttribution = {
             speak: [
-                [{ color: "black" }, 1] as const,
+                [{ color: "crimson" }, 1] as const,
             ],
             government: [
-                [{ color: "blue" }, 61] as const,
-                [{ color: "rebeccapurple" }, 59] as const,
+                [{ color: "crimson" }, 4*16] as const,
+                [{ color: "green" }, 2] as const,
             ],
             opposition: [
-                [{ color: "red" }, 51] as const,
-                [{ color: "orange" }, 49] as const,
+                [{ color: "darkblue" }, 33] as const,
             ],
             cross: [
-                [{ color: "green" }, 7] as const,
+                [{ color: "gold" }, 10] as const,
+                [{ color: "firebrick" }, 2] as const,
             ],
         };
         this.westminster = westminster.getSVGFromAttribution(westAttribution);
