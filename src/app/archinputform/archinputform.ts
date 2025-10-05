@@ -28,14 +28,14 @@ export class Archinputform {
     isInt = Number.isInteger;
     fillingStrategy = FillingStrategy.DEFAULT;
 
-    isAdvancedHidden = true;
+    advancedShown = false;
     readonly partylist = signal<readonly Party[]>([]);
     readonly totalSeats = computed(() =>
         this.partylist().reduce((sum, party) => sum + party.nSeats(), 0));
     readonly svgs: SVGSVGElement[] = [];
 
     toggleAdvanced() {
-        this.isAdvancedHidden = !this.isAdvancedHidden;
+        this.advancedShown = !this.advancedShown;
     }
 
     addPartyManual() {

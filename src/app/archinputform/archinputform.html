@@ -1,12 +1,12 @@
 <div class="block card">
     <div class="card-body">
         <div class="row"><div class="col-12">
-            <button type="button" class="btn btn-primary" [class.active]="!isAdvancedHidden" [ariaPressed]="!isAdvancedHidden" (click)="toggleAdvanced()">
+            <button type="button" class="btn btn-primary" [class.active]="advancedShown" [ariaPressed]="advancedShown" (click)="toggleAdvanced()">
                 Advanced parameters
             </button>
         </div></div>
 
-        @if (!isAdvancedHidden) {
+        @if (advancedShown) {
             <div id="advanced-body" class="row">
                 <div class="col-12 mt-2">
                     <h5>Filling strategy</h5>
