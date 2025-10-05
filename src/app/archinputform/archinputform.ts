@@ -1,9 +1,10 @@
 import { Component, computed, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
 import { FirstChildDirective } from '../utility/first-child.directive';
 import { randomColor } from '../../util/random-color';
+import { arraySignal } from '../../util/array-signal';
 
 interface Party {
     readonly nId: number;
@@ -26,11 +27,11 @@ export class Archinputform {
     // imports for the template
     FillingStrategy = FillingStrategy;
     isInt = Number.isInteger;
-    readonly fillingStrategy = signal(FillingStrategy.DEFAULT);
 
+    readonly fillingStrategy = signal(FillingStrategy.DEFAULT);
     readonly advancedShown = signal(false);
     readonly options = computed(() => this.advancedShown() ? { fillingStrategy: this.fillingStrategy() } : undefined);
-    readonly partylist = signal<readonly Party[]>([]);
+    readonly partylist = arraySignal<Party>();
     readonly totalSeats = computed(() =>
         this.partylist().reduce((sum, party) => sum + party.nSeats(), 0));
     readonly svgs: SVGSVGElement[] = [];
@@ -45,13 +46,11 @@ export class Archinputform {
 
     deleteParty(nId: number) {
         const newPartylist = this.partylist().filter(party => party.nId !== nId);
-        this.partylist.set(newPartylist);
+        this.partylist.splice(0, this.partylist().length, ...newPartylist);
     }
 
     drop(event: CdkDragDrop<Party[]>) {
-        const partylist = this.partylist().slice();
-        moveItemInArray(partylist, event.previousIndex, event.currentIndex);
-        this.partylist.set(partylist);
+        this.partylist.splice(event.currentIndex, 0, ...this.partylist.splice(event.previousIndex, 1));
     }
 
     makeDiagram() {
@@ -94,7 +93,7 @@ export class Archinputform {
             borderWidth: signal(0),
             borderColor: signal("#000000"),
         };
-        this.partylist.set(partylist.concat([newParty]));
+        this.partylist.push(newParty);
     }
 
     private callDiagramScript() {
