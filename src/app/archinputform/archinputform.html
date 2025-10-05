@@ -31,7 +31,10 @@
 
 <div #partylistcard class="block card">
     <div class="card-body">
-        <button id="addpartymanual" class="btn btn-success" (click)="addPartyManual()">+ Add a party manually</button>
+        @if (partylist().length) {
+            <button id="addpartymanualtop" class="mb-2 btn btn-primary" (click)="addPartyManual()">+ Add a party</button>
+        }
+
         <div id="partylistcontainer" class="sortableContainer" cdkDropList (cdkDropListDropped)="drop($event)">
             @for (party of partylist(); track party.nId) {
                 <div id="party{{party.nId}}" class="card partycard" cdkDrag [cdkDragData]="party" [cdkDragBoundary]="partylistcard">
@@ -71,10 +74,12 @@
                 </div>
             }
         </div>
+
+        <button id="addpartymanual" class="btn btn-primary" (click)="addPartyManual()">+ Add a party</button>
     </div>
 </div>
 
-<button id="diagrammaker" class="btn btn-primary" (click)="makeDiagram()" [disabled]="totalSeats() < 1">Make my diagram</button>
+<button id="diagrammaker" class="btn btn-success" (click)="makeDiagram()" [disabled]="totalSeats() < 1">Make my diagram</button>
 
 @if (svgs.length) {
     <div class="block card">
