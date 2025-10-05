@@ -2,7 +2,7 @@ import { Component, computed, DOCUMENT, inject, signal, WritableSignal } from '@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
-import { FirstChildDirective } from '../first-child.directive';
+import { FirstChildDirective } from '../utility/first-child.directive';
 import { randomColor } from '../../util/random-color';
 
 interface Party {

@@ -1,7 +1,7 @@
 import { Component, DOCUMENT, inject } from '@angular/core';
 import * as arch from 'parliamentarch';
 import * as westminster from 'parliamentarch/westminster';
-import { ChildrenDirective } from "../children.directive";
+import { ChildrenDirective } from "../utility/children.directive";
 
 @Component({
     selector: 'app-cards',
