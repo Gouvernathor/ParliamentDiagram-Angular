@@ -1,12 +1,12 @@
 <div class="block card">
     <div class="card-body">
         <div class="row"><div class="col-12">
-            <button type="button" class="btn btn-primary" [class.active]="advancedShown" [ariaPressed]="advancedShown" (click)="toggleAdvanced()">
+            <button type="button" class="btn btn-primary" [class.active]="advancedShown()" [ariaPressed]="advancedShown()" (click)="toggleAdvanced()">
                 Advanced parameters
             </button>
         </div></div>
 
-        @if (advancedShown) {
+        @if (advancedShown()) {
             <div id="advanced-body" class="row">
                 <div class="col-12 mt-2">
                     <h5>Filling strategy</h5>
@@ -18,7 +18,7 @@
                         ]; track item.n) {
                             <li class="list-group-item">
                                 <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
-                                <input class="form-check-input me-1" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy === item.n" (change)="fillingStrategy = item.n"/>
+                                <input class="form-check-input me-1" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy() === item.n" (change)="fillingStrategy.set(item.n)"/>
                                 <label class="form-check-label stretched-link" for="fillingStrategy{{item.n}}">{{item.title}}</label>
                             </li>
                         }

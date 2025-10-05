@@ -26,16 +26,17 @@ export class Archinputform {
     // imports for the template
     FillingStrategy = FillingStrategy;
     isInt = Number.isInteger;
-    fillingStrategy = FillingStrategy.DEFAULT;
+    readonly fillingStrategy = signal(FillingStrategy.DEFAULT);
 
-    advancedShown = false;
+    readonly advancedShown = signal(false);
+    readonly options = computed(() => this.advancedShown() ? { fillingStrategy: this.fillingStrategy() } : undefined);
     readonly partylist = signal<readonly Party[]>([]);
     readonly totalSeats = computed(() =>
         this.partylist().reduce((sum, party) => sum + party.nSeats(), 0));
     readonly svgs: SVGSVGElement[] = [];
 
     toggleAdvanced() {
-        this.advancedShown = !this.advancedShown;
+        this.advancedShown.set(!this.advancedShown());
     }
 
     addPartyManual() {
@@ -106,7 +107,8 @@ export class Archinputform {
         }, party.nSeats()]));
 
         // TODO add the other options here to the advanced options form
-        const arch = getSVGFromAttribution(attrib, { fillingStrategy: this.fillingStrategy });
+        const options = this.options();
+        const arch = getSVGFromAttribution(attrib, options);
         this.svgs.unshift(arch);
     }
 }
