@@ -1,0 +1,28 @@
+<div id="advanced-body" class="row">
+    <div class="col-12 mt-2">
+        <label for="filling-strategy-list" class="form-label">Filling strategy</label>
+        <ul id="filling-strategy-list" class="list-group">
+            @for (item of [
+                {  n: FillingStrategy.DEFAULT, title: "Evenly filled (default)" },
+                { n: FillingStrategy.EMPTY_INNER, title: "Empty inner rows" },
+                { n: FillingStrategy.OUTER_PRIORITY, title: "Outer rows priority" }
+            ]; track item.n) {
+                <li class="list-group-item">
+                    <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
+                    <input class="form-check-input me-1" type="radio"
+                        name="fillingStrategy" id="fillingStrategy{{item.n}}"
+                        [checked]="localOptions().fillingStrategy === item.n" (change)="updateFillingStrategy(item.n)"
+                    />
+                    <label class="form-check-label stretched-link" for="fillingStrategy{{item.n}}">{{item.title}}</label>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="col-12 mt-2">
+        <div class="form-floating">
+            <input id="minNRows" class="form-control" type="number" min="0" step="1" [value]="localOptions().minNRows" (change)="updateMinNRows($event.target.value)"/>
+            <label for="minNRows">Minimum number of rows (0 for automatic)</label>
+        </div>
+    </div>
+</div>

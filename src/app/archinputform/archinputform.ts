@@ -2,9 +2,10 @@ import { Component, computed, DOCUMENT, inject, signal, WritableSignal } from '@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { getSVGFromAttribution } from 'parliamentarch';
 import { FillingStrategy } from 'parliamentarch/geometry';
-import { FirstChildDirective } from '../utility/first-child.directive';
-import { randomColor } from '../../util/random-color';
 import { arraySignal } from '../../util/array-signal';
+import { randomColor } from '../../util/random-color';
+import { FirstChildDirective } from '../utility/first-child.directive';
+import { ArchOptions, AdvancedOptions } from './advanced-options/advanced-options';
 
 interface Party {
     readonly nId: number;
@@ -17,7 +18,7 @@ interface Party {
 
 @Component({
     selector: 'app-archinputform',
-    imports: [FirstChildDirective, CdkDrag, CdkDropList, CdkDragHandle],
+    imports: [FirstChildDirective, CdkDrag, CdkDropList, CdkDragHandle, AdvancedOptions],
     templateUrl: './archinputform.html',
     styleUrl: './archinputform.scss'
 })
@@ -28,9 +29,9 @@ export class Archinputform {
     FillingStrategy = FillingStrategy;
     isInt = Number.isInteger;
 
-    readonly fillingStrategy = signal(FillingStrategy.DEFAULT);
     readonly advancedShown = signal(false);
-    readonly options = computed(() => this.advancedShown() ? { fillingStrategy: this.fillingStrategy() } : undefined);
+    readonly rawOptions = signal<ArchOptions|undefined>(undefined);
+    readonly options = computed(() => this.advancedShown() ? this.rawOptions() : undefined);
     readonly partylist = arraySignal<Party>();
     readonly totalSeats = computed(() =>
         this.partylist().reduce((sum, party) => sum + party.nSeats(), 0));
@@ -106,8 +107,7 @@ export class Archinputform {
         }, party.nSeats()]));
 
         // TODO add the other options here to the advanced options form
-        const options = this.options();
-        const arch = getSVGFromAttribution(attrib, options);
+        const arch = getSVGFromAttribution(attrib, this.options());
         this.svgs.unshift(arch);
     }
 }

@@ -7,24 +7,7 @@
         </div></div>
 
         @if (advancedShown()) {
-            <div id="advanced-body" class="row">
-                <div class="col-12 mt-2">
-                    <h5>Filling strategy</h5>
-                    <ul class="list-group">
-                        @for (item of [
-                            { n: FillingStrategy.DEFAULT, title: "Evenly filled (default)" },
-                            { n: FillingStrategy.EMPTY_INNER, title: "Empty inner rows" },
-                            { n: FillingStrategy.OUTER_PRIORITY, title: "Outer rows priority" }
-                        ]; track item.n) {
-                            <li class="list-group-item">
-                                <!-- TODO add tooltip : https://getbootstrap.com/docs/5.3/components/tooltips/ -->
-                                <input class="form-check-input me-1" type="radio" name="fillingStrategy" id="fillingStrategy{{item.n}}" [checked]="fillingStrategy() === item.n" (change)="fillingStrategy.set(item.n)"/>
-                                <label class="form-check-label stretched-link" for="fillingStrategy{{item.n}}">{{item.title}}</label>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
+            <app-advanced-options (options)="rawOptions.set($event)"/>
         }
     </div>
 </div>
