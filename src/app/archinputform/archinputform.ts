@@ -6,6 +6,7 @@ import { arraySignal } from '../../util/array-signal';
 import { randomColor } from '../../util/random-color';
 import { FirstChildDirective } from '../utility/first-child.directive';
 import { ArchOptions, AdvancedOptions } from './advanced-options/advanced-options';
+import { PercentPipe } from '@angular/common';
 
 interface Party {
     readonly nId: number;
@@ -18,7 +19,7 @@ interface Party {
 
 @Component({
     selector: 'app-archinputform',
-    imports: [FirstChildDirective, CdkDrag, CdkDropList, CdkDragHandle, AdvancedOptions],
+    imports: [FirstChildDirective, CdkDrag, CdkDropList, CdkDragHandle, AdvancedOptions, PercentPipe],
     templateUrl: './archinputform.html',
     styleUrl: './archinputform.scss'
 })
