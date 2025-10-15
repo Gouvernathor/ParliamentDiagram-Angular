@@ -48,7 +48,8 @@
                                 <!-- TODO make a proper color input -->
                                 <!-- <input
                                     type="color" class="form-control form-control-color" name="partyColor{{party.nId}}"
-                                    [value]="party.fillColor}}                                    (change)="party.fillColor = $event.target.value"
+                                    [value]="party.fillColor()"
+                                    (change)="party.fillColor = $event.target.value"
                                 /> -->
                                 <input
                                     type="text" class="form-control" name="partyColor{{party.nId}}"
