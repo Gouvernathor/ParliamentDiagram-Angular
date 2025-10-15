@@ -26,7 +26,7 @@
                             <div class="col"><div class="form-floating">
                                 <input
                                     type="text" class="form-control" name="partyName{{party.nId}}"
-                                    value="{{party.name()}}" [class.is-invalid]="!party.name().trim()"
+                                    [value]="party.name()" [class.is-invalid]="!party.name().trim()"
                                     (change)="party.name.set($event.target.value.trim())"
                                 />
                                 <label for="partyName{{party.nId}}">Party {{party.nId}} Name</label>
@@ -35,7 +35,7 @@
                             <div class="col"><div class="form-floating">
                                 <input
                                     type="number" class="form-control" name="partySeats{{party.nId}}"
-                                    min="0" step="1" value="{{party.nSeats()}}" [class.is-invalid]="party.nSeats() < 0 || !isInt(party.nSeats())"
+                                    min="0" step="1" [value]="party.nSeats()" [class.is-invalid]="party.nSeats() < 0 || !isInt(party.nSeats())"
                                     (change)="party.nSeats.set($event.target.valueAsNumber)"
                                 />
                                 <label for="partySeats{{party.nId}}">Party {{party.nId}} Seats</label>
@@ -47,12 +47,11 @@
                                 <!-- TODO make a proper color input -->
                                 <!-- <input
                                     type="color" class="form-control form-control-color" name="partyColor{{party.nId}}"
-                                    value="{{party.fillColor}}"
-                                    (change)="party.fillColor = $event.target.value"
+                                    [value]="party.fillColor}}                                    (change)="party.fillColor = $event.target.value"
                                 /> -->
                                 <input
                                     type="text" class="form-control" name="partyColor{{party.nId}}"
-                                    value="{{party.fillColor()}}"
+                                    [value]="party.fillColor()"
                                     (change)="party.fillColor.set($event.target.value)"
                                 />
                                 <label for="partyColor{{party.nId}}">Party {{party.nId}} Color</label>
@@ -61,7 +60,7 @@
                             <div class="col"><div class="form-floating">
                                 <input
                                     type="range" class="form-control form-range" name="partyBorderWidth{{party.nId}}"
-                                    min="0" step=".001" max="1" value="{{party.borderWidth()}}"
+                                    min="0" step=".001" max="1" [value]="party.borderWidth()"
                                     (input)="party.borderWidth.set($event.target.valueAsNumber)"
                                 />
                                 <label for="partyBorderWidth{{party.nId}}">
@@ -73,7 +72,7 @@
                                 <!-- TODO same -->
                                 <input
                                     type="text" class="form-control" name="partyBorderColor{{party.nId}}"
-                                    value="{{party.borderColor()}}"
+                                    [value]="party.borderColor()"
                                     (change)="party.borderColor.set($event.target.value)"
                                 />
                                 <label for="partyBorderColor{{party.nId}}">Party {{party.nId}} Border Color</label>
