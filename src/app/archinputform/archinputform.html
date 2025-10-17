@@ -19,7 +19,7 @@
             <button id="addpartymanualtop" class="mb-2 btn btn-primary" (click)="addPartyManual()">+ Add a party</button>
         }
 
-        <form id="partylistcontainer" class="sortableContainer" cdkDropList (cdkDropListDropped)="drop($event)">
+        <div id="partylistcontainer" class="sortableContainer" cdkDropList (cdkDropListDropped)="drop($event)">
             @for (party of partylist(); track party.nId) {
                 <div id="party{{party.nId}}" class="card partycard" cdkDrag [cdkDragData]="party" [cdkDragBoundary]="partylistcard">
                     <div class="card-body container">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             }
-        </form>
+        </div>
 
         <button id="addpartymanual" class="btn btn-primary" (click)="addPartyManual()">+ Add a party</button>
     </div>
