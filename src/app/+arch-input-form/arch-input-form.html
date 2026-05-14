@@ -10,10 +10,12 @@
     <!-- (later) advanced parameters -->
 
     <div id="partylistarea">
-        <button matButton="tonal">+ Add a party manually</button>
+        <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
         <div id="partylist">
-            <!-- TODO put the parties here -->
+            @for (party of parties(); track $index) {
+                <p>{{party.name}}_{{party.nSeats}}_{{party.color}}_{{party.borderWidth}}_{{party.borderColor}}</p>
+            }
         </div>
     </div>
 
