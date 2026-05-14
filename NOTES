@@ -1,0 +1,32 @@
+# pages and routes
+
+## the main arch generator [archinputform]
+
+## the westminster generator (later)
+
+## the us generator (maybe later)
+
+## the calculator (later)
+
+# page structure
+
+- header, name of the app, logo…
+- nav with cards (later, when there is more than one page)
+- specific page contents
+- footer, with credits, license, link to source and issue tracker
+
+## arch-input-form
+
+- presentation and explanations
+- (later) query party list from a Commons diagram
+- (later) query party list from wiki data and a country list
+- (later) advanced parameters
+- list of parties, with button to add more, (later) reorderable
+- button to generate the diagram
+- area to display the diagrams
+  - (later) button to download each diagram
+  - (maybe later, maybe never) button and popup to upload to Commons using oauth
+
+# misc TODOs
+
+add routing redirects to take into account old html and php links to the old website
