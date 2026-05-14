@@ -13,28 +13,28 @@
         <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
         <div id="partylist">
-            @for (party of parties(); track $index) {
+            @for (party of diagramForm.parties; track $index) {
                 <mat-card><mat-card-content>
                     <mat-form-field>
                         <mat-label>Party name</mat-label>
-                        <input matInput [value]="party.name" />
+                        <input matInput [value]="party.name().value()" />
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Seats</mat-label>
-                        <input matInput type="number" min="0" [value]="party.nSeats" />
+                        <input matInput type="number" min="0" [value]="party.nSeats().value()" />
                     </mat-form-field>
 
                     <!-- TODO add color picker -->
-                    {{party.color}}
+                    {{party.color().value()}}
 
                     <mat-form-field>
                         <mat-label>Border width</mat-label>
-                        <input matInput type="number" step=".01" min="0" max="1" [value]="party.borderWidth" />
+                        <input matInput type="number" step=".01" min="0" max="1" [value]="party.borderWidth().value()" />
                     </mat-form-field>
 
                     <!-- TODO add color picker -->
-                    {{party.borderColor}}
+                    {{party.borderColor().value()}}
                 </mat-card-content></mat-card>
             }
         </div>
