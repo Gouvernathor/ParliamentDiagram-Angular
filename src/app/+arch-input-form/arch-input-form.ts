@@ -10,6 +10,8 @@ import { StandardPage } from '../shared/standard-page/standard-page';
 import { ColorService } from '../shared/color.service';
 import { Contents } from "../shared/contents";
 
+type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
 interface Party {
     name: string;
     nSeats: number;
@@ -114,14 +116,31 @@ export class ArchInputFormPage {
     }
 
     protected generateDiagram() {
-        const attrib = new Map(this.diagramForm.parties().value().map(fp => ([{
+        const value = this.diagramForm().value();
+        const attrib = new Map(value.parties.map(fp => ([{
             data: fp.name,
             color: fp.color,
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
         }, fp.nSeats])));
+        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {};
+        if (value.seatRadiusFactor != null) {
+            options.seatRadiusFactor = value.seatRadiusFactor;
+        }
+        if (value.seatNumberFontSizeFactor != null) {
+            options.seatNumberFontSizeFactor = value.seatNumberFontSizeFactor;
+        }
+        if (value.minNRows != null) {
+            options.minNRows = value.minNRows;
+        }
+        // if (value.fillingStrategy != null) {
+        //     options.fillingStrategy = value.fillingStrategy;
+        // }
+        if (value.spanAngle != null) {
+            options.spanAngle = value.spanAngle;
+        }
 
-        const diagram = getSVGFromAttribution(attrib);
+        const diagram = getSVGFromAttribution(attrib, options);
         this.diagrams.update(l => [ diagram ].concat(l));
     }
 
