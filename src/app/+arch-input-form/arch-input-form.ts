@@ -82,6 +82,14 @@ export class ArchInputFormPage {
         this.diagramForm.parties().value.update(p => p.concat([party]));
     }
 
+    protected removeParty(index: number) {
+        this.diagramForm.parties().value.update(p => {
+            const s = p.slice();
+            s.splice(index, 1);
+            return s;
+        });
+    }
+
     private newParty(): Party {
         return {
             name: "",

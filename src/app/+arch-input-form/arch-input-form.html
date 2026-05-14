@@ -35,6 +35,12 @@
 
                     <!-- TODO add color picker -->
                     {{party.borderColor().value()}}
+
+                    <button matButton="outlined" (click)="removeParty($index)">
+                        Delete party
+                    </button>
+
+                    <!-- TODO drag handle -->
                 </mat-card-content></mat-card>
             }
         </div>
