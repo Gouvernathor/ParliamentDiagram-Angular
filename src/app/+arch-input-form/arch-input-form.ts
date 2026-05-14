@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { applyEach, form, FormField, max, min, minLength } from '@angular/forms/signals';
+import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,9 +48,30 @@ export class ArchInputFormPage {
             max(party.borderWidth, 1);
         });
 
-        // seatRadiusFactor null or strictly superior to 0
-        // seatNumberFontSizeFactor null or min 0
-        // minNRows null or min 0
+        validate(schemaPath.seatRadiusFactor, ({value}) => {
+            const v = value();
+            if (!(v == null || 0 < v)) {
+                return { kind: "bound", message: "the seat radius factor must be greater than 0" };
+            }
+            return;
+        });
+
+        validate(schemaPath.seatNumberFontSizeFactor, ({value}) => {
+            const v = value();
+            if (!(v == null || 0 <= v)) {
+                return { kind: "bound", message: "the size factor for the font size cannot be less than 0" };
+            }
+            return;
+        });
+
+        validate(schemaPath.minNRows, ({value}) => {
+            const v = value();
+            if (!(v == null || 0 <= v)) {
+                return { kind: "bound", message: "the minimum number of rows cannot be less than 0" };
+            }
+            return;
+        });
+
         // fillingStrategy null or among values
         // spanAngle null or (weird conditions)
     });
