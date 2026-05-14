@@ -116,7 +116,7 @@ export class ArchInputFormPage {
     protected generateDiagram() {
         const attrib = new Map(this.diagramForm.parties().value().map(fp => ([{
             data: fp.name,
-            color: "#" + fp.color,
+            color: fp.color,
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
         }, fp.nSeats])));

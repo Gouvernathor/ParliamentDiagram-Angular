@@ -10,7 +10,7 @@ export class ColorService {
      * Does not include the starting #
      */
     randomColor() {
-        return Array.from({ length: 6 }, () => ColorService.LETTERS[Math.floor(Math.random() *16)])
+        return "#" + Array.from({ length: 6 }, () => ColorService.LETTERS[Math.floor(Math.random() *16)])
             .join("");
     }
 }
