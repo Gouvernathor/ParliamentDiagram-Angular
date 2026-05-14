@@ -83,6 +83,8 @@ export class ArchInputFormPage {
         // spanAngle null or (weird conditions)
     });
 
+    protected readonly diagrams = signal<readonly unknown[]>([]);
+
     protected addParty() {
         const party = this.newParty();
 
