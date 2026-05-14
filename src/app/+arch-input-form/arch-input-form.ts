@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { StandardPage } from '../shared/standard-page/standard-page';
 import { ColorService } from '../shared/color.service';
+import { Contents } from "../shared/contents";
 
 interface Party {
     name: string;
@@ -26,7 +27,7 @@ interface DiagramData {
 }
 
 @Component({
-    imports: [StandardPage, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, FormField],
+    imports: [StandardPage, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, FormField, Contents],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
 })
@@ -113,7 +114,7 @@ export class ArchInputFormPage {
     protected generateDiagram() {
         const attrib = new Map(this.diagramForm.parties().value().map(fp => ([{
             data: fp.name,
-            color: fp.color,
+            color: "#" + fp.color,
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
         }, fp.nSeats])));

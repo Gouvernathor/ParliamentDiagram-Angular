@@ -52,8 +52,8 @@
     @if (diagrams().length) {
         <div id="diagrams">
             @for (diagram of diagrams(); track $index) {
-                {{ diagram }}
-                <!-- TODO display the diagram here, with button to dl -->
+                <div [appContents]="diagram"></div>
+                <!-- TODO button to dl -->
             }
         </div>
     }
