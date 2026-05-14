@@ -35,7 +35,7 @@
                         <input matInput type="number" step=".01" [formField]="party.borderWidth" />
                     </mat-form-field>
 
-                    <color-input no-alpha
+                    <color-input no-alpha [hidden]="party.borderWidth().value() <= 0"
                         [attr.value]="party.borderColor().value()"
                         (change)="party.borderColor().value.set($any($event).detail.value)"
                     />
