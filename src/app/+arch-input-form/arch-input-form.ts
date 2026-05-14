@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { applyEach, form, FormField, max, min, minLength } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -40,7 +40,20 @@ export class ArchInputFormPage {
         fillingStrategy: null,
         spanAngle: null,
     });
-    protected readonly diagramForm = form(this.diagramModel);
+    protected readonly diagramForm = form(this.diagramModel, schemaPath => {
+        minLength(schemaPath.parties, 1);
+        applyEach(schemaPath.parties, party => {
+            min(party.nSeats, 0);
+            min(party.borderWidth, 0);
+            max(party.borderWidth, 1);
+        });
+
+        // seatRadiusFactor null or strictly superior to 0
+        // seatNumberFontSizeFactor null or min 0
+        // minNRows null or min 0
+        // fillingStrategy null or among values
+        // spanAngle null or (weird conditions)
+    });
 
     protected addParty() {
         const party = this.newParty();
