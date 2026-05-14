@@ -108,4 +108,17 @@ export class ArchInputFormPage {
             return s;
         });
     }
+
+    protected generateDiagram() {
+        const attrib = this.diagramForm.parties().value().map(fp => ({
+            data: fp.name,
+            color: fp.color,
+            nSeats: fp.nSeats,
+            borderSize: fp.borderWidth,
+            borderColor: fp.borderColor,
+        }));
+
+        const diagram: unknown = JSON.stringify(attrib);
+        this.diagrams.update(l => [ diagram ].concat(l));
+    }
 }

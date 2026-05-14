@@ -46,11 +46,15 @@
         </div>
     </div>
 
-    <button matButton="filled">Make my diagram</button>
+    <!-- TODO show the validation errors on a tooltip -->
+    <button matButton="filled" (click)="generateDiagram()" [disabled]="!diagramForm().valid()">Make my diagram</button>
 
     @if (diagrams().length) {
         <div id="diagrams">
-            <!-- TODO put the generated diagrams here, with button to dl -->
+            @for (diagram of diagrams(); track $index) {
+                {{ diagram }}
+                <!-- TODO display the diagram here, with button to dl -->
+            }
         </div>
     }
 </app-standard-page>
