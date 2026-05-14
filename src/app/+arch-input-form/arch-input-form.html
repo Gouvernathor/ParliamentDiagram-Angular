@@ -52,8 +52,13 @@
     @if (diagrams().length) {
         <div id="diagrams">
             @for (diagram of diagrams(); track $index) {
-                <div [appContents]="diagram"></div>
-                <!-- TODO button to dl -->
+                <div class="diagramcard">
+                    <div [appContents]="diagram"></div>
+
+                    <button matButton="tonal" (click)="downloadDiagram(diagram)">
+                        Download SVG diagram
+                    </button>
+                </div>
             }
         </div>
     }

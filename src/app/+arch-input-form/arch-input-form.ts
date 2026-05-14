@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getSVGFromAttribution } from "@parliamentarch/svg";
+import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { StandardPage } from '../shared/standard-page/standard-page';
 import { ColorService } from '../shared/color.service';
 import { Contents } from "../shared/contents";
@@ -33,6 +34,7 @@ interface DiagramData {
 })
 export class ArchInputFormPage {
     private readonly colorService = inject(ColorService);
+    private readonly document = inject(DOCUMENT);
 
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
@@ -121,5 +123,10 @@ export class ArchInputFormPage {
 
         const diagram = getSVGFromAttribution(attrib);
         this.diagrams.update(l => [ diagram ].concat(l));
+    }
+
+    protected downloadDiagram(diagram: SVGSVGElement) {
+        const blob = new Blob([diagram.outerHTML], { type: "image/svg+xml" });
+        downloadBlob(blob, "parliament-diagram.svg");
     }
 }
