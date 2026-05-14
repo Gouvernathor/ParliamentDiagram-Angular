@@ -50,7 +50,6 @@ export class ArchInputFormPage {
             min(party.nSeats, 0);
             min(party.borderWidth, 0);
             max(party.borderWidth, 1);
-            // TODO control color and bordercolor
         });
         validate(schemaPath.parties, ({value}) => {
             const totalNSeats = value().reduce((a, p) => a+p.nSeats, 0);
