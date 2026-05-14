@@ -21,6 +21,7 @@
     "@angular/router": "^21.2.0",
     "@parliamentarch/svg": "^4.0.0",
     "canvas-blob-manager": "^1.2.1",
+    "hdr-color-input": "^0.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

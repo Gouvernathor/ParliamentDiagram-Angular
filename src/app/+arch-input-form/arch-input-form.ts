@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, inject, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,6 +31,7 @@ interface DiagramData {
     imports: [StandardPage, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, FormField, Contents],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ArchInputFormPage {
     private readonly colorService = inject(ColorService);

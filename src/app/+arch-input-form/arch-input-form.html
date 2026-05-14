@@ -25,16 +25,20 @@
                         <input matInput type="number" [formField]="party.nSeats" />
                     </mat-form-field>
 
-                    <!-- TODO add color picker -->
-                    {{party.color().value()}}
+                    <color-input
+                        [attr.value]="party.color().value()"
+                        (change)="party.color().value.set($any($event).detail.value)"
+                    />
 
                     <mat-form-field>
                         <mat-label>Border width</mat-label>
                         <input matInput type="number" step=".01" [formField]="party.borderWidth" />
                     </mat-form-field>
 
-                    <!-- TODO add color picker -->
-                    {{party.borderColor().value()}}
+                    <color-input no-alpha
+                        [attr.value]="party.borderColor().value()"
+                        (change)="party.borderColor().value.set($any($event).detail.value)"
+                    />
 
                     <button matButton="outlined" (click)="removeParty($index)">
                         Delete party
