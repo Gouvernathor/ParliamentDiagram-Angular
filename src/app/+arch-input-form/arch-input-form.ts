@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { StandardPage } from '../shared/standard-page/standard-page';
 import { ColorService } from '../shared/color-service';
 
@@ -83,7 +84,7 @@ export class ArchInputFormPage {
         // spanAngle null or (weird conditions)
     });
 
-    protected readonly diagrams = signal<readonly unknown[]>([]);
+    protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
 
     protected addParty() {
         const party = this.newParty();
@@ -110,15 +111,14 @@ export class ArchInputFormPage {
     }
 
     protected generateDiagram() {
-        const attrib = this.diagramForm.parties().value().map(fp => ({
+        const attrib = new Map(this.diagramForm.parties().value().map(fp => ([{
             data: fp.name,
             color: fp.color,
-            nSeats: fp.nSeats,
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
-        }));
+        }, fp.nSeats])));
 
-        const diagram: unknown = JSON.stringify(attrib);
+        const diagram = getSVGFromAttribution(attrib);
         this.diagrams.update(l => [ diagram ].concat(l));
     }
 }
