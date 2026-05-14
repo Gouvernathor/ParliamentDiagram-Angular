@@ -7,7 +7,21 @@
 
     <!-- (later) query party list from a country in a list -->
 
-    <!-- (later) advanced parameters -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Advanced parameters</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <label for="seatRadiusFactorInput">Seat radius factor</label>
+        <mat-slider [discrete]="true" [min]=".01" [max]="1" [step]=".01">
+            <input id="seatRadiusFactorInput" matSliderThumb [formField]="diagramForm.seatRadiusFactor" />
+        </mat-slider>
+
+        <!-- number input for seatNumberFontSizeFactor ? -->
+        <!-- number input for minNRows -->
+        <!-- button toggle for the FillingStrategy -->
+        <!-- slider for spanAngle -->
+    </mat-expansion-panel>
 
     <div id="partylistarea">
         <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
@@ -30,6 +44,7 @@
                         (change)="party.color().value.set($any($event).detail.value)"
                     />
 
+                    <!-- TODO turn into a slider ? -->
                     <mat-form-field>
                         <mat-label>Border width</mat-label>
                         <input matInput type="number" step=".01" [formField]="party.borderWidth" />

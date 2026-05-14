@@ -2,8 +2,10 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { StandardPage } from '../shared/standard-page/standard-page';
@@ -22,7 +24,7 @@ interface Party {
 
 interface DiagramData {
     parties: readonly Party[];
-    seatRadiusFactor: number|null;
+    seatRadiusFactor: number;
     seatNumberFontSizeFactor: number|null;
     minNRows: number|null;
     fillingStrategy: unknown|null;
@@ -30,7 +32,11 @@ interface DiagramData {
 }
 
 @Component({
-    imports: [StandardPage, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, FormField, Contents],
+    imports: [
+        StandardPage, Contents,
+        FormField,
+        MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSliderModule,
+    ],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -40,7 +46,7 @@ export class ArchInputFormPage {
 
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
-        seatRadiusFactor: null,
+        seatRadiusFactor: .8,
         seatNumberFontSizeFactor: null,
         minNRows: null,
         fillingStrategy: null,
@@ -61,13 +67,8 @@ export class ArchInputFormPage {
             return;
         });
 
-        validate(schemaPath.seatRadiusFactor, ({value}) => {
-            const v = value();
-            if (!(v == null || 0 < v)) {
-                return { kind: "bound", message: "The seat radius factor must be greater than 0" };
-            }
-            return;
-        });
+        min(schemaPath.seatRadiusFactor, 0.0000000000000000000001);
+        max(schemaPath.seatRadiusFactor, 1);
 
         validate(schemaPath.seatNumberFontSizeFactor, ({value}) => {
             const v = value();
@@ -123,10 +124,9 @@ export class ArchInputFormPage {
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
         }, fp.nSeats])));
-        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {};
-        if (value.seatRadiusFactor != null) {
-            options.seatRadiusFactor = value.seatRadiusFactor;
-        }
+        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
+            seatRadiusFactor: value.seatRadiusFactor,
+        };
         if (value.seatNumberFontSizeFactor != null) {
             options.seatNumberFontSizeFactor = value.seatNumberFontSizeFactor;
         }
