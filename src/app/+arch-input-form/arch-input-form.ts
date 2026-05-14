@@ -1,5 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { StandardPage } from '../shared/standard-page/standard-page';
 import { ColorService } from '../shared/color-service';
 
@@ -12,7 +15,7 @@ interface Party {
 }
 
 @Component({
-    imports: [StandardPage, MatButtonModule],
+    imports: [StandardPage, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
 })

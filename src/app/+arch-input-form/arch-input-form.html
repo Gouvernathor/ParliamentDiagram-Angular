@@ -14,7 +14,28 @@
 
         <div id="partylist">
             @for (party of parties(); track $index) {
-                <p>{{party.name}}_{{party.nSeats}}_{{party.color}}_{{party.borderWidth}}_{{party.borderColor}}</p>
+                <mat-card><mat-card-content>
+                    <mat-form-field>
+                        <mat-label>Party name</mat-label>
+                        <input matInput [value]="party.name" />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Seats</mat-label>
+                        <input matInput type="number" min="0" [value]="party.nSeats" />
+                    </mat-form-field>
+
+                    <!-- TODO add color picker -->
+                    {{party.color}}
+
+                    <mat-form-field>
+                        <mat-label>Border width</mat-label>
+                        <input matInput type="number" step=".01" min="0" max="1" [value]="party.borderWidth" />
+                    </mat-form-field>
+
+                    <!-- TODO add color picker -->
+                    {{party.borderColor}}
+                </mat-card-content></mat-card>
             }
         </div>
     </div>
