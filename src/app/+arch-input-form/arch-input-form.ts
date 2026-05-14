@@ -47,11 +47,18 @@ export class ArchInputFormPage {
             min(party.borderWidth, 0);
             max(party.borderWidth, 1);
         });
+        validate(schemaPath.parties, ({value}) => {
+            const totalNSeats = value().reduce((a, p) => a+p.nSeats, 0);
+            if (!totalNSeats) {
+                return { kind: "minimum seats", message: "There must be at least one seat" };
+            }
+            return;
+        });
 
         validate(schemaPath.seatRadiusFactor, ({value}) => {
             const v = value();
             if (!(v == null || 0 < v)) {
-                return { kind: "bound", message: "the seat radius factor must be greater than 0" };
+                return { kind: "bound", message: "The seat radius factor must be greater than 0" };
             }
             return;
         });
@@ -59,7 +66,7 @@ export class ArchInputFormPage {
         validate(schemaPath.seatNumberFontSizeFactor, ({value}) => {
             const v = value();
             if (!(v == null || 0 <= v)) {
-                return { kind: "bound", message: "the size factor for the font size cannot be less than 0" };
+                return { kind: "bound", message: "The size factor for the font size cannot be less than 0" };
             }
             return;
         });
@@ -67,7 +74,7 @@ export class ArchInputFormPage {
         validate(schemaPath.minNRows, ({value}) => {
             const v = value();
             if (!(v == null || 0 <= v)) {
-                return { kind: "bound", message: "the minimum number of rows cannot be less than 0" };
+                return { kind: "bound", message: "The minimum number of rows cannot be less than 0" };
             }
             return;
         });
