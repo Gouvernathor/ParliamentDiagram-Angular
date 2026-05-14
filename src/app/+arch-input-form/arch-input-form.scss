@@ -1,0 +1,21 @@
+#partylist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .partycard {
+        margin-inline: 15px;
+
+        mat-card-content {
+            display: flex;
+            justify-content: space-between;
+
+            @media (width < 1000px) {
+                display: grid;
+                gap: 10px;
+                margin-inline: auto;
+                margin-block: 0;
+            }
+        }
+    }
+}
