@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { StandardPage } from '../shared/standard-page/standard-page';
-import { ColorService } from '../shared/color-service';
+import { ColorService } from '../shared/color.service';
 
 interface Party {
     name: string;
