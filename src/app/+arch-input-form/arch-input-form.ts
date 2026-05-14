@@ -34,7 +34,6 @@ interface DiagramData {
 })
 export class ArchInputFormPage {
     private readonly colorService = inject(ColorService);
-    private readonly document = inject(DOCUMENT);
 
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
@@ -50,6 +49,7 @@ export class ArchInputFormPage {
             min(party.nSeats, 0);
             min(party.borderWidth, 0);
             max(party.borderWidth, 1);
+            // TODO control color and bordercolor
         });
         validate(schemaPath.parties, ({value}) => {
             const totalNSeats = value().reduce((a, p) => a+p.nSeats, 0);
