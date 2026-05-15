@@ -1,11 +1,13 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
+import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { StandardPage } from '../shared/standard-page/standard-page';
@@ -27,7 +29,7 @@ interface DiagramData {
     seatRadiusFactor: number;
     seatNumberFontSizeFactor: number|null;
     minNRows: number|null;
-    fillingStrategy: unknown|null;
+    fillingStrategy: FillingStrategy;
     spanAngle: number|null;
 }
 
@@ -35,7 +37,8 @@ interface DiagramData {
     imports: [
         StandardPage, Contents,
         FormField,
-        MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatSliderModule,
+        MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
+        MatExpansionModule, MatSliderModule, MatButtonToggleModule,
     ],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
@@ -44,12 +47,14 @@ interface DiagramData {
 export class ArchInputFormPage {
     private readonly colorService = inject(ColorService);
 
+    protected readonly FillingStrategy = FillingStrategy;
+
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
         seatRadiusFactor: .8,
         seatNumberFontSizeFactor: null,
         minNRows: null,
-        fillingStrategy: null,
+        fillingStrategy: FillingStrategy.DEFAULT,
         spanAngle: null,
     });
     protected readonly diagramForm = form(this.diagramModel, schemaPath => {
@@ -86,7 +91,6 @@ export class ArchInputFormPage {
             return;
         });
 
-        // fillingStrategy null or among values
         // spanAngle null or (weird conditions)
     });
 
@@ -126,6 +130,7 @@ export class ArchInputFormPage {
         }, fp.nSeats])));
         const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
             seatRadiusFactor: value.seatRadiusFactor,
+            fillingStrategy: value.fillingStrategy,
         };
         if (value.seatNumberFontSizeFactor != null) {
             options.seatNumberFontSizeFactor = value.seatNumberFontSizeFactor;
@@ -133,9 +138,6 @@ export class ArchInputFormPage {
         if (value.minNRows != null) {
             options.minNRows = value.minNRows;
         }
-        // if (value.fillingStrategy != null) {
-        //     options.fillingStrategy = value.fillingStrategy;
-        // }
         if (value.spanAngle != null) {
             options.spanAngle = value.spanAngle;
         }

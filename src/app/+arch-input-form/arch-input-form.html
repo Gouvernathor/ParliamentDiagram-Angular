@@ -19,7 +19,18 @@
 
         <!-- number input for seatNumberFontSizeFactor ? -->
         <!-- number input for minNRows -->
-        <!-- button toggle for the FillingStrategy -->
+
+        <label for="fillingStrategy">Filling strategy</label>
+        <mat-button-toggle-group
+            id="fillingStrategy" name="fillingStrategy" aria-label="Filling strategy"
+            [value]="diagramForm.fillingStrategy().value()"
+            (change)="diagramForm.fillingStrategy().value.set($event.value)"
+        >
+            <mat-button-toggle [value]="FillingStrategy.DEFAULT">Default</mat-button-toggle>
+            <mat-button-toggle [value]="FillingStrategy.EMPTY_INNER">Empty inner rows</mat-button-toggle>
+            <mat-button-toggle [value]="FillingStrategy.OUTER_PRIORITY">Outer rows priority</mat-button-toggle>
+        </mat-button-toggle-group>
+
         <!-- slider for spanAngle -->
     </mat-expansion-panel>
 
