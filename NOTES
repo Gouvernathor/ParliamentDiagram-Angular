@@ -36,9 +36,3 @@ constrain the display size of the svg, as the new generation makes it nosized
 the theme should be able to be switched from the top section
 
 add routing redirects to take into account old html and php links to the old website
-
-# FIXMEs
-
-the hdr-color-input is not correctly bundled or remapped and the import doesn't work
-alternatives: use a cdn or a distant import,
-or find a way for it to be correctly bundled and remapped
