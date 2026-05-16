@@ -32,3 +32,10 @@
 the theme should be able to be switched from the top section
 
 add routing redirects to take into account old html and php links to the old website
+
+# FIXME
+
+the current situation where the site has routes and is generated using CSR, is not viable on GitLab (and allegedly not on GitHub either)
+SSR is not a solution because of Pages
+the solution is either using gitlab pages redirects : https://docs.gitlab.com/user/project/pages/redirects/#rewrite-all-requests-to-a-root-indexhtml
+or to use SSG (which Angular calls prerendering) like Ballot does
