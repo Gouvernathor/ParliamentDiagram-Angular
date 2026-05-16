@@ -26,9 +26,18 @@
             [value]="diagramForm.fillingStrategy().value()"
             (change)="diagramForm.fillingStrategy().value.set($event.value)"
         >
-            <mat-button-toggle [value]="FillingStrategy.DEFAULT">Default</mat-button-toggle>
-            <mat-button-toggle [value]="FillingStrategy.EMPTY_INNER">Empty inner rows</mat-button-toggle>
-            <mat-button-toggle [value]="FillingStrategy.OUTER_PRIORITY">Outer rows priority</mat-button-toggle>
+            <mat-button-toggle
+                [value]="FillingStrategy.DEFAULT"
+                matTooltip="The seats are distributed proportionally to the maximal number of seats each row can hold. The result is that the lateral distance between the seats is close among all rows."
+            >Default</mat-button-toggle>
+            <mat-button-toggle
+                [value]="FillingStrategy.EMPTY_INNER"
+                matTooltip="This selects as few outermost rows as necessary to hold the given seats, then distributes the seats proportionally among them. It results in denser rows."
+            >Empty inner rows</mat-button-toggle>
+            <mat-button-toggle
+                [value]="FillingStrategy.OUTER_PRIORITY"
+                matTooltip="This fills the rows to their maximal capacity, starting with the outermost rows going in. The result is that given a number of rows, adding one seat makes a change in only one row."
+            >Outer rows priority</mat-button-toggle>
         </mat-button-toggle-group>
 
         <!-- slider for spanAngle -->

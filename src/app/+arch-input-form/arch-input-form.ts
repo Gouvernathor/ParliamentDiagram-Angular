@@ -7,6 +7,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
@@ -38,7 +39,7 @@ interface DiagramData {
         StandardPage, Contents,
         FormField,
         MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
-        MatExpansionModule, MatSliderModule, MatButtonToggleModule,
+        MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
     ],
     templateUrl: './arch-input-form.html',
     styleUrl: './arch-input-form.scss',
