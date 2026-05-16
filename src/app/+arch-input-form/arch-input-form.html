@@ -82,6 +82,7 @@
                         <input matInput type="number" [formField]="party.nSeats" />
                     </mat-form-field>
 
+                    <!-- TODO add label duh -->
                     <color-input
                         [attr.value]="party.color().value()"
                         (change)="party.color().value.set($any($event).detail.value)"
@@ -93,6 +94,7 @@
                         <input matInput type="number" step=".01" [formField]="party.borderWidth" />
                     </mat-form-field>
 
+                    <!-- TODO add label duh -->
                     <color-input no-alpha [hidden]="party.borderWidth().value() <= 0"
                         [attr.value]="party.borderColor().value()"
                         (change)="party.borderColor().value.set($any($event).detail.value)"
