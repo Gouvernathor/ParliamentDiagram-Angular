@@ -29,10 +29,6 @@
 
 # misc TODOs
 
-the bg under the diagrams should be grey, or any color that allows reading black text (on both themes)
-
-constrain the display size of the svg, as the new generation makes it nosized
-
 the theme should be able to be switched from the top section
 
 add routing redirects to take into account old html and php links to the old website

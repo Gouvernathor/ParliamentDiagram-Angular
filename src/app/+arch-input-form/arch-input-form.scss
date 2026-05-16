@@ -25,3 +25,11 @@
     color: var(--mat-sys-error);
     background-color: var(--mat-sys-error-container);
 }
+
+.diagramcard {
+    color: var(--mat-sys-on-surface-variant);
+    background-color: var(--mat-sys-surface-variant);
+
+    // need to constrain the size of the diagram
+    max-width: 800px;
+}
