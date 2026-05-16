@@ -6,6 +6,52 @@ mat-toolbar {
     // color: var(--mat-sys-on-primary);
 }
 
+.maincontents {
+    /*
+    https://m3.material.io/foundations/layout/applying-layout/compact
+    and following pages for larger sizes, Spacing section
+    */
+
+    margin-inline: var(--reactive-margin);
+
+    // compact
+    @media (width < 600px) {
+        --reactive-margin: 16px;
+    }
+
+    // medium
+    @media (600px <= width <= 839px) {
+        --reactive-margin: 24px;
+    }
+
+    // expanded
+    @media (840px <= width <= 1199px) {
+        --reactive-margin: 24px;
+
+        // centered, width is lower boundary - 2*margin
+        margin-inline: auto;
+        max-width: 792px;
+    }
+
+    // large
+    @media (1200px <= width <= 1599px) {
+        --reactive-margin: 24px;
+
+        // centered, width is lower boundary - 2*margin
+        margin-inline: auto;
+        max-width: 1152px;
+    }
+
+    // extra-large
+    @media (1500px <= width) {
+        --reactive-margin: 24px;
+
+        // centered, width is lower boundary - 2*margin
+        margin-inline: auto;
+        max-width: 1452px;
+    }
+}
+
 footer {
     padding-block: 20px;
     margin-block-start: 80px;
