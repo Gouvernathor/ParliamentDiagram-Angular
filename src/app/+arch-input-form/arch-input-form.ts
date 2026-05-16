@@ -28,7 +28,7 @@ interface Party {
 interface DiagramData {
     parties: readonly Party[];
     seatRadiusFactor: number;
-    seatNumberFontSizeFactor: number|null;
+    seatNumberFontSizeFactor: number;
     minNRows: number|null;
     fillingStrategy: FillingStrategy;
     spanAngle: number|null;
@@ -53,7 +53,7 @@ export class ArchInputFormPage {
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
         seatRadiusFactor: .8,
-        seatNumberFontSizeFactor: null,
+        seatNumberFontSizeFactor: 1,
         minNRows: null,
         fillingStrategy: FillingStrategy.DEFAULT,
         spanAngle: null,
@@ -76,13 +76,7 @@ export class ArchInputFormPage {
         min(schemaPath.seatRadiusFactor, 0.0000000000000000000001);
         max(schemaPath.seatRadiusFactor, 1);
 
-        validate(schemaPath.seatNumberFontSizeFactor, ({value}) => {
-            const v = value();
-            if (!(v == null || 0 <= v)) {
-                return { kind: "bound", message: "The size factor for the font size cannot be less than 0" };
-            }
-            return;
-        });
+        min(schemaPath.seatNumberFontSizeFactor, 0);
 
         validate(schemaPath.minNRows, ({value}) => {
             const v = value();

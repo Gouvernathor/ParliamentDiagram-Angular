@@ -38,7 +38,19 @@
             </mat-slider>
         </div>
 
-        <!-- number input for seatNumberFontSizeFactor ? -->
+        <div>
+            <label for="seatNumberFontSizeFactorInput">Seat number font size factor</label>
+
+            <mat-form-field>
+                <mat-label>Seat number font size factor</mat-label>
+                <input matInput type="number" step=".01" [formField]="diagramForm.seatNumberFontSizeFactor" />
+            </mat-form-field>
+
+            <mat-slider [discrete]="true" [min]="0" [max]="10" [step]=".01">
+                <input aria-label="" matSliderThumb [formField]="diagramForm.seatNumberFontSizeFactor" />
+            </mat-slider>
+        </div>
+
         <!-- number input for minNRows -->
 
         <div>
