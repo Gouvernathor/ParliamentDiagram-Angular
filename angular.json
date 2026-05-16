@@ -35,6 +35,9 @@
           },
           "configurations": {
             "production": {
+              "externalDependencies": [
+                "jsdom"
+              ],
               "budgets": [
                 {
                   "type": "initial",
