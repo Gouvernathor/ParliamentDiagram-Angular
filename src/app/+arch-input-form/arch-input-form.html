@@ -106,11 +106,12 @@
                         (change)="party.color().value.set($any($event).detail.value)"
                     />
 
-                    <!-- TODO turn into a slider ? -->
-                    <mat-form-field>
-                        <mat-label>Border width</mat-label>
-                        <input matInput type="number" step=".01" [formField]="party.borderWidth" />
-                    </mat-form-field>
+                    <div>
+                        <label for="borderWidth{{$index}}">Border width</label>
+                        <mat-slider [discrete]="true" [min]="0" [max]="1" [step]=".01">
+                            <input id="borderWidth{{$index}}" matSliderThumb [formField]="party.borderWidth" />
+                        </mat-slider>
+                    </div>
 
                     <!-- TODO add label duh -->
                     <color-input no-alpha [hidden]="party.borderWidth().value() <= 0"
