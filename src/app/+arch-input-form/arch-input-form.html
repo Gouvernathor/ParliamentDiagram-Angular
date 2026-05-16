@@ -32,14 +32,18 @@
         </mat-expansion-panel-header>
 
         <div>
-            <label for="seatRadiusFactorInput">Seat radius factor</label>
+            <label for="seatRadiusFactorInput"
+                matTooltip="The size of the circles that make up the seats. At 1, neighbor seats will touch one another, at 0 the seats are invisible."
+            >Seat radius factor</label>
             <mat-slider [discrete]="true" [min]=".01" [max]="1" [step]=".01">
                 <input id="seatRadiusFactorInput" matSliderThumb [formField]="diagramForm.seatRadiusFactor" />
             </mat-slider>
         </div>
 
         <div>
-            <label for="seatNumberFontSizeFactorInput">Seat number font size factor</label>
+            <label for="seatNumberFontSizeFactorInput"
+                matTooltip="Multiply the font size for the number of seats by that much. Put 0 to hide the number of seats."
+            >Seat number font size factor</label>
 
             <mat-form-field>
                 <mat-label>Seat number font size factor</mat-label>
@@ -54,7 +58,9 @@
         <!-- number input for minNRows -->
 
         <div>
-            <label for="fillingStrategy">Filling strategy</label>
+            <label for="fillingStrategy"
+                matTooltip="How the seats are allocated among the rows."
+            >Filling strategy</label>
             <mat-button-toggle-group
                 id="fillingStrategy" name="fillingStrategy" aria-label="Filling strategy"
                 [value]="diagramForm.fillingStrategy().value()"
