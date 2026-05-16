@@ -125,7 +125,7 @@ export class ArchInputFormPage {
         }, fp.nSeats])));
         const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
             seatRadiusFactor: value.seatRadiusFactor,
-            seatNumberFontSizeFactor: value.seatNumberFontSizeFactor;
+            seatNumberFontSizeFactor: value.seatNumberFontSizeFactor,
             fillingStrategy: value.fillingStrategy,
         };
         if (value.minNRows != null) {
