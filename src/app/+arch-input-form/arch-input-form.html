@@ -129,8 +129,14 @@
         </div>
     </div>
 
-    <!-- TODO show the validation errors on a tooltip -->
-    <button matButton="filled" (click)="generateDiagram()" [disabled]="!diagramForm().valid()">Make my diagram</button>
+    <button matButton="filled"
+        [disabled]="!diagramForm().valid()"
+        [disabledInteractive]="true"
+        (click)="diagramForm().valid() && generateDiagram()"
+        [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
+    >
+        Make my diagram
+    </button>
 
     @if (diagramForm().errorSummary().length) {
         <mat-card class="errorcontainer"><mat-card-content>
