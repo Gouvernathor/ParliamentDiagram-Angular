@@ -40,6 +40,12 @@
             padding: 10px;
             margin: 8px;
             border-radius: var(--mat-sys-corner-small);
+
+            cursor: grab;
+
+            & :active {
+                cursor: grabbing;
+            }
         }
     }
 }
