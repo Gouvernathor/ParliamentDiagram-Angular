@@ -100,11 +100,14 @@
                         <input matInput type="number" [formField]="party.nSeats" />
                     </mat-form-field>
 
-                    <!-- TODO add label duh -->
-                    <color-input
-                        [attr.value]="party.color().value()"
-                        (change)="party.color().value.set($any($event).detail.value)"
-                    />
+                    <div>
+                        <label for="color{{$index}}">Color</label>
+                        <color-input
+                            id="color{{$index}}"
+                            [attr.value]="party.color().value()"
+                            (change)="party.color().value.set($any($event).detail.value)"
+                        />
+                    </div>
 
                     <div>
                         <label for="borderWidth{{$index}}">Border width</label>
@@ -113,11 +116,14 @@
                         </mat-slider>
                     </div>
 
-                    <!-- TODO add label duh -->
-                    <color-input no-alpha [hidden]="party.borderWidth().value() <= 0"
-                        [attr.value]="party.borderColor().value()"
-                        (change)="party.borderColor().value.set($any($event).detail.value)"
-                    />
+                    <div [hidden]="party.borderWidth().value() <= 0">
+                        <label for="borderColor{{$index}}">Border color</label>
+                        <color-input no-alpha
+                            id="borderColor{{$index}}"
+                            [attr.value]="party.borderColor().value()"
+                            (change)="party.borderColor().value.set($any($event).detail.value)"
+                        />
+                    </div>
 
                     <button matButton="outlined" (click)="removeParty($index)">
                         Delete party
