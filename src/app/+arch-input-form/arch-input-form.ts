@@ -117,12 +117,12 @@ export class ArchInputFormPage {
 
     protected generateDiagram() {
         const value = this.diagramForm().value();
-        const attrib = new Map(value.parties.map(fp => ([{
+        const attrib = new Map(value.parties.map(fp => [{
             data: fp.name,
             color: fp.color,
             borderSize: fp.borderWidth,
             borderColor: fp.borderColor,
-        }, fp.nSeats])));
+        }, fp.nSeats]));
         const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
             seatRadiusFactor: value.seatRadiusFactor,
             seatNumberFontSizeFactor: value.seatNumberFontSizeFactor,
