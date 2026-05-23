@@ -138,12 +138,12 @@
         Make my diagram
     </button>
 
-    @if (diagramForm().errorSummary().length) {
-        <mat-card class="errorcontainer"><mat-card-content>
+    @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
+        <div class="errorcontainer">
             @for (error of diagramForm().errorSummary(); track $index) {
                 <p>{{error.message}}</p>
             }
-        </mat-card-content></mat-card>
+        </div>
     }
 
     @if (diagrams().length) {
