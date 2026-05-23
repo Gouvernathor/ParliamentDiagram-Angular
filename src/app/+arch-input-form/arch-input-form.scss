@@ -1,52 +1,52 @@
-#partylist {
+.partylist {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     gap: 10px;
+}
 
-    .party {
-        margin-inline: 15px;
-        width: fit-content;
+.party {
+    margin-inline: 15px;
+    width: fit-content;
 
-        background-color: var(--mat-sys-surface-container);
-        border-radius: var(--mat-sys-corner-medium);
+    background-color: var(--mat-sys-surface-container);
+    border-radius: var(--mat-sys-corner-medium);
 
-        display: flex;
-        flex-direction: row;
+    display: flex;
+    flex-direction: row;
+}
 
-        .partymain {
-            display: flex;
-            justify-content: space-between;
+.partyform {
+    display: flex;
+    justify-content: space-between;
 
-            padding: 16px;
+    padding: 16px;
 
-            @media (width < 1250px) {
-                display: grid;
-                gap: 10px;
-            }
-        }
+    @media (width < 1250px) {
+        display: grid;
+        gap: 10px;
+    }
+}
 
-        .handle {
-            font-size: 30px;
-            align-self: center;
+.handle {
+    font-size: 30px;
+    align-self: center;
 
-            display: inline-block;
-            line-height: normal;
+    display: inline-block;
+    line-height: normal;
 
-            background-color: var(--mat-sys-secondary-container);
-            color: var(--mat-sys-secondary);
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-secondary);
 
-            padding: 10px;
-            margin: 8px;
-            border-radius: var(--mat-sys-corner-small);
+    padding: 10px;
+    margin: 8px;
+    border-radius: var(--mat-sys-corner-small);
 
-            cursor: grab;
+    cursor: grab;
 
-            & :active {
-                cursor: grabbing;
-            }
-        }
+    & :active {
+        cursor: grabbing;
     }
 }
 

@@ -84,14 +84,14 @@
         <!-- slider for spanAngle -->
     </mat-expansion-panel>
 
-    <div id="partylistarea">
+    <div class="partylistarea">
         <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
         @if (diagramForm.parties.length) {
-            <div id="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
+            <div class="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
                 @for (party of diagramForm.parties; track $index) {
-                    <div class="party" cdkDrag>
-                        <div class="partymain">
+                    <div class="party" cdkDrag cdkDragBoundary=".partylistarea" cdkDragRootElement=".partylistarea">
+                        <div class="partyform">
                             <mat-form-field>
                                 <mat-label>Party name</mat-label>
                                 <input matInput [formField]="party.name" />
