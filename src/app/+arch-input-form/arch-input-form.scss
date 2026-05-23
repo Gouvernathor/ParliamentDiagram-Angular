@@ -33,26 +33,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
-    > * {
-        background-color: var(--mat-sys-secondary-container);
-        color: var(--mat-sys-secondary);
-
-        padding: 10px;
-        margin: 8px;
-        border-radius: var(--mat-sys-corner-small);
-
-        border: 0;
-    }
+    align-items: center;
 }
 
 .handle {
     cursor: grab;
 
+    background-color: var(--mat-sys-surface-variant);
+    color: var(--mat-sys-on-surface-variant);
+
+    padding: 10px;
+    margin: 8px;
+    border-radius: var(--mat-sys-corner-small);
+
     &:is(span) {
         font-size: 30px;
-
-        display: inline-block;
         line-height: normal;
     }
 
