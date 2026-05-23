@@ -5,13 +5,18 @@
 
     gap: 10px;
 
-    .partycard {
+    .party {
         margin-inline: 15px;
         width: fit-content;
 
-        mat-card-content {
+        background-color: var(--mat-sys-surface-container);
+        border-radius: var(--mat-sys-corner-medium);
+
+        .partymain {
             display: flex;
             justify-content: space-between;
+
+            padding: 16px;
 
             @media (width < 1250px) {
                 display: grid;
@@ -25,8 +30,8 @@
     color: var(--mat-sys-error);
     background-color: var(--mat-sys-error-container);
 
-    padding: 1em;
-    border-radius: 1em;
+    padding: 16px;
+    border-radius: var(--mat-sys-corner-medium);
 
     > :first-child {
         margin-block-start: 0;

@@ -89,7 +89,7 @@
 
         <div id="partylist">
             @for (party of diagramForm.parties; track $index) {
-                <mat-card class="partycard"><mat-card-content>
+                <div class="party"><div class="partymain">
                     <mat-form-field>
                         <mat-label>Party name</mat-label>
                         <input matInput [formField]="party.name" />
@@ -130,7 +130,7 @@
                     </button>
 
                     <!-- TODO drag handle -->
-                </mat-card-content></mat-card>
+                </div></div>
             }
         </div>
     </div>

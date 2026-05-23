@@ -2,7 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -38,7 +37,7 @@ interface DiagramData {
     imports: [
         StandardPage, Contents,
         FormField,
-        MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
+        MatButtonModule, MatFormFieldModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
     ],
     templateUrl: './arch-input-form.html',
