@@ -90,7 +90,7 @@
         @if (diagramForm.parties.length) {
             <div class="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
                 @for (party of diagramForm.parties; track $index) {
-                    <div class="party" cdkDrag cdkDragBoundary=".partylistarea" cdkDragRootElement=".partylistarea">
+                    <div class="party" cdkDrag cdkDragBoundary=".partylistarea">
                         <div class="partyform">
                             <mat-form-field>
                                 <mat-label>Party name</mat-label>
