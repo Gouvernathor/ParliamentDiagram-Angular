@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
-import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
@@ -113,6 +113,14 @@ export class ArchInputFormPage {
         this.diagramForm.parties().value.update(p => {
             const s = p.slice();
             s.splice(index, 1);
+            return s;
+        });
+    }
+
+    protected drop({ previousIndex, currentIndex }: CdkDragDrop<unknown, unknown, unknown>) {
+        this.diagramForm.parties().value.update(p => {
+            const s = p.slice();
+            s.splice(currentIndex, 0, ...s.splice(previousIndex, 1));
             return s;
         });
     }

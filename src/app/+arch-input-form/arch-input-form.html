@@ -88,7 +88,7 @@
         <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
         @if (diagramForm.parties.length) {
-            <div id="partylist" cdkDropList>
+            <div id="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
                 @for (party of diagramForm.parties; track $index) {
                     <div class="party" cdkDrag>
                         <div class="partymain">
