@@ -12,6 +12,9 @@
         background-color: var(--mat-sys-surface-container);
         border-radius: var(--mat-sys-corner-medium);
 
+        display: flex;
+        flex-direction: row;
+
         .partymain {
             display: flex;
             justify-content: space-between;
@@ -22,6 +25,21 @@
                 display: grid;
                 gap: 10px;
             }
+        }
+
+        .handle {
+            font-size: 30px;
+            align-self: center;
+
+            display: inline-block;
+            line-height: normal;
+
+            background-color: var(--mat-sys-secondary-container);
+            color: var(--mat-sys-secondary);
+
+            padding: 10px;
+            margin: 8px;
+            border-radius: var(--mat-sys-corner-small);
         }
     }
 }

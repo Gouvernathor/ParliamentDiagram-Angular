@@ -130,9 +130,12 @@
                             <button matButton="outlined" (click)="removeParty($index)">
                                 Delete party
                             </button>
-
-                            <!-- TODO drag handle -->
                         </div>
+
+                        <mat-divider [vertical]="true" />
+
+                        <!-- TODO disable user-select, add aria and accessibility (should come with cdkDrag) -->
+                        <span class="handle">☰</span>
                     </div>
                 }
             </div>
