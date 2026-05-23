@@ -117,10 +117,22 @@ export class ArchInputFormPage {
         });
     }
 
+    protected moveUp(originalIndex: number) {
+        this.switch(originalIndex, originalIndex-1);
+    }
+
+    protected moveDown(originalIndex: number) {
+        this.switch(originalIndex, originalIndex+1);
+    }
+
     protected drop({ previousIndex, currentIndex }: CdkDragDrop<unknown, unknown, unknown>) {
+        this.switch(previousIndex, currentIndex);
+    }
+
+    private switch(indexA: number, indexB: number) {
         this.diagramForm.parties().value.update(p => {
             const s = p.slice();
-            s.splice(currentIndex, 0, ...s.splice(previousIndex, 1));
+            s.splice(indexA, 0, ...s.splice(indexB, 1));
             return s;
         });
     }

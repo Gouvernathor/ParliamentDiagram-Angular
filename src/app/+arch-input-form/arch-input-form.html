@@ -135,9 +135,9 @@
                         <mat-divider [vertical]="true" />
 
                         <div class="reordercontainer">
-                            <button class="up" [disabled]="$first">↑</button>
+                            <button class="up" [disabled]="$first" (click)="moveUp($index)">↑</button>
                             <span class="handle" cdkDragHandle>☰</span>
-                            <button class="down" [disabled]="$last">↓</button>
+                            <button class="down" [disabled]="$last" (click)="moveDown($index)">↓</button>
                         </div>
                     </div>
                 }
