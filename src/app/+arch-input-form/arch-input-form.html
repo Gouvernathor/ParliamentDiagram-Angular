@@ -147,22 +147,24 @@
         }
     </div>
 
-    <button matButton="filled"
-        [disabled]="!diagramForm().valid()"
-        [disabledInteractive]="true"
-        (click)="diagramForm().valid() && generateDiagram()"
-        [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
-    >
-        Make my diagram
-    </button>
+    <div>
+        <button matButton="filled"
+            [disabled]="!diagramForm().valid()"
+            [disabledInteractive]="true"
+            (click)="diagramForm().valid() && generateDiagram()"
+            [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
+        >
+            Make my diagram
+        </button>
 
-    @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
-        <div class="errorcontainer">
-            @for (error of diagramForm().errorSummary(); track $index) {
-                <p>{{error.message}}</p>
-            }
-        </div>
-    }
+        @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
+            <div class="errorcontainer">
+                @for (error of diagramForm().errorSummary(); track $index) {
+                    <p>{{error.message}}</p>
+                }
+            </div>
+        }
+    </div>
 
     @if (diagrams().length) {
         <div id="diagrams">
