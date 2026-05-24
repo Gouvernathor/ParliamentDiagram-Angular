@@ -39,3 +39,13 @@ the current situation where the site has routes and is generated using CSR, is n
 SSR is not a solution because of Pages
 the solution is either using gitlab pages redirects : https://docs.gitlab.com/user/project/pages/redirects/#rewrite-all-requests-to-a-root-indexhtml
 or to use SSG (which Angular calls prerendering) like Ballot does
+
+The color input is not great
+It is very heavy for the use we have of it
+It displays information that we don't need and that are a distraction
+
+The layout is kinda terrible
+In the narrow version, it is too narrow and doesn't make good use of the available room
+The narrow version could wrap but that would probably be detrimental to the understandability of the ordering of the parties
+In the large version, it is too compressed because there's not enough room
+In both versions, the border color jumping around depending on the border width is not great
