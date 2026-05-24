@@ -1,22 +1,21 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
-import { applyEach, form, FormField, max, min, minLength, validate } from '@angular/forms/signals';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from "@angular/core";
+import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatDividerModule } from "@angular/material/divider";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
-import { StandardPage } from '../shared/standard-page/standard-page';
-import { ColorService } from '../shared/color.service';
+import { Writeable } from "../shared/utils/types";
 import { Contents } from "../shared/contents";
-
-type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+import { StandardPage } from "../shared/standard-page/standard-page";
+import { ColorService } from "../shared/color.service";
 
 interface Party {
     name: string;
