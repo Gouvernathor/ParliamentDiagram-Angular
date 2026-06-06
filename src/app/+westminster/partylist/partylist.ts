@@ -1,4 +1,5 @@
 import { Component, input } from "@angular/core";
+import { FieldState } from "@angular/forms/signals";
 
 export interface Party {
     name: string;
@@ -15,4 +16,6 @@ export interface Party {
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
 })
-export class Partylist {}
+export class Partylist {
+    readonly list = input.required<FieldState<readonly Party[]>>();
+}

@@ -25,16 +25,24 @@
 
     <div class="partylistarea">
         <!-- speak -->
-        <app-partylist />
+        <app-partylist
+            [list]="diagramForm.parties.speak()"
+        />
 
         <!-- government -->
-        <app-partylist />
+        <app-partylist
+            [list]="diagramForm.parties.government()"
+        />
 
         <!-- opposition -->
-        <app-partylist />
+        <app-partylist
+            [list]="diagramForm.parties.opposition()"
+        />
 
         <!-- cross -->
-        <app-partylist />
+        <app-partylist
+            [list]="diagramForm.parties.cross()"
+        />
     </div>
 
     <div>
