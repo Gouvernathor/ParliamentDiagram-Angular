@@ -21,7 +21,25 @@
         </p>
     </div>
 
-    <!-- (later) common options affecting all the diagram (wingNRows, crossNCols, packed, roundingRadius, spacingFactor), and maybe the automatic speaker spots -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Advanced parameters</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-slide-toggle
+            matTooltip="Whether parties in the same area are allowed to share a column (a row for crossbenchers)"
+            [formField]="diagramForm.packed"
+        >
+            Packed
+        </mat-slide-toggle>
+
+        <!-- spacing factor -->
+
+        <!-- rounding radius -->
+
+        <!-- wingNRows -->
+        <!-- crossNCols -->
+    </mat-expansion-panel>
 
     <div>
         <!-- speak -->

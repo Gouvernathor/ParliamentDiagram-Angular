@@ -1,6 +1,8 @@
 import { Component, signal } from "@angular/core";
-import { applyEach, form, max, min, validate } from "@angular/forms/signals";
+import { applyEach, form, max, min, validate, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
@@ -25,7 +27,9 @@ interface DiagramData {
 @Component({
     imports: [
         StandardPage, Partylist, Contents,
-        MatButtonModule, MatTooltipModule,
+        FormField,
+        MatExpansionModule,
+        MatButtonModule, MatSlideToggleModule, MatTooltipModule,
     ],
     templateUrl: "./westminster.html",
     styleUrl: "./westminster.scss",
