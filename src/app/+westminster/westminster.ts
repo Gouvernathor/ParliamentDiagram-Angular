@@ -3,6 +3,7 @@ import { applyEach, form, max, min, validate, FormField } from "@angular/forms/s
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
@@ -29,7 +30,7 @@ interface DiagramData {
         StandardPage, Partylist, Contents,
         FormField,
         MatExpansionModule,
-        MatButtonModule, MatSlideToggleModule, MatTooltipModule,
+        MatButtonModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
     ],
     templateUrl: "./westminster.html",
     styleUrl: "./westminster.scss",
@@ -79,7 +80,7 @@ export class WestminsterPage {
         min(schemaPath.roundingRadius, 0);
         max(schemaPath.roundingRadius, 1);
 
-        min(schemaPath.spacingFactor, 0);
+        min(schemaPath.spacingFactor, 0.0000000000000000000001);
         max(schemaPath.spacingFactor, 1);
     });
 
