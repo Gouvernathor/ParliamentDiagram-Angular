@@ -33,7 +33,7 @@
 
         <div>
             <label for="seatRadiusFactorInput"
-                matTooltip="The size of the circles that make up the seats. At 1, neighbor seats will touch one another, at 0 the seats are invisible."
+                matTooltip="The size of the circles that make up the seats. At 1, neighboring seats will touch one another, at 0 the seats are invisible."
             >Seat radius factor</label>
             <mat-slider [discrete]="true" [min]=".01" [max]="1" [step]=".01">
                 <input id="seatRadiusFactorInput" matSliderThumb [formField]="diagramForm.seatRadiusFactor" />
