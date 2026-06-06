@@ -2,12 +2,49 @@
 
 <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
-@if (list().value().length) {
+@if (list()().value().length) {
     <div class="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
-        @for (party of list().value(); track $index) {
+        @for (party of list(); track $index) {
             <div class="party" cdkDrag cdkDragBoundary="app-partylist">
                 <div class="partyform">
-                    <!--  -->
+                    <mat-form-field>
+                        <mat-label>Party name</mat-label>
+                        <input matInput [formField]="party.name" />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Seats</mat-label>
+                        <input matInput type="number" [formField]="party.nSeats" />
+                    </mat-form-field>
+
+                    <div class="formField">
+                        <label for="color{{$index}}">Color</label>
+                        <color-input
+                            id="color{{$index}}"
+                            [attr.value]="party.color().value()"
+                            (change)="party.color().value.set($any($event).detail.value)"
+                        />
+                    </div>
+
+                    <div class="formField">
+                        <label for="borderWidth{{$index}}">Border width</label>
+                        <mat-slider [discrete]="true" [min]="0" [max]="1" [step]=".01">
+                            <input id="borderWidth{{$index}}" matSliderThumb [formField]="party.borderWidth" />
+                        </mat-slider>
+                    </div>
+
+                    <div class="formField" [hidden]="party.borderWidth().value() <= 0">
+                        <label for="borderColor{{$index}}">Border color</label>
+                        <color-input no-alpha
+                            id="borderColor{{$index}}"
+                            [attr.value]="party.borderColor().value()"
+                            (change)="party.borderColor().value.set($any($event).detail.value)"
+                        />
+                    </div>
+
+                    <button matButton="outlined" (click)="removeParty($index)">
+                        Delete party
+                    </button>
                 </div>
 
                 <mat-divider [vertical]="true" />

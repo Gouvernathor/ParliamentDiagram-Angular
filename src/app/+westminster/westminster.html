@@ -26,23 +26,31 @@
     <div>
         <!-- speak -->
         <app-partylist
-            [list]="diagramForm.parties.speak()"
-        />
+            [list]="diagramForm.parties.speak"
+        >
+            <h3 data-label>Speaker parties</h3>
+        </app-partylist>
 
         <!-- government -->
         <app-partylist
-            [list]="diagramForm.parties.government()"
-        />
+            [list]="diagramForm.parties.government"
+        >
+            <h3 data-label>Government parties</h3>
+        </app-partylist>
 
         <!-- opposition -->
         <app-partylist
-            [list]="diagramForm.parties.opposition()"
-        />
+            [list]="diagramForm.parties.opposition"
+        >
+            <h3 data-label>Opposition parties</h3>
+        </app-partylist>
 
         <!-- cross -->
         <app-partylist
-            [list]="diagramForm.parties.cross()"
-        />
+            [list]="diagramForm.parties.cross"
+        >
+            <h3 data-label>Crossbench parties</h3>
+        </app-partylist>
     </div>
 
     <div>

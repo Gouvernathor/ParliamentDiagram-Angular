@@ -1,9 +1,12 @@
-import { Component, inject, input } from "@angular/core";
-import { FieldState } from "@angular/forms/signals";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core";
+import { FieldTree, FormField } from "@angular/forms/signals";
 import { CdkDropList, CdkDrag, CdkDragDrop, CdkDragHandle } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { ColorService } from "../../shared/color.service";
-import { MatDivider, MatDividerModule } from "@angular/material/divider";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatInputModule } from "@angular/material/input";
 
 export interface Party {
     name: string;
@@ -18,20 +21,22 @@ export interface Party {
     selector: "app-partylist",
     imports: [
         CdkDrag, CdkDragHandle, CdkDropList,
-        MatButtonModule, MatDividerModule,
+        MatButtonModule, MatDividerModule, MatFormFieldModule, FormField,
+        MatSliderModule, MatInputModule,
     ],
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Partylist {
     private readonly colorService = inject(ColorService);
 
-    readonly list = input.required<FieldState<readonly Party[]>>();
+    readonly list = input.required<FieldTree<readonly Party[]>>();
 
     protected addParty() {
         const party = this.newParty();
 
-        this.list().value.update(p => p.concat([party]));
+        this.list()().value.update(p => p.concat([party]));
     }
 
     private newParty(): Party {
@@ -43,6 +48,14 @@ export class Partylist {
             borderColor: "black",
             roundingRadius: null,
         };
+    }
+
+    protected removeParty(index: number) {
+        this.list()().value.update(p => {
+            const s = p.slice();
+            s.splice(index, 1);
+            return s;
+        });
     }
 
     protected moveUp(originalIndex: number) {
@@ -58,7 +71,7 @@ export class Partylist {
     }
 
     private switch(indexA: number, indexB: number) {
-        this.list().value.update(p => {
+        this.list()().value.update(p => {
             const s = p.slice();
             s.splice(indexA, 0, ...s.splice(indexB, 1));
             return s;
