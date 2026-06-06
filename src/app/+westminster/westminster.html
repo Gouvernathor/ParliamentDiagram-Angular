@@ -36,4 +36,15 @@
         <!-- cross -->
         <app-partylist />
     </div>
+
+    <div>
+        <button matButton="filled"
+            [disabled]="!diagramForm().valid()"
+            [disabledInteractive]="true"
+            (click)="diagramForm().valid() && generateDiagram()"
+            [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
+        >
+            Make my diagram
+        </button>
+    </div>
 </app-standard-page>

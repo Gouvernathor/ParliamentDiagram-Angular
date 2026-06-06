@@ -1,5 +1,7 @@
 import { Component, signal } from "@angular/core";
 import { applyEach, form, max, min } from "@angular/forms/signals";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Partylist } from "./partylist/partylist";
 
@@ -15,7 +17,10 @@ interface DiagramData {
 }
 
 @Component({
-    imports: [StandardPage, Partylist],
+    imports: [
+        StandardPage, Partylist,
+        MatButtonModule, MatTooltipModule,
+    ],
     templateUrl: "./westminster.html",
     styleUrl: "./westminster.scss",
 })
@@ -48,4 +53,8 @@ export class WestminsterPage {
         min(schemaPath.spacingFactor, 0);
         max(schemaPath.spacingFactor, 1);
     });
+
+    protected generateDiagram() {
+        throw new Error('Method not implemented.');
+    }
 }
