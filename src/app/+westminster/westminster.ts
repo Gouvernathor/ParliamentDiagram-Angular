@@ -1,5 +1,5 @@
 import { Component, signal } from "@angular/core";
-import { applyEach, form, max, min } from "@angular/forms/signals";
+import { applyEach, form, max, min, validate } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
@@ -56,6 +56,17 @@ export class WestminsterPage {
                 max(party.roundingRadius, 1);
             });
         }
+        validate(schemaPath.parties, ({value}) => {
+            const v = value();
+            const totalNSeats = shapes.flatMap(s => v[s]).reduce((a, p) => a+p.nSeats, 0);
+            if (totalNSeats <= 0) {
+                return {
+                    kind: "minimum seats",
+                    message: "There must be at least one seat",
+                };
+            }
+            return;
+        });
 
         min(schemaPath.wingNRows, 0);
 
