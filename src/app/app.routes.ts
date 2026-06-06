@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
-import { ArchInputFormPage } from './+arch-input-form/arch-input-form';
+import { ArchPage } from './+arch/arch';
 
 export const routes: Routes = [
     {
         path: "",
-        redirectTo: "/archinputform",
+        redirectTo: "/arch",
         pathMatch: "full",
     },
     {
         path: "archinputform",
-        component: ArchInputFormPage,
+        redirectTo: "/arch",
+    },
+    {
+        path: "arch",
+        component: ArchPage,
         title: "Arch-style parliament diagram generator",
     },
 ];

@@ -42,11 +42,11 @@ interface DiagramData {
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
     ],
-    templateUrl: './arch-input-form.html',
-    styleUrl: './arch-input-form.scss',
+    templateUrl: './arch.html',
+    styleUrl: './arch.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ArchInputFormPage {
+export class ArchPage {
     private readonly colorService = inject(ColorService);
 
     protected readonly FillingStrategy = FillingStrategy;
