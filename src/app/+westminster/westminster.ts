@@ -2,7 +2,9 @@ import { Component, signal } from "@angular/core";
 import { applyEach, form, max, min } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { StandardPage } from "../shared/standard-page/standard-page";
+import { Contents } from "../shared/contents";
 import { Partylist } from "./partylist/partylist";
 
 interface DiagramData {
@@ -18,7 +20,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, Partylist,
+        StandardPage, Partylist, Contents,
         MatButtonModule, MatTooltipModule,
     ],
     templateUrl: "./westminster.html",
@@ -54,7 +56,14 @@ export class WestminsterPage {
         max(schemaPath.spacingFactor, 1);
     });
 
+    protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
+
     protected generateDiagram() {
         throw new Error('Method not implemented.');
+    }
+
+    protected downloadDiagram(diagram: SVGSVGElement) {
+        const blob = new Blob([diagram.outerHTML], { type: "image/svg+xml" });
+        downloadBlob(blob, "parliament-diagram.svg");
     }
 }

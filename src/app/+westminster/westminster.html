@@ -55,4 +55,18 @@
             </div>
         }
     </div>
+
+    @if (diagrams().length) {
+        <div id="diagrams">
+            @for (diagram of diagrams(); track $index) {
+                <div class="diagramcard">
+                    <div [appContents]="diagram"></div>
+
+                    <button matButton="tonal" (click)="downloadDiagram(diagram)">
+                        Download SVG diagram
+                    </button>
+                </div>
+            }
+        </div>
+    }
 </app-standard-page>
