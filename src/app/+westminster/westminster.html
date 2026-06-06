@@ -44,7 +44,16 @@
             </mat-slider>
         </div>
 
-        <!-- rounding radius -->
+        <div>
+            <label for="roundingRadiusInput"
+                matTooltip="Whether and how much the corners of the seats are rounded. 0 will give you perfect squares, 0.5 will give you perfect circles. Can also be set for each party."
+            >
+                Rounding radius
+            </label>
+            <mat-slider [discrete]="true" [max]=".5" [step]=".01">
+                <input id="roundingRadiusInput" matSliderThumb [formField]="diagramForm.roundingRadius" />
+            </mat-slider>
+        </div>
 
         <!-- wingNRows -->
         <!-- crossNCols -->

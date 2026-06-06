@@ -78,7 +78,7 @@ export class WestminsterPage {
         min(schemaPath.crossNCols, 0);
 
         min(schemaPath.roundingRadius, 0);
-        max(schemaPath.roundingRadius, 1);
+        max(schemaPath.roundingRadius, .5);
 
         min(schemaPath.spacingFactor, 0.0000000000000000000001);
         max(schemaPath.spacingFactor, 1);
