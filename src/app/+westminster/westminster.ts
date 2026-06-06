@@ -73,7 +73,16 @@ export class WestminsterPage {
 
     protected generateDiagram() {
         const value = this.diagramForm().value();
-        const attrib = value.parties;
+        const attrib = shapes.flatMap(shape => value.parties[shape].map(p =>({
+            area: shape,
+            nSeats: p.nSeats,
+
+            data: p.name,
+            color: p.color,
+            borderSize: p.borderWidth,
+            borderColor: p.borderColor,
+            roundingRadius: p.roundingRadius,
+        })));
         const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
         };
 
