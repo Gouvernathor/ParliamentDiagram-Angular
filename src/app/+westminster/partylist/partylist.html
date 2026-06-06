@@ -1,1 +1,17 @@
-<p>partylist works!</p>
+<ng-content select="[data-label]" />
+
+<button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
+
+@if (list().value().length) {
+    <div class="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
+        @for (party of list().value(); track $index) {
+            <div class="party" cdkDrag cdkDragBoundary="app-partylist">
+                <div class="partyform">
+                    <!--  -->
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- TODO other button to add a party ? -->
+}
