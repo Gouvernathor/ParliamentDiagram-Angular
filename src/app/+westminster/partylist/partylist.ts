@@ -6,6 +6,4 @@ import { Component, input } from "@angular/core";
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
 })
-export class Partylist {
-    readonly area = input.required<string>();
-}
+export class Partylist { }
