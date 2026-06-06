@@ -4,7 +4,9 @@ import { StandardPage } from "../shared/standard-page/standard-page";
 import { Partylist } from "./partylist/partylist";
 
 interface DiagramData {
-    parties: readonly unknown[];
+    parties: {
+        [s in "speak"|"government"|"opposition"|"cross"]: readonly unknown[];
+    };
     wingNRows: number;
     crossNCols: number;
     packed: boolean;
@@ -19,7 +21,12 @@ interface DiagramData {
 })
 export class WestminsterPage {
     private readonly diagramModel = signal<DiagramData>({
-        parties: [],
+        parties: {
+            speak: [],
+            government: [],
+            opposition: [],
+            cross: [],
+        },
         wingNRows: 0,
         crossNCols: 0,
         packed: true,
@@ -27,7 +34,9 @@ export class WestminsterPage {
         spacingFactor: .1,
     });
     protected readonly diagramForm = form(this.diagramModel, schemaPath => {
-        applyEach(schemaPath.parties, party => {});
+        for (const shape of ["speak", "government", "opposition", "cross"] as const) {
+            applyEach(schemaPath.parties[shape], party => {});
+        }
 
         min(schemaPath.wingNRows, 0);
 
