@@ -2,6 +2,7 @@ import { Component, signal } from "@angular/core";
 import { applyEach, form, max, min, validate, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -30,7 +31,7 @@ interface DiagramData {
         StandardPage, Partylist, Contents,
         FormField,
         MatExpansionModule,
-        MatButtonModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
+        MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
     ],
     templateUrl: "./westminster.html",
     styleUrl: "./westminster.scss",

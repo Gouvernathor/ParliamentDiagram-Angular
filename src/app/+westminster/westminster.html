@@ -56,7 +56,15 @@
         </div>
 
         <!-- wingNRows -->
+        <mat-form-field matTooltip="Force a number of rows for the government and opposition wings. Ignored if 0, or less than the number of seats.">
+            <mat-label>Wing rows</mat-label>
+            <input matInput type="number" [formField]="diagramForm.wingNRows" />
+        </mat-form-field>
         <!-- crossNCols -->
+        <mat-form-field matTooltip="Force a number of columns for the crossbenchers. Ignored if 0, or less than the number of seats.">
+            <mat-label>Cross-bench columns</mat-label>
+            <input matInput type="number" [formField]="diagramForm.crossNCols" />
+        </mat-form-field>
 
         <!-- auto-speaker ? -->
     </mat-expansion-panel>
