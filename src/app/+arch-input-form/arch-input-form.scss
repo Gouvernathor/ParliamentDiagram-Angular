@@ -46,6 +46,11 @@
     }
 }
 
+.formField:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+}
+
 .handle {
     cursor: grab;
 
