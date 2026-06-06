@@ -44,7 +44,15 @@ export class WestminsterPage {
     });
     protected readonly diagramForm = form(this.diagramModel, schemaPath => {
         for (const shape of ["speak", "government", "opposition", "cross"] as const) {
-            applyEach(schemaPath.parties[shape], party => {});
+            applyEach(schemaPath.parties[shape], party => {
+                min(party.nSeats, 0);
+
+                min(party.borderWidth, 0);
+                max(party.borderWidth, 1);
+
+                min(party.roundingRadius, 0);
+                max(party.roundingRadius, 1);
+            });
         }
 
         min(schemaPath.wingNRows, 0);
