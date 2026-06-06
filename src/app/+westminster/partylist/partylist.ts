@@ -1,8 +1,9 @@
 import { Component, inject, input } from "@angular/core";
 import { FieldState } from "@angular/forms/signals";
-import { CdkDropList, CdkDrag, CdkDragDrop } from "@angular/cdk/drag-drop";
+import { CdkDropList, CdkDrag, CdkDragDrop, CdkDragHandle } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { ColorService } from "../../shared/color.service";
+import { MatDivider, MatDividerModule } from "@angular/material/divider";
 
 export interface Party {
     name: string;
@@ -15,7 +16,10 @@ export interface Party {
 
 @Component({
     selector: "app-partylist",
-    imports: [CdkDropList, CdkDrag, MatButtonModule],
+    imports: [
+        CdkDrag, CdkDragHandle, CdkDropList,
+        MatButtonModule, MatDividerModule,
+    ],
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
 })
@@ -39,6 +43,14 @@ export class Partylist {
             borderColor: "black",
             roundingRadius: null,
         };
+    }
+
+    protected moveUp(originalIndex: number) {
+        this.switch(originalIndex, originalIndex-1);
+    }
+
+    protected moveDown(originalIndex: number) {
+        this.switch(originalIndex, originalIndex+1);
     }
 
     protected drop({ previousIndex, currentIndex }: CdkDragDrop<unknown, unknown, unknown>) {
