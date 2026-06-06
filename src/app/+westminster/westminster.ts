@@ -9,9 +9,12 @@ import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents";
 import { Party, Partylist } from "./partylist/partylist";
 
+const shapes = ["speak", "government", "opposition", "cross"] as const;
+type Shape = typeof shapes[number];
+
 interface DiagramData {
     parties: {
-        [s in "speak"|"government"|"opposition"|"cross"]: readonly Party[];
+        [s in Shape]: readonly Party[];
     };
     wingNRows: number;
     crossNCols: number;
@@ -43,7 +46,7 @@ export class WestminsterPage {
         spacingFactor: .1,
     });
     protected readonly diagramForm = form(this.diagramModel, schemaPath => {
-        for (const shape of ["speak", "government", "opposition", "cross"] as const) {
+        for (const shape of shapes) {
             applyEach(schemaPath.parties[shape], party => {
                 min(party.nSeats, 0);
 
