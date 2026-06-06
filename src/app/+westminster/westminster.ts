@@ -4,7 +4,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
-import { Writeable } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents";
 import { Party, Partylist } from "./partylist/partylist";
@@ -83,7 +82,12 @@ export class WestminsterPage {
             borderColor: p.borderColor,
             roundingRadius: p.roundingRadius,
         })));
-        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
+        const options = {
+            wingNRows: value.wingNRows,
+            crossNCols: value.crossNCols,
+            packed: value.packed,
+            roundingRadius: value.roundingRadius,
+            spacingFactor: value.spacingFactor,
         };
 
         const diagram = getSVGFromAttribution(attrib, options);
