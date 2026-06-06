@@ -3,13 +3,15 @@ import { applyEach, form, max, min } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
+import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
+import { Writeable } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents";
-import { Partylist } from "./partylist/partylist";
+import { Party, Partylist } from "./partylist/partylist";
 
 interface DiagramData {
     parties: {
-        [s in "speak"|"government"|"opposition"|"cross"]: readonly unknown[];
+        [s in "speak"|"government"|"opposition"|"cross"]: readonly Party[];
     };
     wingNRows: number;
     crossNCols: number;
@@ -59,7 +61,13 @@ export class WestminsterPage {
     protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
 
     protected generateDiagram() {
-        throw new Error('Method not implemented.');
+        const value = this.diagramForm().value();
+        const attrib = value.parties;
+        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
+        };
+
+        const diagram = getSVGFromAttribution(attrib, options);
+        this.diagrams.update(l => [ diagram ].concat(l));
     }
 
     protected downloadDiagram(diagram: SVGSVGElement) {
