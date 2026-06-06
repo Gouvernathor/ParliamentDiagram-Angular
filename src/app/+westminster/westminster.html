@@ -46,5 +46,13 @@
         >
             Make my diagram
         </button>
+
+        @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
+            <div class="errorcontainer">
+                @for (error of diagramForm().errorSummary(); track $index) {
+                    <p>{{error.message}}</p>
+                }
+            </div>
+        }
     </div>
 </app-standard-page>
