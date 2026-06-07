@@ -1,12 +1,13 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core";
 import { FieldTree, FormField } from "@angular/forms/signals";
-import { CdkDropList, CdkDrag, CdkDragDrop, CdkDragHandle } from "@angular/cdk/drag-drop";
+import { CdkDropList, CdkDrag, CdkDragHandle } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
-import { ColorService } from "../../shared/color.service";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatSliderModule } from "@angular/material/slider";
 import { MatInputModule } from "@angular/material/input";
+import { MatSliderModule } from "@angular/material/slider";
+import { ColorService } from "../../shared/color.service";
+import { ReorderingService } from "../../shared/reordering.service";
 
 export interface Party {
     name: string;
@@ -30,6 +31,7 @@ export interface Party {
 })
 export class Partylist {
     private readonly colorService = inject(ColorService);
+    protected readonly reorderingService = inject(ReorderingService);
 
     readonly list = input.required<FieldTree<readonly Party[]>>();
 
@@ -54,26 +56,6 @@ export class Partylist {
         this.list()().value.update(p => {
             const s = p.slice();
             s.splice(index, 1);
-            return s;
-        });
-    }
-
-    protected moveUp(originalIndex: number) {
-        this.switch(originalIndex, originalIndex-1);
-    }
-
-    protected moveDown(originalIndex: number) {
-        this.switch(originalIndex, originalIndex+1);
-    }
-
-    protected drop({ previousIndex, currentIndex }: CdkDragDrop<unknown, unknown, unknown>) {
-        this.switch(previousIndex, currentIndex);
-    }
-
-    private switch(indexA: number, indexB: number) {
-        this.list()().value.update(p => {
-            const s = p.slice();
-            s.splice(indexA, 0, ...s.splice(indexB, 1));
             return s;
         });
     }

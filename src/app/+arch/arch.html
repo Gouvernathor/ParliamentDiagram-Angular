@@ -88,7 +88,7 @@
         <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
 
         @if (diagramForm.parties.length) {
-            <div class="partylist" cdkDropList (cdkDropListDropped)="drop($event)">
+            <div class="partylist" cdkDropList (cdkDropListDropped)="reorderingService.drop(diagramForm.parties().value, $event)">
                 @for (party of diagramForm.parties; track $index) {
                     <div class="party" cdkDrag cdkDragBoundary=".partylistarea">
                         <div class="partyform">
@@ -135,9 +135,9 @@
                         <mat-divider [vertical]="true" />
 
                         <div class="reordercontainer">
-                            <button matMiniFab [disabled]="$first" (click)="moveUp($index)">↑</button>
+                            <button matMiniFab [disabled]="$first" (click)="reorderingService.moveUp(diagramForm.parties().value, $index)">↑</button>
                             <span class="handle" cdkDragHandle>☰</span>
-                            <button matMiniFab [disabled]="$last" (click)="moveDown($index)">↓</button>
+                            <button matMiniFab [disabled]="$last" (click)="reorderingService.moveDown(diagramForm.parties().value, $index)">↓</button>
                         </div>
                     </div>
                 }

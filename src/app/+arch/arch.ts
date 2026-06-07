@@ -16,6 +16,7 @@ import { Contents } from "../shared/contents";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
 import { downloadDiagram } from "../shared/download-diagram";
+import { ReorderingService } from "../shared/reordering.service";
 
 interface Party {
     name: string;
@@ -48,6 +49,7 @@ interface DiagramData {
 })
 export class ArchPage {
     private readonly colorService = inject(ColorService);
+    protected readonly reorderingService = inject(ReorderingService);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -112,26 +114,6 @@ export class ArchPage {
         this.diagramForm.parties().value.update(p => {
             const s = p.slice();
             s.splice(index, 1);
-            return s;
-        });
-    }
-
-    protected moveUp(originalIndex: number) {
-        this.switch(originalIndex, originalIndex-1);
-    }
-
-    protected moveDown(originalIndex: number) {
-        this.switch(originalIndex, originalIndex+1);
-    }
-
-    protected drop({ previousIndex, currentIndex }: CdkDragDrop<unknown, unknown, unknown>) {
-        this.switch(previousIndex, currentIndex);
-    }
-
-    private switch(indexA: number, indexB: number) {
-        this.diagramForm.parties().value.update(p => {
-            const s = p.slice();
-            s.splice(indexA, 0, ...s.splice(indexB, 1));
             return s;
         });
     }
