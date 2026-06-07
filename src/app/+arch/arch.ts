@@ -95,9 +95,7 @@ export class ArchPage {
     protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
 
     protected addParty() {
-        const party = this.newParty();
-
-        this.diagramForm.parties().value.update(p => p.concat([party]));
+        this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
     }
 
     private newParty(): Party {

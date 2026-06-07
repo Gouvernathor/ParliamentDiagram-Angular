@@ -36,9 +36,7 @@ export class Partylist {
     readonly list = input.required<FieldTree<readonly Party[]>>();
 
     protected addParty() {
-        const party = this.newParty();
-
-        this.list()().value.update(p => p.concat([party]));
+        this.reorderingService.add(this.list()().value, this.newParty());
     }
 
     private newParty(): Party {

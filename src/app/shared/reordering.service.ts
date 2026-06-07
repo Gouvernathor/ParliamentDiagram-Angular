@@ -5,6 +5,10 @@ import { CdkDragDrop } from "@angular/cdk/drag-drop";
     providedIn: "root",
 })
 export class ReorderingService {
+    add<T>(list: WritableSignal<readonly T[]>, item: T) {
+        list.update(p => p.concat([item]));
+    }
+
     remove<T>(list: WritableSignal<readonly T[]>, index: number) {
         list.update(p => {
             const s = p.slice();
