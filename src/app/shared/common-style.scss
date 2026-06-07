@@ -1,3 +1,51 @@
+@mixin party-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 10px;
+}
+
+@mixin party-card {
+    margin-inline: 15px;
+
+    background-color: var(--mat-sys-surface-container);
+    border-radius: var(--mat-sys-corner-medium);
+
+    display: flex;
+    flex-direction: row;
+
+    @media (width >= 1250px) {
+        width: 100%;
+    }
+
+    > * {
+        flex-grow: 0;
+    }
+
+    > .partyform {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        flex-grow: 1;
+
+        padding: 16px;
+
+        @media (width < 1250px) {
+            display: grid;
+            gap: 10px;
+        }
+    }
+
+    > .reordercontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
+
 @mixin error-container {
     color: var(--mat-sys-error);
     background-color: var(--mat-sys-error-container);

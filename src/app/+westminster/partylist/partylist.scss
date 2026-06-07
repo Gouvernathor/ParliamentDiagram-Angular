@@ -1,50 +1,11 @@
-// TODO put in shared
-.partylist {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@import "../../shared/common-style.scss";
 
-    gap: 10px;
+.partylist {
+    @include party-list;
 }
 
 .party {
-    margin-inline: 15px;
-
-    background-color: var(--mat-sys-surface-container);
-    border-radius: var(--mat-sys-corner-medium);
-
-    display: flex;
-    flex-direction: row;
-
-    @media (width >= 1250px) {
-        width: 100%;
-    }
-
-    > * {
-        flex-grow: 0;
-    }
-
-    > .partyform {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        flex-grow: 1;
-
-        padding: 16px;
-
-        @media (width < 1250px) {
-            display: grid;
-            gap: 10px;
-        }
-    }
-
-    > .reordercontainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-    }
+    @include party-card;
 }
 
 .formField:not([hidden]) {
