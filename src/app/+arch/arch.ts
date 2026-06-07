@@ -98,6 +98,21 @@ export class ArchPage {
         this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
     }
 
+    protected applyUSPreset() {
+        this.diagramForm.parties().value.set(this.newUSPreset());
+    }
+
+    private newUSPreset() {
+        const newParty = this.newParty();
+        return [
+            { ...newParty, name: "Republican", color: "#f80000", nSeats: 50 },
+            { ...newParty, name: "Independent", color: "#c66" },
+            { ...newParty, name: "Vacant", color: "#fff", borderWidth: .2 },
+            { ...newParty, name: "Independent", color: "#99f" },
+            { ...newParty, name: "Democratic", color: "#33f", nSeats: 50 },
+        ];
+    }
+
     private newParty(): Party {
         return {
             name: "",
