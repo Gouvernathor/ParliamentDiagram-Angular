@@ -11,11 +11,11 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
-import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { Writeable } from "../shared/utils/types";
 import { Contents } from "../shared/contents";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
+import { downloadDiagram } from "../shared/download-diagram";
 
 interface Party {
     name: string;
@@ -160,8 +160,5 @@ export class ArchPage {
         this.diagrams.update(l => [ diagram ].concat(l));
     }
 
-    protected downloadDiagram(diagram: SVGSVGElement) {
-        const blob = new Blob([diagram.outerHTML], { type: "image/svg+xml" });
-        downloadBlob(blob, "parliament-diagram.svg");
-    }
+    protected readonly downloadDiagram = downloadDiagram;
 }

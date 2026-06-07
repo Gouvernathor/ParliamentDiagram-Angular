@@ -6,10 +6,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents";
+import { downloadDiagram } from "../shared/download-diagram";
 import { Party, Partylist } from "./partylist/partylist";
 
 const shapes = ["speak", "government", "opposition", "cross"] as const;
@@ -120,8 +120,5 @@ export class WestminsterPage {
         this.diagrams.update(l => [ diagram ].concat(l));
     }
 
-    protected downloadDiagram(diagram: SVGSVGElement) {
-        const blob = new Blob([diagram.outerHTML], { type: "image/svg+xml" });
-        downloadBlob(blob, "parliament-diagram.svg");
-    }
+    protected readonly downloadDiagram = downloadDiagram;
 }
