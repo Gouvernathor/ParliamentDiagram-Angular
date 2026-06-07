@@ -8,7 +8,12 @@ export const routes: Routes = [
         redirectTo: "/arch",
         pathMatch: "full",
     },
+    // index
+    // index.php
 
+    // parliamentinputform.html
+    // parlitest.php
+    // archinputform.php
     {
         path: "archinputform",
         redirectTo: "/arch",
@@ -20,6 +25,13 @@ export const routes: Routes = [
         title: "Arch-style parliament diagram generator",
     },
 
+    // USinputform.html
+    // USinputform.php
+    // USinputform
+    // usinputform
+
+    // westminsterinputform.html
+    // westminsterinputform.php
     {
         path: "westminsterinputform",
         redirectTo: "/westminster",
@@ -30,4 +42,6 @@ export const routes: Routes = [
         component: WestminsterPage,
         title: "Westminster-style parliament diagram generator",
     },
+
+    // POST newarch, newarch.py, westminster and westminster.py : backend API
 ];
