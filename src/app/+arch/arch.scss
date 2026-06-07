@@ -1,3 +1,5 @@
+@import "../shared/common-style.scss";
+
 .partylist {
     display: flex;
     flex-direction: column;
@@ -72,24 +74,9 @@
 }
 
 .errorcontainer {
-    color: var(--mat-sys-error);
-    background-color: var(--mat-sys-error-container);
-
-    padding: 16px;
-    border-radius: var(--mat-sys-corner-medium);
-
-    > :first-child {
-        margin-block-start: 0;
-    }
-    > :last-child {
-        margin-block-end: 0;
-    }
+    @include error-container;
 }
 
 .diagramcard {
-    color: var(--mat-sys-on-surface-variant);
-    background-color: var(--mat-sys-surface-variant);
-
-    // need to constrain the size of the diagram
-    max-width: 800px;
+    @include diagram-card();
 }
