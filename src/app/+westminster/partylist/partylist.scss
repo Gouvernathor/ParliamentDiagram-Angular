@@ -9,21 +9,5 @@
 }
 
 .handle {
-    cursor: grab;
-
-    background-color: var(--mat-sys-surface-variant);
-    color: var(--mat-sys-on-surface-variant);
-
-    padding: 10px;
-    margin: 8px;
-    border-radius: var(--mat-sys-corner-small);
-
-    &:is(span) {
-        font-size: 30px;
-        line-height: normal;
-    }
-
-    &:active {
-        cursor: grabbing;
-    }
+    @include party-drag-handle;
 }
