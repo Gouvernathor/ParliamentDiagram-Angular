@@ -26,6 +26,15 @@ interface DiagramData {
     spacingFactor: number;
 }
 
+const INITIAL_SPEAKER: Readonly<Party> = {
+    name: "Speaker",
+    nSeats: 1,
+    color: "black",
+    borderWidth: 0,
+    borderColor: "black",
+    roundingRadius: null,
+};
+
 @Component({
     imports: [
         StandardPage, Partylist, Contents,
@@ -39,7 +48,7 @@ interface DiagramData {
 export class WestminsterPage {
     private readonly diagramModel = signal<DiagramData>({
         parties: {
-            speak: [],
+            speak: [{ ...INITIAL_SPEAKER }],
             government: [],
             opposition: [],
             cross: [],
