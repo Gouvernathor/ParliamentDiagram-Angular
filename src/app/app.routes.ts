@@ -12,6 +12,7 @@ export const routes: Routes = [
     {
         path: "archinputform",
         redirectTo: "/arch",
+        pathMatch: "full",
     },
     {
         path: "arch",
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {
         path: "westminsterinputform",
         redirectTo: "/westminster",
+        pathMatch: "full",
     },
     {
         path: "westminster",
