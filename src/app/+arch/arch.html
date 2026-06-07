@@ -127,7 +127,7 @@
                                 />
                             </div>
 
-                            <button matButton="outlined" (click)="removeParty($index)">
+                            <button matButton="outlined" (click)="reorderingService.remove(diagramForm.parties().value, $index)">
                                 Delete party
                             </button>
                         </div>

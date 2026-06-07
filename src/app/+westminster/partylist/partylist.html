@@ -44,7 +44,7 @@
 
                     <!-- TODO rounding radius -->
 
-                    <button matButton="outlined" (click)="removeParty($index)">
+                    <button matButton="outlined" (click)="reorderingService.remove(list()().value, $index)">
                         Delete party
                     </button>
                 </div>

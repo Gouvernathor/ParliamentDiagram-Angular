@@ -51,12 +51,4 @@ export class Partylist {
             roundingRadius: null,
         };
     }
-
-    protected removeParty(index: number) {
-        this.list()().value.update(p => {
-            const s = p.slice();
-            s.splice(index, 1);
-            return s;
-        });
-    }
 }

@@ -110,14 +110,6 @@ export class ArchPage {
         };
     }
 
-    protected removeParty(index: number) {
-        this.diagramForm.parties().value.update(p => {
-            const s = p.slice();
-            s.splice(index, 1);
-            return s;
-        });
-    }
-
     protected generateDiagram() {
         const value = this.diagramForm().value();
         const attrib = new Map(value.parties.map(fp => [{
