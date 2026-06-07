@@ -46,6 +46,11 @@
     }
 }
 
+.formField:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+}
+
 @mixin error-container {
     color: var(--mat-sys-error);
     background-color: var(--mat-sys-error-container);
