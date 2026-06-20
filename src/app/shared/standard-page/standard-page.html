@@ -8,10 +8,12 @@
         <mat-button-toggle-group name="theme" aria-label="Light/Dark Theme"
             [hideSingleSelectionIndicator]="true"
             [hideMultipleSelectionIndicator]="true"
+            [value]="themeingService.getUserPersistedTheme()"
+            (change)="chooseTheme($event.value)"
         >
-            <mat-button-toggle>C</mat-button-toggle>
-            <mat-button-toggle>L</mat-button-toggle>
-            <mat-button-toggle>D</mat-button-toggle>
+            <mat-button-toggle [value]="null">C</mat-button-toggle>
+            <mat-button-toggle value="light">L</mat-button-toggle>
+            <mat-button-toggle value="dark">D</mat-button-toggle>
         </mat-button-toggle-group>
     </mat-toolbar-row>
 </mat-toolbar>

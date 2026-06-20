@@ -2,7 +2,7 @@ import { DOCUMENT, inject, Injectable } from "@angular/core";
 import { CanActivateFn } from "@angular/router";
 
 const THEMES = [ "light", "dark" ] as const;
-type Theme = typeof THEMES[number];
+export type Theme = typeof THEMES[number];
 const isATheme: (t: any) => t is Theme = ((t: any) => THEMES.includes(t)) as any;
 
 @Injectable({

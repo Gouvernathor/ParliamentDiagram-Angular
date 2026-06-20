@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ThemeingService } from '../themeing';
+import { Theme, ThemeingService } from '../themeing';
 
 @Component({
     selector: 'app-standard-page',
@@ -12,5 +12,10 @@ import { ThemeingService } from '../themeing';
     styleUrl: './standard-page.scss',
 })
 export class StandardPage {
-    private readonly themeingService = inject(ThemeingService);
+    protected readonly themeingService = inject(ThemeingService);
+
+    protected chooseTheme(theme: Theme) {
+        this.themeingService.applyThemeOnPage(theme);
+        this.themeingService.setUserPersistedTheme(theme);
+    }
 }
