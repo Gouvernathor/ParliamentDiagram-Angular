@@ -8,7 +8,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { Contents } from "../shared/contents";
+import { Contents } from "../shared/contents.directive";
 import { downloadDiagram } from "../shared/download-diagram";
 import { Party, Partylist } from "./partylist/partylist";
 

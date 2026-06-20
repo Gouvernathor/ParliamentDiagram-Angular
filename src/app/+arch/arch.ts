@@ -12,7 +12,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { Writeable } from "../shared/utils/types";
-import { Contents } from "../shared/contents";
+import { Contents } from "../shared/contents.directive";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
 import { downloadDiagram } from "../shared/download-diagram";
