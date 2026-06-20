@@ -1,5 +1,4 @@
 import { DOCUMENT, inject, Injectable, signal } from "@angular/core";
-import { CanActivateFn } from "@angular/router";
 
 const THEMES = [ "light", "dark" ] as const;
 export type Theme = typeof THEMES[number];
