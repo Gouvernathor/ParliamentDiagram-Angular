@@ -28,6 +28,10 @@
 
     <button matButton (click)="applyUSPreset()">Use the United States dual party preset</button>
 
+    <file-input-drop
+        (files)="loadPreset($event)"
+    />
+
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Advanced parameters</mat-panel-title>

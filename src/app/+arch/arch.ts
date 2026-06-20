@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
+import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatDividerModule } from "@angular/material/divider";
@@ -14,6 +14,7 @@ import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { Writeable } from "../shared/utils/types";
 import { Contents } from "../shared/contents.directive";
 import { StandardPage } from "../shared/standard-page/standard-page";
+import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
 import { ColorService } from "../shared/color.service";
 import { downloadDiagram, downloadJson } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
@@ -37,7 +38,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, Contents,
+        StandardPage, Contents, FileInputDrop,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -125,6 +126,16 @@ export class ArchPage {
 
     protected savePreset() {
         downloadJson(this.diagramForm.parties().value());
+    }
+    protected async loadPreset(files: FileList) {
+        const file = files[0];
+
+        if (file.size > 10_000) {
+            throw new Error("file too heavy");
+        }
+
+        const parsed = JSON.parse(await file.text());
+        this.diagramForm.parties().value.set(parsed);
     }
 
     protected generateDiagram() {
