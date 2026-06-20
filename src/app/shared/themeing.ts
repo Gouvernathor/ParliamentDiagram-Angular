@@ -1,4 +1,4 @@
-import { DOCUMENT, inject, Injectable } from "@angular/core";
+import { DOCUMENT, inject, Injectable, signal } from "@angular/core";
 import { CanActivateFn } from "@angular/router";
 
 const THEMES = [ "light", "dark" ] as const;
@@ -11,7 +11,9 @@ const isATheme: (t: any) => t is Theme = ((t: any) => THEMES.includes(t)) as any
 export class ThemeingService {
     private readonly document = inject(DOCUMENT);
 
-    getUserPersistedTheme(): Theme|null {
+    private readonly cachedPersistedTheme = signal(this.directGetUserPersistedTheme());
+
+    private directGetUserPersistedTheme(): Theme|null {
         const saved = globalThis.localStorage?.getItem("theme");
         if (isATheme(saved)) {
             return saved;
@@ -19,7 +21,12 @@ export class ThemeingService {
         return null;
     }
 
+    getUserPersistedTheme(): Theme|null {
+        return this.cachedPersistedTheme();
+    }
+
     setUserPersistedTheme(theme: Theme|null) {
+        this.cachedPersistedTheme.set(theme);
         if (theme) {
             globalThis.localStorage?.setItem("theme", theme);
         } else {
