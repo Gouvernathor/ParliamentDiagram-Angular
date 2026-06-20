@@ -38,6 +38,14 @@ body {
   height: 100%;
 }
 
+// User-chosen theming
+body.light-mode {
+  color-scheme: light;
+}
+body.dark-mode {
+  color-scheme: dark;
+}
+
 /* You can add global styles to this file, and also import other style files */
 body {
   line-height: 1em;
