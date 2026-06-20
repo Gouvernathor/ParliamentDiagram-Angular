@@ -43,14 +43,3 @@ export class ThemeingService {
         }
     }
 }
-
-/**
- * Not really a guard.
- * This sets the `<html>` theme class to the persisted language.
- */
-export const themeGuard: CanActivateFn = () => {
-    const service = inject(ThemeingService);
-    service.applyThemeOnPage(service.getUserPersistedTheme());
-
-    return true;
-};
