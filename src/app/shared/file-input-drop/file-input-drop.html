@@ -1,0 +1,7 @@
+<input type="file"
+    (change)="onChangeFiles($event, $event.target.files)"
+/>
+<input type="text"
+    maxlength="0" size="1"
+    (paste)="onPaste($event)"
+/>
