@@ -5,6 +5,11 @@ mat-toolbar {
     // background-color: var(--mat-sys-primary);
     // color: var(--mat-sys-on-primary);
 
+    mat-toolbar-row {
+        display: flex;
+        gap: 10px;
+    }
+
     img.logo {
         height: 50%;
         filter: drop-shadow(0 0 2.5px contrast-color(var(--mat-sys-primary-container)));
