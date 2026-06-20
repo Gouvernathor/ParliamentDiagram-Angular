@@ -15,7 +15,7 @@ import { Writeable } from "../shared/utils/types";
 import { Contents } from "../shared/contents.directive";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
-import { downloadDiagram } from "../shared/download-diagram";
+import { downloadDiagram } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
 
 interface Party {

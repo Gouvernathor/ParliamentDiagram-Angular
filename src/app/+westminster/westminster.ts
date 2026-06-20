@@ -9,7 +9,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
-import { downloadDiagram } from "../shared/download-diagram";
+import { downloadDiagram } from "../shared/download";
 import { Party, Partylist } from "./partylist/partylist";
 
 const shapes = ["speak", "government", "opposition", "cross"] as const;
