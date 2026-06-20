@@ -38,7 +38,7 @@ export class ThemeingService {
 
 /**
  * Not really a guard.
- * This sets the `<html>` lang attribute to the current language.
+ * This sets the `<html>` theme class to the persisted language.
  */
 export const themeGuard: CanActivateFn = () => {
     const service = inject(ThemeingService);
