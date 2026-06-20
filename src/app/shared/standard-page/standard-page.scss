@@ -7,6 +7,7 @@ mat-toolbar {
 
     img.logo {
         height: 50%;
+        filter: drop-shadow(0 0 2.5px contrast-color(var(--mat-sys-primary-container)));
     }
 }
 
