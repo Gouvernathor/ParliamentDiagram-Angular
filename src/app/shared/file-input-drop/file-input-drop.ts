@@ -14,7 +14,6 @@ export class FileInputDrop {
 
     protected handleDrop(event: DragEvent) {
         event.preventDefault();
-        console.log("drop");
 
         const transfer = event.dataTransfer;
         if (transfer && transfer.files.length) {
@@ -23,8 +22,7 @@ export class FileInputDrop {
     }
 
     protected onChangeFiles(event: Event, files: FileList|null) {
-        // event.preventDefault();
-        console.log("input");
+        event.preventDefault();
 
         if (files?.length) {
             this.files.emit(files);
@@ -33,7 +31,6 @@ export class FileInputDrop {
 
     protected onPaste(event: ClipboardEvent) {
         event.preventDefault();
-        console.log("paste");
 
         const transfer = event.clipboardData;
         if (transfer && transfer.files.length) {
