@@ -5,9 +5,20 @@
     <!-- TODO spacer then light/dark mode switch -->
 </mat-toolbar>
 
-<!-- nav (later, when there is more than one page)
-a card for each major page
- -->
+<nav>
+    <a routerLink="/arch">
+        <mat-card>
+            <img mat-card-image src="sample-arch.svg" />
+            <mat-card-content>Arch-style diagram</mat-card-content>
+        </mat-card>
+    </a>
+    <a routerLink="/westminster">
+        <mat-card>
+            <img mat-card-image src="sample-westminster.svg" />
+            <mat-card-content>Westminster-style diagram</mat-card-content>
+        </mat-card>
+    </a>
+</nav>
 
 <!-- transclude -->
 <main>

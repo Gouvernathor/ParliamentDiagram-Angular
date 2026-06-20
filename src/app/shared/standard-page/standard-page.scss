@@ -11,6 +11,17 @@ mat-toolbar {
     }
 }
 
+nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 10px;
+    margin-block: 10px;
+
+    text-align: center;
+}
+
+nav,
 main {
     /*
     https://m3.material.io/foundations/layout/applying-layout/compact
