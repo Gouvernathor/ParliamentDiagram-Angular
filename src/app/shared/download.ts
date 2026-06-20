@@ -8,7 +8,7 @@ export function downloadDiagram(diagram: SVGSVGElement,
 }
 
 export function downloadJson(data: Object,
-    filename = "data.json",
+    filename = "diagram-data.json",
 ) {
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     downloadBlob(blob, filename);

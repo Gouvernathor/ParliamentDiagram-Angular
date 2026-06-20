@@ -150,6 +150,12 @@
     </div>
 
     <div>
+        <button matButton="text"
+            (click)="savePreset()"
+        >
+            Download preset
+        </button>
+
         <button matButton="filled"
             [disabled]="!diagramForm().valid()"
             [disabledInteractive]="true"
