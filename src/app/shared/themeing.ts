@@ -27,6 +27,7 @@ export class ThemeingService {
 
     setUserPersistedTheme(theme: Theme|null) {
         this.cachedPersistedTheme.set(theme);
+        this.applyThemeOnPage(theme);
         if (theme) {
             globalThis.localStorage?.setItem("theme", theme);
         } else {

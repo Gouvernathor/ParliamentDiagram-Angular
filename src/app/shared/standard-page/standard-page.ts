@@ -15,7 +15,6 @@ export class StandardPage {
     protected readonly themeingService = inject(ThemeingService);
 
     protected chooseTheme(theme: Theme) {
-        this.themeingService.applyThemeOnPage(theme);
         this.themeingService.setUserPersistedTheme(theme);
     }
 }
