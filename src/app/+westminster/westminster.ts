@@ -11,6 +11,7 @@ import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
 import { downloadDiagram, downloadJson } from "../shared/download";
 import { Party, Partylist } from "./partylist/partylist";
+import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
 
 const shapes = ["speak", "government", "opposition", "cross"] as const;
 type Shape = typeof shapes[number];
@@ -37,7 +38,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, Contents,
+        StandardPage, Partylist, Contents, FileInputDrop,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -98,6 +99,16 @@ export class WestminsterPage {
 
     protected savePreset() {
         downloadJson(this.diagramForm.parties().value());
+    }
+    protected async loadPreset(files: FileList) {
+        const file = files[0];
+
+        if (file.size > 10_000) {
+            throw new Error("file too heavy");
+        }
+
+        const parsed = JSON.parse(await file.text());
+        this.diagramForm.parties().value.set(parsed);
     }
 
     protected generateDiagram() {
