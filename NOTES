@@ -45,3 +45,6 @@ In the narrow version, it is too narrow and doesn't make good use of the availab
 The narrow version could wrap but that would probably be detrimental to the understandability of the ordering of the parties
 In the large version, it is too compressed because there's not enough room
 In both versions, the border color jumping around depending on the border width is not great
+
+The preset loading does not check anything about the loaded data.
+This breaks the page when it happens (for instance loading an arch preset in westminster or vice versa).
