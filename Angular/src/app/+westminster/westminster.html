@@ -21,9 +21,15 @@
         </p>
     </div>
 
-    <file-input-drop
-        (files)="loadPreset($event)"
-    />
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Presets</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <file-input-drop
+            (files)="loadPreset($event)"
+        />
+    </mat-expansion-panel>
 
     <mat-expansion-panel>
         <mat-expansion-panel-header>

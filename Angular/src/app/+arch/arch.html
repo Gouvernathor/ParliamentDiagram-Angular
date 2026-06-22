@@ -22,15 +22,21 @@
         </p>
     </div>
 
-    <!-- (later) query party list from a Commons diagram -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Presets</mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- (later) query party list from a country in a list -->
+        <!-- (later) query party list from a Commons diagram -->
 
-    <button matButton (click)="applyUSPreset()">Use the United States dual party preset</button>
+        <!-- (later) query party list from a country in a list -->
 
-    <file-input-drop
-        (files)="loadPreset($event)"
-    />
+        <button matButton (click)="applyUSPreset()">Use the United States dual party preset</button>
+
+        <file-input-drop
+            (files)="loadPreset($event)"
+        />
+    </mat-expansion-panel>
 
     <mat-expansion-panel>
         <mat-expansion-panel-header>
