@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
 import Session from "m3api";
+import {
+    OAuthClient, deserializeOAuthSession, serializeOAuthSession,
+    completeOAuthSession, initOAuthSession, isCompleteOAuthSession,
 // @ts-expect-error
-import { OAuthClient, deserializeOAuthSession, serializeOAuthSession } from "m3api-oauth2";
+} from "m3api-oauth2";
 
 interface Credentials {
     key: string;
@@ -24,7 +27,7 @@ export class SessionService {
         secret: "5a7d8c3c505b31387eace86631937e42e225f975",
     };
 
-    loadSession(credentials = this.selfRestrictedCredentials) {
+    private loadSession(credentials = this.selfRestrictedCredentials) {
         const session = new Session(this.apiUrl, {
             crossorigin: true,
         }, {
@@ -43,8 +46,54 @@ export class SessionService {
         return session;
     }
 
-    saveSession(session: Session) {
+    private saveSession(session: Session) {
         const serialization = serializeOAuthSession(session);
         globalThis.sessionStorage?.setItem(this.storageKey, JSON.stringify(serialization));
     }
+
+    private async init(session: Session): Promise<InitedSession|CompletedSession> {
+        if (isCompleteOAuthSession(session)) {
+            return {
+                session,
+                state: "complete",
+            };
+        } else {
+            const url: string = await initOAuthSession(session);
+            this.saveSession(session);
+            return {
+                session,
+                authorizationUrl: url,
+            };
+        }
+    }
+
+    loadAndInit(credentials: Credentials) {
+        return this.init(this.loadSession(credentials));
+    }
+
+    /**
+     * To be called in/by the oauth callback route/age
+     * @param href the payload is the "code" query param, the rest of the url is ignored
+     */
+    async complete(session: Session, href: string) {
+        await completeOAuthSession(session, href);
+        this.saveSession(session);
+    }
+}
+
+/**
+ * When you have this, the next step is to make the user click on the authorizationUrl.
+ * Not sure the session is useful to anything at that point.
+ */
+interface InitedSession {
+    session: Session;
+    authorizationUrl: string;
+}
+
+/**
+ * When you have this, then you're ready to roll.
+ */
+interface CompletedSession {
+    session: Session;
+    state: "complete"; // awaiting better data
 }
