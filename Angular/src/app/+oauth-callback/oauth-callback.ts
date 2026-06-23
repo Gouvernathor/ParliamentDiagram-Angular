@@ -1,6 +1,10 @@
 import { Component, inject, input, OnInit } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { SessionService } from "../shared/oauth/session.service";
+
+export const oAuthCallbackPageCodeResolver: ResolveFn<string|null> = route =>
+    route.queryParamMap.get("code");
 
 @Component({
     imports: [StandardPage],

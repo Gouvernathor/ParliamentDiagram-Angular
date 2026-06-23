@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ArchPage } from './+arch/arch';
 import { WestminsterPage } from './+westminster/westminster';
+import { OauthCallbackPage, oAuthCallbackPageCodeResolver } from './+oauth-callback/oauth-callback';
 
 export const routes: Routes = [
     {
@@ -41,6 +42,15 @@ export const routes: Routes = [
         path: "westminster",
         component: WestminsterPage,
         title: "Westminster-style parliament diagram generator",
+    },
+
+    {
+        path: "oauth_callback",
+        component: OauthCallbackPage,
+        title: "OAuth callback",
+        resolve: {
+            code: oAuthCallbackPageCodeResolver,
+        },
     },
 
     // POST newarch, newarch.py, westminster and westminster.py : backend API
