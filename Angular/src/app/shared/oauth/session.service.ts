@@ -73,7 +73,7 @@ export class SessionService {
     }
 
     /**
-     * To be called in/by the oauth callback route/age
+     * To be called in/by the oauth callback route/page
      * @param href the payload is the "code" query param, the rest of the url is ignored
      */
     async complete(session: Session, href: string, useLocalStorage = false) {
@@ -84,9 +84,9 @@ export class SessionService {
 
 /**
  * When you have this, the next step is to make the user click on the authorizationUrl.
- * Not sure the session is useful to anything at that point.
+ * The session is only useful to be passed to the complete method of the session service.
  */
 export interface InitedSession {
-    // session: Session;
+    session: Session;
     authorizationUrl: string;
 }
