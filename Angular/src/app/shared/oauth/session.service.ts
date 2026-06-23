@@ -28,6 +28,8 @@ export class SessionService {
         secret: "5a7d8c3c505b31387eace86631937e42e225f975",
     };
 
+    private session: InitedSession|CompletedSession|null = null;
+
     private loadSession(credentials: Credentials) {
         const session = new Session(this.apiUrl, {
             crossorigin: true,
@@ -70,6 +72,10 @@ export class SessionService {
 
     loadAndInit(credentials = this.selfRestrictedCredentials) {
         return this.init(this.loadSession(credentials));
+    }
+
+    async getSession() {
+        return this.session ?? this.loadAndInit();
     }
 
     /**
