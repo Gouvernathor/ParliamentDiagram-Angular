@@ -8,27 +8,27 @@ import {
 import { CompletedSession } from "./upload";
 
 interface Credentials {
-    key: string;
-    secret?: string;
+    readonly key: string;
+    readonly secret?: string;
 }
 
 @Injectable({
     providedIn: "root",
 })
 export class SessionService {
-    private readonly apiUrl = "commons.wikimedia.org"; // not sure, maybe meta.wikimedia.org to auth first
-    private readonly storageKey = "oauth-session";
-
-    readonly selfRestrictedCredentials: Credentials = {
+    static readonly selfRestrictedCredentials: Credentials = {
         key: "7fbac585c1bfcd02898ca7ce3e8041b0",
         secret: "8850f9c90952fbfd854a3b442b9ceb78c15b82da",
     };
-    readonly localCredentials: Credentials = {
+    static readonly localCredentials: Credentials = {
         key: "3169b028c9dab61c11f925ab307a6aec",
         secret: "5a7d8c3c505b31387eace86631937e42e225f975",
     };
 
-    private credentials = this.selfRestrictedCredentials;
+    private readonly apiUrl = "commons.wikimedia.org"; // not sure, maybe meta.wikimedia.org to auth first
+    private readonly storageKey = "oauth-session";
+
+    private credentials = SessionService.selfRestrictedCredentials;
     private session: InitedSession|CompletedSession|null = null;
 
     private loadSession(credentials: Credentials) {
