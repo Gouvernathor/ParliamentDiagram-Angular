@@ -83,6 +83,10 @@ export class SessionService {
         return this.loadAndInit(credentials);
     }
 
+    async isAuthenticated() {
+        return (await this.getSession()) instanceof CompletedSession;
+    }
+
     private makeFakeHref(code: string): string {
         return `https://www.youtube.com/?code=${code}`;
     }
