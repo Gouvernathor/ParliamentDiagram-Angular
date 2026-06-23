@@ -83,12 +83,13 @@ export class SessionService {
         return this.loadAndInit(credentials);
     }
 
-    /**
-     * To be called in/by the oauth callback route/page
-     * @param href the payload is the "code" query param, the rest of the url is ignored
-     */
-    async complete(session: Session, href: string, useLocalStorage = false) {
-        await completeOAuthSession(session, href);
+    private makeFakeHref(code: string): string {
+        return `https://www.youtube.com/?code=${code}`;
+    }
+
+    async complete(code: string, useLocalStorage = false) {
+        const session = (await this.getSession()).session;
+        await completeOAuthSession(session, this.makeFakeHref(code));
         this.saveSession(session, useLocalStorage);
     }
 }
