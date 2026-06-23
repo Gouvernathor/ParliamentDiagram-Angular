@@ -39,7 +39,7 @@ export class SessionService {
             ),
         });
 
-        const serialization = globalThis.sessionStorage?.getItem(this.storageKey);
+        const serialization = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
         if (serialization) {
             deserializeOAuthSession(session, JSON.parse(serialization));
         }
@@ -47,9 +47,12 @@ export class SessionService {
         return session;
     }
 
-    private saveSession(session: Session) {
+    private saveSession(session: Session, useLocalStorage: boolean) {
         const serialization = serializeOAuthSession(session);
-        globalThis.sessionStorage?.setItem(this.storageKey, JSON.stringify(serialization));
+        const storage = useLocalStorage ?
+            globalThis.localStorage :
+            globalThis.sessionStorage;
+        storage?.setItem(this.storageKey, JSON.stringify(serialization));
     }
 
     private async init(session: Session): Promise<InitedSession|CompletedSession> {
@@ -57,7 +60,7 @@ export class SessionService {
             return new CompletedSession(session);
         } else {
             const url: string = await initOAuthSession(session);
-            this.saveSession(session);
+            this.saveSession(session, false);
             return {
                 session,
                 authorizationUrl: url,
@@ -73,9 +76,9 @@ export class SessionService {
      * To be called in/by the oauth callback route/age
      * @param href the payload is the "code" query param, the rest of the url is ignored
      */
-    async complete(session: Session, href: string) {
+    async complete(session: Session, href: string, useLocalStorage = false) {
         await completeOAuthSession(session, href);
-        this.saveSession(session);
+        this.saveSession(session, useLocalStorage);
     }
 }
 
