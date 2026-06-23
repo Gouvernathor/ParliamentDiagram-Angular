@@ -8,7 +8,7 @@ export interface UploadParameters {
 
 export class CompletedSession {
     constructor(
-        private readonly session: Session
+        public readonly session: Session
     ) {}
 
     async upload(options: Readonly<Partial<UploadParameters>> = {}) {
