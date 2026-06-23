@@ -28,6 +28,7 @@ export class SessionService {
         secret: "5a7d8c3c505b31387eace86631937e42e225f975",
     };
 
+    private credentials = this.selfRestrictedCredentials;
     private session: InitedSession|CompletedSession|null = null;
 
     private loadSession(credentials: Credentials) {
@@ -70,12 +71,16 @@ export class SessionService {
         }
     }
 
-    loadAndInit(credentials = this.selfRestrictedCredentials) {
+    loadAndInit(credentials: Credentials) {
+        this.credentials = credentials;
         return this.init(this.loadSession(credentials));
     }
 
-    async getSession() {
-        return this.session ?? this.loadAndInit();
+    async getSession(credentials?: Credentials) {
+        if (!credentials || credentials === this.credentials) {
+            return this.session ?? this.loadAndInit(this.credentials);
+        }
+        return this.loadAndInit(credentials);
     }
 
     /**
