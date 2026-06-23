@@ -5,6 +5,7 @@ import {
     completeOAuthSession, initOAuthSession, isCompleteOAuthSession,
 // @ts-expect-error
 } from "m3api-oauth2";
+import { CompletedSession } from "./upload";
 
 interface Credentials {
     key: string;
@@ -53,10 +54,7 @@ export class SessionService {
 
     private async init(session: Session): Promise<InitedSession|CompletedSession> {
         if (isCompleteOAuthSession(session)) {
-            return {
-                session,
-                state: "complete",
-            };
+            return new CompletedSession(session);
         } else {
             const url: string = await initOAuthSession(session);
             this.saveSession(session);
@@ -85,15 +83,7 @@ export class SessionService {
  * When you have this, the next step is to make the user click on the authorizationUrl.
  * Not sure the session is useful to anything at that point.
  */
-interface InitedSession {
-    session: Session;
+export interface InitedSession {
+    // session: Session;
     authorizationUrl: string;
-}
-
-/**
- * When you have this, then you're ready to roll.
- */
-interface CompletedSession {
-    session: Session;
-    state: "complete"; // awaiting better data
 }
