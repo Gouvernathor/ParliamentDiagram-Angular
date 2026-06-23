@@ -71,7 +71,7 @@ export class SessionService {
         }
     }
 
-    loadAndInit(credentials: Credentials) {
+    private loadAndInit(credentials: Credentials) {
         this.credentials = credentials;
         return this.init(this.loadSession(credentials));
     }
