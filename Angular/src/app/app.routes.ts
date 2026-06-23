@@ -46,6 +46,11 @@ export const routes: Routes = [
 
     {
         path: "oauth_callback",
+        redirectTo: "/oauth-callback",
+        pathMatch: "full",
+    },
+    {
+        path: "oauth-callback",
         component: OauthCallbackPage,
         title: "OAuth callback",
         resolve: {
