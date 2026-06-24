@@ -83,6 +83,10 @@ export class SessionService {
         return this.loadAndInit(credentials);
     }
 
+    async refresh() {
+        return this.loadAndInit(this.credentials);
+    }
+
     async isAuthenticated() {
         return (await this.getSession()) instanceof CompletedSession;
     }
