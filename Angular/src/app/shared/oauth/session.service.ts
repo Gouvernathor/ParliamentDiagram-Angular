@@ -76,9 +76,9 @@ export class SessionService {
         return this.init(this.loadSession(credentials));
     }
 
-    async getSession(credentials?: Credentials) {
-        if (!credentials || credentials === this.credentials) {
-            return this.session ?? this.loadAndInit(this.credentials);
+    async getSession(credentials = this.credentials) {
+        if (credentials === this.credentials && this.session) {
+            return this.session;
         }
         return this.loadAndInit(credentials);
     }
