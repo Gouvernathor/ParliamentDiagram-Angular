@@ -28,7 +28,7 @@ export class SessionService {
     private readonly apiUrl = "commons.wikimedia.org"; // not sure, maybe meta.wikimedia.org to auth first
     private readonly storageKey = "oauth-session";
 
-    private credentials = SessionService.selfRestrictedCredentials;
+    private credentials = SessionService.localCredentials;
     private session: InitedSession|CompletedSession|null = null;
 
     private loadSession(credentials: Credentials) {
