@@ -17,7 +17,7 @@
         </mat-button-toggle-group>
 
         @if (oauthEnabled) {
-            <button matButton="tonal">Refresh</button>
+            <button matButton="tonal" (click)="sessionService.refreshFromStorage()">Refresh</button>
             @if (sessionService.isLoggedIn()) {
                 Logged in.
             } @else {
