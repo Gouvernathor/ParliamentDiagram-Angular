@@ -15,6 +15,15 @@
             <mat-button-toggle value="light">L</mat-button-toggle>
             <mat-button-toggle value="dark">D</mat-button-toggle>
         </mat-button-toggle-group>
+
+        @if (oauthEnabled) {
+            <button matButton="tonal">Refresh</button>
+            @if (sessionService.isLoggedIn()) {
+                Logged in.
+            } @else {
+                <a [href]="sessionService.getAuthorizationURL()" matButton="filled" target="_blank">Log in to Wikimedia Commons</a>
+            }
+        }
     </mat-toolbar-row>
 </mat-toolbar>
 
