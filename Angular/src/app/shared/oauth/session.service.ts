@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { SessionPersistService } from "./session-persist.service";
 
 export interface UploadParameters {
@@ -21,13 +21,17 @@ export class SessionService {
         return this.session.isComplete;
     }
 
+    private authorizationURL = signal<string|null>(null);
+
     /**
      * If not logged in, provide this link to the user.
      */
-    async getAuthorizationURL() {
-        const url = await this.session.getAuthorizeURL();
-        this.persistService.saveSession(true);
-        return url;
+    getAuthorizationURL() {
+        const cached = this.authorizationURL();
+        if (!cached) {
+            this.updateAuthorizationURL();
+        }
+        return cached;
     }
 
     /**
@@ -45,6 +49,13 @@ export class SessionService {
      */
     refreshFromStorage() {
         this.persistService.refreshFromStorage();
+        this.authorizationURL() || this.updateAuthorizationURL();
+    }
+
+    private async updateAuthorizationURL() {
+        const url = await this.session.getAuthorizeURL();
+        this.persistService.saveSession(true);
+        this.authorizationURL.set(url);
     }
 
     /**
