@@ -1,10 +1,5 @@
 import { Injectable } from "@angular/core";
-import Session from "m3api";
-import {
-    OAuthClient, deserializeOAuthSession, serializeOAuthSession,
-    completeOAuthSession, initOAuthSession, isCompleteOAuthSession,
-// @ts-expect-error
-} from "m3api-oauth2";
+import { OAuthCredentials, OAuthSession } from "@gouvernathor/m3api-oauth2";
 import { CompletedSession } from "./upload";
 
 interface Credentials {
@@ -32,37 +27,34 @@ export class SessionService {
     private session: InitedSession|CompletedSession|null = null;
 
     private loadSession(credentials: Credentials) {
-        const session = new Session(this.apiUrl, {
+        const serializationJson = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
+        const serialization = serializationJson ? JSON.parse(serializationJson) : {};
+
+        const session = new OAuthSession(this.apiUrl, {
             crossorigin: true,
         }, {
-            // @ts-expect-error
-            "m3api-oauth2/client": new OAuthClient(
+            "m3api-oauth2/credentials": new OAuthCredentials(
                 credentials.key,
                 credentials.secret,
             ),
-        });
-
-        const serialization = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
-        if (serialization) {
-            deserializeOAuthSession(session, JSON.parse(serialization));
-        }
+        }, serialization);
 
         return session;
     }
 
-    private saveSession(session: Session, useLocalStorage: boolean) {
-        const serialization = serializeOAuthSession(session);
+    private saveSession(session: OAuthSession, useLocalStorage: boolean) {
+        const serialization = session.serialize();
         const storage = useLocalStorage ?
             globalThis.localStorage :
             globalThis.sessionStorage;
         storage?.setItem(this.storageKey, JSON.stringify(serialization));
     }
 
-    private async init(session: Session): Promise<InitedSession|CompletedSession> {
-        if (isCompleteOAuthSession(session)) {
+    private async init(session: OAuthSession): Promise<InitedSession|CompletedSession> {
+        if (session.isComplete) {
             return new CompletedSession(session);
         } else {
-            const url: string = await initOAuthSession(session);
+            const url: string = await session.getAuthorizeURL();
             this.saveSession(session, false);
             return {
                 session,
@@ -91,13 +83,9 @@ export class SessionService {
         return (await this.getSession()) instanceof CompletedSession;
     }
 
-    private makeFakeHref(code: string): string {
-        return `https://www.youtube.com/?code=${code}`;
-    }
-
     async complete(code: string, useLocalStorage = false) {
         const session = (await this.getSession()).session;
-        await completeOAuthSession(session, this.makeFakeHref(code));
+        await session.complete(code);
         this.saveSession(session, useLocalStorage);
     }
 }
@@ -107,6 +95,6 @@ export class SessionService {
  * The session is only useful to be passed to the complete method of the session service.
  */
 export interface InitedSession {
-    session: Session;
+    session: OAuthSession;
     authorizationUrl: string;
 }
