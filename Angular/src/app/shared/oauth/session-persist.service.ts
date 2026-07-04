@@ -42,6 +42,7 @@ export class SessionPersistService {
         return new OAuthSession(this.apiUrl, {
             crossorigin: true,
         }, {
+            userAgent: "ParliamentDiagram-Angular",
             "m3api-oauth2/credentials": this.credentials,
         }, serialization);
     }
