@@ -24,6 +24,15 @@ export class SessionPersistService {
         return this.session ??= this.loadSession();
     }
 
+    refreshFromStorage() {
+        const session = this.session;
+        if (session) {
+            session.deserialize(this.getSerializationFromStorage());
+        } else {
+            this.loadSession();
+        }
+    }
+
     private loadSession() {
         return this.loadFromStorage();
     }
