@@ -5,11 +5,11 @@ import { OAuthCredentials, OAuthSession } from "@gouvernathor/m3api-oauth2";
     providedIn: "root",
 })
 export class SessionPersistService {
-    static readonly selfRestrictedCredentials = new OAuthCredentials(
+    private static readonly selfRestrictedCredentials = new OAuthCredentials(
         "7fbac585c1bfcd02898ca7ce3e8041b0",
         "8850f9c90952fbfd854a3b442b9ceb78c15b82da",
     );
-    static readonly localCredentials = new OAuthCredentials(
+    private static readonly localCredentials = new OAuthCredentials(
         "3169b028c9dab61c11f925ab307a6aec",
         "5a7d8c3c505b31387eace86631937e42e225f975",
     );
