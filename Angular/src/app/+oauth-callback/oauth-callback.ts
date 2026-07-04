@@ -2,12 +2,13 @@ import { Component, inject, input, OnInit } from "@angular/core";
 import { ResolveFn } from "@angular/router";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { SessionService } from "../shared/oauth/session.service";
+import { MatButtonModule } from "@angular/material/button";
 
 export const oAuthCallbackPageCodeResolver: ResolveFn<string|null> = route =>
     route.queryParamMap.get("code");
 
 @Component({
-    imports: [StandardPage],
+    imports: [StandardPage, MatButtonModule],
     templateUrl: "./oauth-callback.html",
     styleUrl: "./oauth-callback.scss",
 })
@@ -18,6 +19,7 @@ export class OauthCallbackPage implements OnInit {
     readonly code = input.required<string|null>();
 
     protected done = false;
+    protected persisted = false;
 
     async ngOnInit() {
         const code = this.code();
@@ -25,5 +27,10 @@ export class OauthCallbackPage implements OnInit {
             await this.sessionService.complete(code, false);
             this.done = true;
         }
+    }
+
+    protected persist() {
+        this.sessionService.complete(this.code()!, true);
+        this.persisted = true;
     }
 }
