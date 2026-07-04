@@ -18,75 +18,31 @@ export class SessionService {
     private readonly apiUrl = "commons.wikimedia.org"; // not sure, maybe meta.wikimedia.org to auth first
     private readonly storageKey = "oauth-session";
 
-    private credentials = SessionService.localCredentials;
-    private session: InitedSession|CompletedSession|null = null;
+    private readonly credentials = SessionService.localCredentials;
+    private session: OAuthSession|null = null;
 
-    private loadSession(credentials: OAuthCredentials) {
-        const serializationJson = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
-        const serialization = serializationJson ? JSON.parse(serializationJson) : {};
+    getSession() {
+        return this.session ??= this.loadSession();
+    }
 
-        const session = new OAuthSession(this.apiUrl, {
+    private loadSession() {
+        return this.loadFromStorage();
+    }
+
+    private loadFromStorage() {
+        const serialization = this.getSerializationFromStorage();
+        return new OAuthSession(this.apiUrl, {
             crossorigin: true,
         }, {
-            "m3api-oauth2/credentials": credentials,
+            "m3api-oauth2/credentials": this.credentials,
         }, serialization);
-
-        return session;
     }
 
-    private saveSession(session: OAuthSession, useLocalStorage: boolean) {
-        const serialization = session.serialize();
-        const storage = useLocalStorage ?
-            globalThis.localStorage :
-            globalThis.sessionStorage;
-        storage?.setItem(this.storageKey, JSON.stringify(serialization));
-    }
-
-    private async init(session: OAuthSession): Promise<InitedSession|CompletedSession> {
-        if (session.isComplete) {
-            return new CompletedSession(session);
-        } else {
-            const url: string = await session.getAuthorizeURL();
-            this.saveSession(session, false);
-            return {
-                session,
-                authorizationUrl: url,
-            };
+    private getSerializationFromStorage() {
+        const json: string|null|undefined = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
+        if (json) {
+            return JSON.parse(json);
         }
+        return {};
     }
-
-    private loadAndInit(credentials: OAuthCredentials) {
-        this.credentials = credentials;
-        return this.init(this.loadSession(credentials));
-    }
-
-    async getSession(credentials = this.credentials) {
-        if (credentials === this.credentials && this.session) {
-            return this.session;
-        }
-        return this.loadAndInit(credentials);
-    }
-
-    async refresh() {
-        return this.loadAndInit(this.credentials);
-    }
-
-    async isAuthenticated() {
-        return (await this.getSession()) instanceof CompletedSession;
-    }
-
-    async complete(code: string, useLocalStorage = false) {
-        const session = (await this.getSession()).session;
-        await session.complete(code);
-        this.saveSession(session, useLocalStorage);
-    }
-}
-
-/**
- * When you have this, the next step is to make the user click on the authorizationUrl.
- * It is also obtainable
- */
-export interface InitedSession {
-    session: OAuthSession;
-    authorizationUrl?: string;
 }
