@@ -31,16 +31,16 @@ export class SessionService {
 
     /**
      * To be called from the oauth callback page
-     * @param useLocalStorage whether to save the authorization in a more durable storage,
-     * or to forget it when closing the window
      */
     async complete(code: string) {
         try {
             await this.session.complete(code);
+            this.persistService.saveSession();
         } catch (e) {
             this.persistService.resetIncomplete();
+            this.persistService.saveSession();
+            throw e;
         }
-        this.persistService.saveSession();
     }
 
     /**
