@@ -1,4 +1,4 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable, Signal, signal } from "@angular/core";
 import { OAuthCredentials, OAuthSession } from "@gouvernathor/m3api-oauth2";
 
 @Injectable({
@@ -18,7 +18,10 @@ export class SessionPersistService {
     private readonly storageKey = "oauth-session";
 
     private readonly credentials = SessionPersistService.localCredentials;
-    private session: OAuthSession = this.loadFromStorage();
+    private readonly session: OAuthSession = this.loadFromStorage();
+    private readonly sessionSignal = signal(this.session, { equal: () => false });
+
+    readonly getSession = this.sessionSignal.asReadonly();
 
     constructor() {
         globalThis.addEventListener?.("storage", ev => {
@@ -38,11 +41,9 @@ export class SessionPersistService {
         }, serialization);
     }
 
-    getSession = signal(this.session, { equal: () => false });
-
     private refreshFromStorage() {
         this.session.deserialize(this.getSerializationFromStorage());
-        this.getSession.update(s => s);
+        this.sessionSignal.update(s => s);
     }
 
     private getSerializationFromStorage() {
