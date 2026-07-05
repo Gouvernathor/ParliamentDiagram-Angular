@@ -3,8 +3,13 @@
 
     @let code = this.code();
     @if (code) {
-        @if (done()) {
-            <p>Done ! You can close this tab.</p>
+        @if (error()) {
+            <div class="errorcontainer">
+                <p>An error occurred when completing the authorization.</p>
+                <p>{{error().toString()}}</p>
+            </div>
+        } @else if (done()) {
+            <p>Done ! You can close this tab or go to another page.</p>
         } @else {
             <p>Please wait, your authentication is being processed…</p>
         }
