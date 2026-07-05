@@ -28,13 +28,6 @@ export class SessionPersistService {
         });
     }
 
-    getSession = signal(this.session, { equal: () => false });
-
-    refreshFromStorage() {
-        this.session.deserialize(this.getSerializationFromStorage());
-        this.getSession.update(s => s);
-    }
-
     private loadFromStorage() {
         const serialization = this.getSerializationFromStorage();
         return new OAuthSession(this.apiUrl, {
@@ -43,6 +36,13 @@ export class SessionPersistService {
             userAgent: "ParliamentDiagram-Angular",
             "m3api-oauth2/credentials": this.credentials,
         }, serialization);
+    }
+
+    getSession = signal(this.session, { equal: () => false });
+
+    refreshFromStorage() {
+        this.session.deserialize(this.getSerializationFromStorage());
+        this.getSession.update(s => s);
     }
 
     private getSerializationFromStorage() {
