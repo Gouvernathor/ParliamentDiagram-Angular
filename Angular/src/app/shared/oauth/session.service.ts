@@ -1,4 +1,4 @@
-import { inject, Injectable, resource, signal } from "@angular/core";
+import { inject, Injectable, resource } from "@angular/core";
 import { SessionPersistService } from "./session-persist.service";
 
 export interface UploadParameters {
