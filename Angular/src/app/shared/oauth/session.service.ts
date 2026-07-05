@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable, resource, signal } from "@angular/core";
 import { SessionPersistService } from "./session-persist.service";
 
 export interface UploadParameters {
@@ -21,18 +21,13 @@ export class SessionService {
         return this.session.isComplete;
     }
 
-    private authorizationURL = signal<string|null>(null);
-
     /**
      * If not logged in, provide this link to the user.
      */
-    getAuthorizationURL() {
-        const cached = this.authorizationURL();
-        if (!cached) {
-            this.updateAuthorizationURL();
-        }
-        return cached;
-    }
+    readonly authorizationURL = resource({
+        params: () => this.session,
+        loader: ({params: session}) => session.getAuthorizeURL(),
+    }).asReadonly();
 
     /**
      * To be called from the oauth callback page
@@ -42,12 +37,6 @@ export class SessionService {
     async complete(code: string) {
         await this.session.complete(code);
         this.persistService.saveSession();
-    }
-
-    private async updateAuthorizationURL() {
-        const url = await this.session.getAuthorizeURL();
-        this.persistService.saveSession();
-        this.authorizationURL.set(url);
     }
 
     /**

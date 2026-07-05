@@ -20,7 +20,7 @@
             @if (sessionService.isLoggedIn()) {
                 Logged in.
             } @else {
-                <a [href]="sessionService.getAuthorizationURL()" matButton="filled" target="_blank">Log in to Wikimedia Commons</a>
+                <a [href]="sessionService.authorizationURL.value()" matButton="filled" target="_blank">Log in to Wikimedia Commons</a>
             }
         }
     </mat-toolbar-row>
