@@ -20,6 +20,14 @@ export class SessionPersistService {
     private readonly credentials = SessionPersistService.localCredentials;
     private session: OAuthSession = this.loadFromStorage();
 
+    constructor() {
+        globalThis.addEventListener?.("storage", ev => {
+            if (ev.key === this.storageKey) {
+                this.refreshFromStorage();
+            }
+        });
+    }
+
     getSession = signal(this.session, { equal: () => false });
 
     refreshFromStorage() {
