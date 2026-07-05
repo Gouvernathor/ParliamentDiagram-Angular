@@ -1,8 +1,7 @@
 <app-standard-page [authInNewTab]="false">
     <h2>OAuth landing</h2>
 
-    @let code = this.code();
-    @if (code) {
+    @if (code()) {
         @if (error()) {
             <div class="errorcontainer">
                 <p>An error occurred when completing the authorization.</p>
