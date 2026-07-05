@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from "@angular/core";
+import { Component, inject, input, OnInit, signal } from "@angular/core";
 import { ResolveFn } from "@angular/router";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { SessionService } from "../shared/oauth/session.service";
@@ -18,13 +18,13 @@ export class OauthCallbackPage implements OnInit {
     /** To be resolved by the router from the query params */
     readonly code = input.required<string|null>();
 
-    protected done = false;
+    protected readonly done = signal(false);
 
     async ngOnInit() {
         const code = this.code();
         if (code) {
             await this.sessionService.complete(code);
-            this.done = true;
+            this.done.set(true);
         }
     }
 }
