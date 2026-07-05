@@ -19,18 +19,12 @@ export class OauthCallbackPage implements OnInit {
     readonly code = input.required<string|null>();
 
     protected done = false;
-    protected persisted = false;
 
     async ngOnInit() {
         const code = this.code();
         if (code) {
-            await this.sessionService.complete(code, false);
+            await this.sessionService.complete(code);
             this.done = true;
         }
-    }
-
-    protected persist() {
-        this.sessionService.complete(this.code()!, true);
-        this.persisted = true;
     }
 }

@@ -39,9 +39,9 @@ export class SessionService {
      * @param useLocalStorage whether to save the authorization in a more durable storage,
      * or to forget it when closing the window
      */
-    async complete(code: string, useLocalStorage: boolean) {
+    async complete(code: string) {
         await this.session.complete(code);
-        this.persistService.saveSession(useLocalStorage);
+        this.persistService.saveSession();
     }
 
     /**
@@ -54,7 +54,7 @@ export class SessionService {
 
     private async updateAuthorizationURL() {
         const url = await this.session.getAuthorizeURL();
-        this.persistService.saveSession(true);
+        this.persistService.saveSession();
         this.authorizationURL.set(url);
     }
 

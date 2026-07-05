@@ -38,20 +38,17 @@ export class SessionPersistService {
     }
 
     private getSerializationFromStorage() {
-        const json: string|null|undefined = globalThis.localStorage?.getItem(this.storageKey) ?? globalThis.sessionStorage?.getItem(this.storageKey);
+        const json: string|null|undefined = globalThis.localStorage?.getItem(this.storageKey);
         if (json) {
             return JSON.parse(json);
         }
         return {};
     }
 
-    saveSession(useLocalStorage: boolean) {
+    saveSession() {
         if (this.session) {
             const serialization = this.session.serialize();
-            const storage = useLocalStorage ?
-                globalThis.localStorage :
-                globalThis.sessionStorage;
-            storage?.setItem(this.storageKey, JSON.stringify(serialization));
+            globalThis.localStorage?.setItem(this.storageKey, JSON.stringify(serialization));
         }
     }
 }

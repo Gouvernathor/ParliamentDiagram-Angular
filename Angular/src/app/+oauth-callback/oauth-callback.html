@@ -5,8 +5,6 @@
     @if (code) {
         @if (done) {
             <p>Done ! You can close this tab.</p>
-
-            <button matButton="tonal" (click)="persist()" [disabled]="persisted">Remember me for slightly longer</button>
         } @else {
             <p>Please wait, your authentication is being processed…</p>
         }
