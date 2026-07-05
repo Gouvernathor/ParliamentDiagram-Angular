@@ -1,9 +1,13 @@
 import { downloadBlob } from "canvas-blob-manager/copyDownloadBlob";
 
+export function diagramToBlob(diagram: SVGSVGElement) {
+    return new Blob([diagram.outerHTML], { type: "image/svg+xml" });
+}
+
 export function downloadDiagram(diagram: SVGSVGElement,
     filename = "parliament-diagram.svg",
 ) {
-    const blob = new Blob([diagram.outerHTML], { type: "image/svg+xml" });
+    const blob = diagramToBlob(diagram);
     downloadBlob(blob, filename);
 }
 

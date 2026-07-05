@@ -3,8 +3,8 @@ import { SessionPersistService } from "./session-persist.service";
 
 export interface UploadParameters {
     filename: string;
-    ignorewarnings: boolean;
-    file: null; // TODO
+    file: Blob;
+    ignorewarnings?: boolean;
 }
 
 @Injectable({
@@ -46,7 +46,7 @@ export class SessionService {
     /**
      * Upload a file to Wikimedia commons
      */
-    async upload(options: Partial<Readonly<UploadParameters>> = {}) {
+    async upload(options: Readonly<UploadParameters>) {
         const uploadResponseBody = await this.doUpload(await this.getCSRFToken(), options);
         // const result = uploadResponseBody["upload"]?.result;
         return uploadResponseBody;
@@ -62,10 +62,10 @@ export class SessionService {
     }
 
     private async doUpload(token: string, {
-        filename = "MyDiagram.svg",
+        filename,
+        file,
         ignorewarnings = false,
-        file = null, // TODO
-    }: Readonly<Partial<UploadParameters>> = {}) {
+    }: Readonly<UploadParameters>) {
         const ignorewarningsObject: { ignorewarnings?: any } = {};
         if (ignorewarnings) {
             ignorewarningsObject.ignorewarnings = true;
