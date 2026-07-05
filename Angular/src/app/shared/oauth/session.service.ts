@@ -44,14 +44,6 @@ export class SessionService {
         this.persistService.saveSession();
     }
 
-    /**
-     * Use this if the user reached the oauth callback and completed in in another tab
-     */
-    refreshFromStorage() {
-        this.persistService.refreshFromStorage();
-        this.authorizationURL() || this.updateAuthorizationURL();
-    }
-
     private async updateAuthorizationURL() {
         const url = await this.session.getAuthorizeURL();
         this.persistService.saveSession();

@@ -40,7 +40,7 @@ export class SessionPersistService {
 
     getSession = signal(this.session, { equal: () => false });
 
-    refreshFromStorage() {
+    private refreshFromStorage() {
         this.session.deserialize(this.getSerializationFromStorage());
         this.getSession.update(s => s);
     }
