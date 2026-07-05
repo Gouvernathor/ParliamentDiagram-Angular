@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
@@ -16,6 +16,8 @@ import { Theme, ThemeingService } from '../themeing';
 export class StandardPage {
     protected readonly themeingService = inject(ThemeingService);
     protected readonly sessionService = inject(SessionService);
+
+    readonly authInNewTab = input(true);
 
     protected chooseTheme(theme: Theme) {
         this.themeingService.setUserPersistedTheme(theme);
