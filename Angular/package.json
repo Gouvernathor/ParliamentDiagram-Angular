@@ -19,7 +19,7 @@
     "@angular/material": "^21.2.11",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
-    "@gouvernathor/m3api-oauth2": "^1.0.0",
+    "@gouvernathor/m3api-oauth2": "^1.1.0",
     "@parliamentarch/core": "^5.1.0",
     "@parliamentarch/svg": "^5.1.0",
     "@parliamentarch/westminster-svg": "^1.0.1",

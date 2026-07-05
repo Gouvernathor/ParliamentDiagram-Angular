@@ -46,6 +46,11 @@ export class SessionPersistService {
         this.sessionSignal.update(s => s);
     }
 
+    resetIncomplete() {
+        this.session.resetIncomplete();
+        this.sessionSignal.update(s => s);
+    }
+
     private getSerializationFromStorage() {
         const json: string|null|undefined = globalThis.localStorage?.getItem(this.storageKey);
         if (json) {

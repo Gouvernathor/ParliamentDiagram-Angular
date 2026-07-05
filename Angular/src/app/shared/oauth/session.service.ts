@@ -35,7 +35,11 @@ export class SessionService {
      * or to forget it when closing the window
      */
     async complete(code: string) {
-        await this.session.complete(code);
+        try {
+            await this.session.complete(code);
+        } catch (e) {
+            this.persistService.resetIncomplete();
+        }
         this.persistService.saveSession();
     }
 
