@@ -53,7 +53,7 @@ export class SessionService {
     }
 
     private async getCSRFToken() {
-        const resp: any = await this.session.request({
+        const resp = await this.session.request<{"query": {"tokens": {"csrftoken": string}}}>({
             action: "query",
             meta: "tokens",
             format: "json",
