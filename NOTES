@@ -25,6 +25,26 @@
   - button to download each diagram
   - (maybe later, maybe never) button and popup to upload to Commons using oauth
 
+# vote calculator
+
+- provide a list of presets (tried to kept up-to-date)
+- also allow to pass an arch-style json preset
+- list the parties in the preset, with 3 buttons For/Against/Abstain (or Yea/Nay/Present)
+- also add a double slider, green on the left, red on the right, and grey in the middle, with patterns if possible
+  - if possible, use custom handles, one draggable on the top, the other rotated 180° and draggable on the bottom
+  - if possible, when the number of abstentions is 0, add a (invisible ?) drag handle in the middle which moves both handles
+- add an input for the required majority, by default ½, taking a fraction between 0 and 1 (the denominator is strictly positive, and the numerator is between 0 and the denominator)
+- add a toggle to treat abstentions as against
+- in the visualization
+  - draw a majority line at the majority value
+  - from left to right, list left-abstain parties (see below), then for parties, then against parties, then right-abstain
+  - inside each zone, the parties are sorted stable, so from left to right
+  - each party where not all members vote the same thing will be split in the various zones according to the respective numbers
+  - the number of abstentions is halved-rounded-down to get the number of abstentions to put on the left
+  - listing all abstentions from left to right, the left parties are placed in the left-abstain zone, the others in the right-abstain zone, and the party in the middle duplicated and split between the two
+  - the for are shown in solid color, the against in hollow with solid border, and the abstain in hollow with a dashed border ; all with the party's color
+- show a filled bar with a middle point, not counting the abstentions (unless counted as against), with different colors and if possible patterns, and the result of the vote
+
 # misc TODOs
 
 add routing redirects to take into account old html and php links to the old website
