@@ -52,13 +52,15 @@
                             ],
                             "outputHashing": "all"
                         },
-                        "no-oauth": {
-                            "fileReplacements": []
-                        },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true,
+                            "sourceMap": true
+                        },
+                        "no-oauth": {
+                            "fileReplacements": []
+                        },
+                        "localhost": {
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -103,7 +105,7 @@
                             "buildTarget": "ParliamentDiagram:build:production"
                         },
                         "development": {
-                            "buildTarget": "ParliamentDiagram:build:development"
+                            "buildTarget": "ParliamentDiagram:build:development,localhost"
                         },
                         "development-no-oauth": {
                             "buildTarget": "ParliamentDiagram:build:development,no-oauth"
