@@ -65,6 +65,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 8080
+          },
           "configurations": {
             "production": {
               "buildTarget": "ParliamentDiagram:build:production"
