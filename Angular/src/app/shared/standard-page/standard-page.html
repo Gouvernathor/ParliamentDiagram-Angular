@@ -16,7 +16,7 @@
             <mat-button-toggle value="dark">D</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (oauthEnabled) {
+        @if (sessionService) {
             @if (sessionService.isLoggedIn()) {
                 Logged in.
             } @else {

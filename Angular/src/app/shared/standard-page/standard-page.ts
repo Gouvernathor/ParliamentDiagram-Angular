@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SessionService } from '../oauth/session.service';
+import { SESSION_SERVICE } from '../oauth/conditional-inject';
 import { Theme, ThemeingService } from '../themeing';
 
 @Component({
@@ -15,13 +15,11 @@ import { Theme, ThemeingService } from '../themeing';
 })
 export class StandardPage {
     protected readonly themeingService = inject(ThemeingService);
-    protected readonly sessionService = inject(SessionService);
+    protected readonly sessionService = inject(SESSION_SERVICE);
 
     readonly authInNewTab = input(true);
 
     protected chooseTheme(theme: Theme) {
         this.themeingService.setUserPersistedTheme(theme);
     }
-
-    protected readonly oauthEnabled = true; // TODO move to configuration
 }
