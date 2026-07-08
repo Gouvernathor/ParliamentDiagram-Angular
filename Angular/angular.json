@@ -52,14 +52,44 @@
                             ],
                             "outputHashing": "all"
                         },
+                        "no-oauth": {
+                            "fileReplacements": []
+                        },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.localhost.ts"
+                                }
+                            ]
                         },
-                        "toolforge-main": {},
-                        "toolforge-beta": {},
-                        "gouvernathor-fr": {}
+                        "toolforge-main": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.toolforge-main.ts"
+                                }
+                            ]
+                        },
+                        "toolforge-beta": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.toolforge-beta.ts"
+                                }
+                            ]
+                        },
+                        "gouvernathor-fr": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.gouvernathor-fr.ts"
+                                }
+                            ]
+                        }
                     },
                     "defaultConfiguration": "production"
                 },
@@ -75,7 +105,9 @@
                         "development": {
                             "buildTarget": "ParliamentDiagram:build:development"
                         },
-                        "no-oauth": {}
+                        "development-no-oauth": {
+                            "buildTarget": "ParliamentDiagram:build:development,no-oauth"
+                        }
                     },
                     "defaultConfiguration": "development"
                 },
