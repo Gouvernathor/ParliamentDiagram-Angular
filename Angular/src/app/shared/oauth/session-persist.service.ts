@@ -1,35 +1,18 @@
 import { Injectable, Signal, signal } from "@angular/core";
 import { OAuthCredentials, OAuthSession } from "@gouvernathor/m3api-oauth2";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
 export class SessionPersistService {
-    private static readonly selfRestrictedCredentials = new OAuthCredentials(
-        "7fbac585c1bfcd02898ca7ce3e8041b0",
-        "8850f9c90952fbfd854a3b442b9ceb78c15b82da",
-    );
-    private static readonly localCredentials = new OAuthCredentials(
-        "3169b028c9dab61c11f925ab307a6aec",
-        "5a7d8c3c505b31387eace86631937e42e225f975",
-    );
-    private static readonly gouvernathorCredentials = new OAuthCredentials(
-        "071d48d0c96c50712db3859afbc3ae7f",
-        "fb79edede9fe88196fde653b1ca25fe06d663c15",
-    );
-    private static readonly toolforgeBetaCredentials = new OAuthCredentials(
-        "e71a16fb2b0474d823f5fd30a95b2775",
-        "c1d0dff722e6181f83876940066af749e0da9c06",
-    );
-    private static readonly toolforgeMainCredentials = new OAuthCredentials(
-        "6c4de43bc50ee9296c49bbf676b88b5f",
-        "61f18fc0bc624092b0da84edaa175debd4efa23a",
-    );
-
-    private readonly apiUrl = "commons.wikimedia.org"; // not sure, maybe meta.wikimedia.org to auth first
+    private readonly apiUrl = "commons.wikimedia.org";
     private readonly storageKey = "oauth-session";
 
-    private readonly credentials = SessionPersistService.localCredentials;
+    private readonly credentials = new OAuthCredentials(
+        environment.credentials!.clientId,
+        environment.credentials!.clientSecret,
+    );
     private readonly session: OAuthSession = this.loadFromStorage();
     private readonly sessionSignal = signal(this.session, { equal: () => false });
 
