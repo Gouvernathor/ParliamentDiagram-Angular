@@ -56,7 +56,10 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            }
+            },
+            "toolforge-main": {},
+            "toolforge-beta": {},
+            "gouvernathor-fr": {}
           },
           "defaultConfiguration": "production"
         },
@@ -68,7 +71,8 @@
             },
             "development": {
               "buildTarget": "ParliamentDiagram:build:development"
-            }
+            },
+            "no-oauth": {}
           },
           "defaultConfiguration": "development"
         },
