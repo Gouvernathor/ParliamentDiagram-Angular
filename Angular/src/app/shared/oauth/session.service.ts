@@ -35,10 +35,8 @@ export class SessionService {
     async complete(code: string) {
         try {
             await this.session.complete(code);
-            this.persistService.saveSession();
         } catch (e) {
             this.persistService.resetIncomplete();
-            this.persistService.saveSession();
             throw e;
         }
     }

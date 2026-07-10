@@ -33,6 +33,7 @@ export class SessionPersistService {
         }, {
             userAgent: "ParliamentDiagram-Angular",
             "m3api-oauth2/credentials": this.credentials,
+            "m3api-oauth2/serializeCallback": s => this.saveSession(s),
         }, serialization);
     }
 
@@ -54,8 +55,7 @@ export class SessionPersistService {
         return {};
     }
 
-    saveSession() {
-        const serialization = this.session.serialize();
+    private saveSession(serialization = this.session.serialize()) {
         globalThis.localStorage?.setItem(this.storageKey, JSON.stringify(serialization));
     }
 }
