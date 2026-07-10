@@ -55,9 +55,7 @@ export class SessionPersistService {
     }
 
     saveSession() {
-        if (this.session) {
-            const serialization = this.session.serialize();
-            globalThis.localStorage?.setItem(this.storageKey, JSON.stringify(serialization));
-        }
+        const serialization = this.session.serialize();
+        globalThis.localStorage?.setItem(this.storageKey, JSON.stringify(serialization));
     }
 }
