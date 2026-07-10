@@ -21,7 +21,10 @@
                 Logged in
                 <!-- TODO button to log out -->
             } @else {
-                <a [href]="sessionService.authorizationURL.value()" matButton="filled" [target]="authInNewTab() ? '_blank' : null">Log in to Wikimedia Commons</a>
+                <a matButton="filled"
+                    [href]="sessionService.authorizationURL.value()"
+                    [target]="authInNewTab() ? '_blank' : null"
+                >Log in to Wikimedia Commons</a>
             }
         }
     </mat-toolbar-row>
