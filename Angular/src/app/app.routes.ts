@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ArchPage, archPageResolvers } from './+arch/arch';
+import { ArchPage } from './+arch/arch';
 import { WestminsterPage } from './+westminster/westminster';
 
 export const routes: Routes = [
@@ -23,7 +23,7 @@ export const routes: Routes = [
         path: "arch",
         component: ArchPage,
         title: "Arch-style parliament diagram generator",
-        resolve: archPageResolvers,
+        resolve: ArchPage.resolve,
     },
 
     // USinputform.html

@@ -36,10 +36,6 @@ interface DiagramData {
     spanAngle: number|null;
 }
 
-export const archPageResolvers: Resolvers<ArchPage> = {
-    preset: route => route.queryParamMap.get("preset"),
-};
-
 @Component({
     imports: [
         StandardPage, Contents, FileInputDrop,
@@ -59,6 +55,10 @@ export class ArchPage implements OnInit {
     protected readonly FillingStrategy = FillingStrategy;
 
     readonly preset = input<string|null>(null);
+
+    static readonly resolve: Resolvers<ArchPage> = {
+        preset: route => route.queryParamMap.get("preset"),
+    };
 
     async ngOnInit() {
         switch (this.preset()?.toLowerCase()) {
