@@ -8,6 +8,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
@@ -51,6 +52,7 @@ interface DiagramData {
 export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
     protected readonly reorderingService = inject(ReorderingService);
+    private readonly snackbar = inject(MatSnackBar);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -71,7 +73,10 @@ export class ArchPage implements OnInit {
                 break;
 
             default:
-                console.error("unrecognized preset name"); // TODO toast
+                this.snackbar.open("Unknown preset name", undefined, {
+                    duration: 5000,
+                    horizontalPosition: "right",
+                });
                 break;
         }
     }
