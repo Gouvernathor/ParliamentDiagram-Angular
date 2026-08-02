@@ -1,5 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from "@angular/core";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input, OnInit, signal } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
+import { ResolveFn } from "@angular/router";
 import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
@@ -36,6 +37,11 @@ interface DiagramData {
     spanAngle: number|null;
 }
 
+// TODO make type transform for the inputs of a component
+export const archPageResolvers = {
+    preset: (route => route.queryParamMap.get("preset")) satisfies ResolveFn<string|null>,
+};
+
 @Component({
     imports: [
         StandardPage, Contents, FileInputDrop,
@@ -48,11 +54,31 @@ interface DiagramData {
     styleUrl: './arch.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ArchPage {
+export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
     protected readonly reorderingService = inject(ReorderingService);
 
     protected readonly FillingStrategy = FillingStrategy;
+
+    readonly preset = input<string|null>(null);
+
+    async ngOnInit() {
+        const preset = this.preset();
+        console.log(`preset: ${preset}`);
+        switch (preset?.toLowerCase()) {
+            case null:
+            case undefined:
+                break;
+
+            case "us":
+                this.applyUSPreset();
+                break;
+
+            default:
+                console.error("unrecognized preset name"); // TODO toast
+                break;
+        }
+    }
 
     private readonly diagramModel = signal<DiagramData>({
         parties: [],
