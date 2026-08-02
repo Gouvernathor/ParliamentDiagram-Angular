@@ -29,7 +29,11 @@ export const routes: Routes = [
     // USinputform.html
     // USinputform.php
     // USinputform
-    // usinputform
+    {
+        path: "usinputform",
+        redirectTo: "/arch?preset=us",
+        pathMatch: "full",
+    },
 
     // westminsterinputform.html
     // westminsterinputform.php
