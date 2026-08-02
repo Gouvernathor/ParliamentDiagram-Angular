@@ -1,6 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input, OnInit, signal } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
-import { ResolveFn } from "@angular/router";
 import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
@@ -12,7 +11,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
-import { Writeable } from "../shared/utils/types";
+import { Resolvers, Writeable } from "../shared/utils/types";
 import { Contents } from "../shared/contents.directive";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
@@ -37,9 +36,8 @@ interface DiagramData {
     spanAngle: number|null;
 }
 
-// TODO make type transform for the inputs of a component
-export const archPageResolvers = {
-    preset: (route => route.queryParamMap.get("preset")) satisfies ResolveFn<string|null>,
+export const archPageResolvers: Resolvers<ArchPage> = {
+    preset: route => route.queryParamMap.get("preset"),
 };
 
 @Component({
