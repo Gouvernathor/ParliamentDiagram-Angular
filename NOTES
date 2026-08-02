@@ -45,10 +45,6 @@
   - the for are shown in solid color, the against in hollow with solid border, and the abstain in hollow with a dashed border ; all with the party's color
 - show a filled bar with a middle point, not counting the abstentions (unless counted as against), with different colors and if possible patterns, and the result of the vote
 
-# misc TODOs
-
-add routing redirects to take into account old html and php links to the old website
-
 # FIXME
 
 the current situation where the site has routes and is generated using CSR, is not viable on GitLab (and allegedly not on GitHub either)
