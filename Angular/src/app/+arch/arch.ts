@@ -63,9 +63,7 @@ export class ArchPage implements OnInit {
     readonly preset = input<string|null>(null);
 
     async ngOnInit() {
-        const preset = this.preset();
-        console.log(`preset: ${preset}`);
-        switch (preset?.toLowerCase()) {
+        switch (this.preset()?.toLowerCase()) {
             case null:
             case undefined:
                 break;
