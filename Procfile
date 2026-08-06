@@ -1,1 +1,1 @@
-web: npm run start-toolforge-beta
+web: npm run start-toolforge
