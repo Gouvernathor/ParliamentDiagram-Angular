@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { applyEach, form, max, min, validate, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -8,10 +8,11 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { Contents } from "../shared/contents.directive";
-import { downloadDiagram, downloadJson } from "../shared/download";
+import { downloadJson } from "../shared/download";
 import { Party, Partylist } from "./partylist/partylist";
 import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
+import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
+import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 
 const shapes = ["speak", "government", "opposition", "cross"] as const;
 type Shape = typeof shapes[number];
@@ -38,7 +39,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, Contents, FileInputDrop,
+        StandardPage, Partylist, DiagramsList, FileInputDrop,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -47,6 +48,8 @@ const INITIAL_SPEAKER: Readonly<Party> = {
     styleUrl: "./westminster.scss",
 })
 export class WestminsterPage {
+    private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
+
     private readonly diagramModel = signal<DiagramData>({
         parties: {
             speak: [{ ...INITIAL_SPEAKER }],
@@ -95,7 +98,7 @@ export class WestminsterPage {
         max(schemaPath.spacingFactor, 1);
     });
 
-    protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
+    protected readonly diagrams = signal<readonly Diagram[]>([]);
 
     protected savePreset() {
         downloadJson(this.diagramForm.parties().value());
@@ -131,9 +134,14 @@ export class WestminsterPage {
             spacingFactor: value.spacingFactor,
         };
 
-        const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [ diagram ].concat(l));
-    }
+        const partiesForLegend = shapes
+            .filter(s => s != "speak")
+            .flatMap(s => value.parties[s]);
 
-    protected readonly downloadDiagram = downloadDiagram;
+        const diagram = getSVGFromAttribution(attrib, options);
+        this.diagrams.update(l => [ {
+            svg: diagram,
+            legend: this.wikipediaDiagramService.getLegend(partiesForLegend),
+        }, ...l ]);
+    }
 }

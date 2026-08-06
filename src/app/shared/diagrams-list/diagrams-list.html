@@ -1,0 +1,13 @@
+<app-diagram-card [diagram]="first()" />
+
+@if (others().length) {
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Previous</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        @for (diagram of others(); track diagram) {
+            <app-diagram-card [diagram]="diagram" />
+        }
+    </mat-expansion-panel>
+}

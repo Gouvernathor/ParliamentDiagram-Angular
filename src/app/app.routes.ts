@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
+import { environment } from '../environments/environment';
 import { ArchPage } from './+arch/arch';
 import { WestminsterPage } from './+westminster/westminster';
+import { OauthCallbackPage } from './+oauth-callback/oauth-callback';
 
 export const routes: Routes = [
     {
@@ -8,12 +10,7 @@ export const routes: Routes = [
         redirectTo: "/arch",
         pathMatch: "full",
     },
-    // index
-    // index.php
 
-    // parliamentinputform.html
-    // parlitest.php
-    // archinputform.php
     {
         path: "archinputform",
         redirectTo: "/arch",
@@ -26,17 +23,12 @@ export const routes: Routes = [
         resolve: ArchPage.resolve,
     },
 
-    // USinputform.html
-    // USinputform.php
-    // USinputform
     {
         path: "usinputform",
         redirectTo: "/arch?preset=us",
         pathMatch: "full",
     },
 
-    // westminsterinputform.html
-    // westminsterinputform.php
     {
         path: "westminsterinputform",
         redirectTo: "/westminster",
@@ -48,5 +40,49 @@ export const routes: Routes = [
         title: "Westminster-style parliament diagram generator",
     },
 
-    // POST newarch, newarch.py, westminster and westminster.py : backend API
+    {
+        path: "oauth_callback",
+        redirectTo: "/oauth-callback",
+        pathMatch: "full",
+    },
+    {
+        path: "oauth-callback",
+        component: OauthCallbackPage,
+        title: "OAuth callback",
+        resolve: OauthCallbackPage.resolve,
+    },
 ];
+
+if (environment.legacyRoutes) {
+    const l: [string, string[]][] = [
+        ["", [
+            "index",
+            "index.php",
+        ]],
+
+        ["/arch", [
+            "parliamentinputform.html",
+            "parlitest.php",
+            "archinputform.php",
+        ]],
+
+        ["/usinputform", [
+            "USinputform.html",
+            "USinputform.php",
+            "USinputform",
+        ]],
+
+        ["/westminster", [
+            "westminsterinputform.html",
+            "westminsterinputform.php",
+        ]],
+
+        // POST newarch, newarch.py, westminster and westminster.py : no more backend
+    ];
+
+    routes.push(...l.flatMap(([to, paths]) => paths.map(path => ({
+        path,
+        redirectTo: to,
+        pathMatch: "full" as const,
+    }))));
+}

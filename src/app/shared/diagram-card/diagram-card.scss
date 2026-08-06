@@ -1,0 +1,31 @@
+:host {
+    display: block;
+
+    color: var(--mat-sys-on-surface-variant);
+    background-color: var(--mat-sys-surface-variant);
+
+    // need to constrain the size of the diagram
+    max-width: 800px;
+
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.legend {
+    text-wrap-mode: wrap;
+}
+
+.warning-notice {
+    color: var(--mat-sys-primary);
+    background-color: var(--mat-sys-primary-container);
+
+    padding: 16px;
+    border-radius: var(--mat-sys-corner-medium);
+
+    > :first-child {
+        margin-block-start: 0;
+    }
+    > :last-child {
+        margin-block-end: 0;
+    }
+}

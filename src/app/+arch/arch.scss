@@ -15,7 +15,3 @@
 .errorcontainer {
     @include error-container;
 }
-
-.diagramcard {
-    @include diagram-card();
-}

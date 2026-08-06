@@ -1,0 +1,61 @@
+<div [appContents]="diagram().svg"></div>
+
+<button matButton="tonal" (click)="downloadDiagram()">
+    Download SVG diagram
+</button>
+
+<hr/>
+
+<p>Legend template for use in Wikipedia:</p>
+<pre class="legend">{{diagram().legend}}</pre>
+
+<hr/>
+
+@if (sessionService) {
+    <mat-expansion-panel class="collapse">
+        <mat-expansion-panel-header>
+            <mat-panel-title>Direct upload to Wikimedia Commons</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form">
+            <mat-form-field>
+                <mat-label>Election year</mat-label>
+                <input matInput type="number" [formField]="preFilenameForm.year" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Country</mat-label>
+                <input matInput [formField]="preFilenameForm.country" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Locality</mat-label>
+                <input matInput [formField]="preFilenameForm.locality" />
+            </mat-form-field>
+
+            <mat-form-field floatLabel="always">
+                <mat-label>Body</mat-label>
+                <input matInput placeholder="Senate, City council…" [formField]="preFilenameForm.bodyName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Filename to upload</mat-label>
+                <input matInput [value]="fileName()" (input)="fileName.set($event.target.value)" />
+            </mat-form-field>
+        </div>
+
+        <div class="warning-notice">
+            <p>This image is for a real-world body or a notable work of fiction and I want to upload it to Commons.</p>
+            <p>I understand that images uploaded for private use can be deleted without notice and can lead to my username being blocked.</p>
+        </div>
+
+        <button matButton="filled"
+            [disabled]="!sessionService.isLoggedIn()"
+            [disabledInteractive]="true"
+            matTooltip="You must log in before doing that"
+            (click)="sessionService.isLoggedIn() && uploadDiagram()"
+        >
+            Upload
+        </button>
+    </mat-expansion-panel>
+}

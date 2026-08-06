@@ -1,81 +1,122 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "cli": {
-    "packageManager": "npm"
-  },
-  "newProjectRoot": "projects",
-  "projects": {
-    "ParliamentDiagram": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "externalDependencies": [
-                "jsdom"
-              ],
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "cli": {
+        "packageManager": "npm"
+    },
+    "newProjectRoot": "projects",
+    "projects": {
+        "ParliamentDiagram": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
                 }
-              ],
-              "outputHashing": "all"
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:application",
+                    "options": {
+                        "browser": "src/main.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "public"
+                            }
+                        ],
+                        "styles": [
+                            "src/styles.scss"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "externalDependencies": [
+                                "jsdom"
+                            ],
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kB",
+                                    "maximumError": "1MB"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "4kB",
+                                    "maximumError": "8kB"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true
+                        },
+                        "no-oauth": {
+                            "fileReplacements": []
+                        },
+                        "localhost": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.localhost.ts"
+                                }
+                            ]
+                        },
+                        "toolforge-main": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.toolforge-main.ts"
+                                }
+                            ]
+                        },
+                        "toolforge-beta": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.toolforge-beta.ts"
+                                }
+                            ]
+                        },
+                        "gouvernathor-fr": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.gouvernathor-fr.ts"
+                                }
+                            ]
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular/build:dev-server",
+                    "options": {
+                        "port": 8080
+                    },
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "ParliamentDiagram:build:production"
+                        },
+                        "development": {
+                            "buildTarget": "ParliamentDiagram:build:development,localhost"
+                        },
+                        "development-no-oauth": {
+                            "buildTarget": "ParliamentDiagram:build:development,no-oauth"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "test": {
+                    "builder": "@angular/build:unit-test"
+                }
             }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "ParliamentDiagram:build:production"
-            },
-            "development": {
-              "buildTarget": "ParliamentDiagram:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test"
         }
-      }
     }
-  }
 }

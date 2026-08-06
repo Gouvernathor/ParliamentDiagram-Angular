@@ -13,12 +13,13 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { Resolvers, Writeable } from "../shared/utils/types";
-import { Contents } from "../shared/contents.directive";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
 import { ColorService } from "../shared/color.service";
-import { downloadDiagram, downloadJson } from "../shared/download";
+import { downloadJson } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
+import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
+import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 
 interface Party {
     name: string;
@@ -39,7 +40,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, Contents, FileInputDrop,
+        StandardPage, DiagramsList, FileInputDrop,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -53,6 +54,7 @@ export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
     protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
+    private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -120,7 +122,7 @@ export class ArchPage implements OnInit {
         // spanAngle null or (weird conditions)
     });
 
-    protected readonly diagrams = signal<readonly SVGSVGElement[]>([]);
+    protected readonly diagrams = signal<readonly Diagram[]>([]);
 
     protected addParty() {
         this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
@@ -186,8 +188,9 @@ export class ArchPage implements OnInit {
         }
 
         const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [ diagram ].concat(l));
+        this.diagrams.update(l => [ {
+            svg: diagram,
+            legend: this.wikipediaDiagramService.getLegend(value.parties),
+        }, ...l ]);
     }
-
-    protected readonly downloadDiagram = downloadDiagram;
 }
