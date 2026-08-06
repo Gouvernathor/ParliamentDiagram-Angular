@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
 
-    "heroku-build": "ng build --configuration toolforge-beta",
+    "heroku-build": "ng build --configuration production,toolforge-beta",
     "start-toolforge": "serve -s dist/ParliamentDiagram/browser/"
   },
   "private": true,
