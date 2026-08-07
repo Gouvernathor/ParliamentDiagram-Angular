@@ -37,6 +37,10 @@ To start a local development server, run:
 ng serve
 ```
 
+By default, it will use the "development" configuration which uses the localhost oauth credentials.
+
+The "development-no-oauth" configurations will have oauth disabled.
+
 ## Building
 
 To build the project run:
