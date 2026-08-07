@@ -13,6 +13,22 @@ The sought improvements are:
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
 
+## Deployment
+
+This is a static web[site/app] able to be deployed on about any domain.
+
+A part of the features depend on being able to establish an OAuth 2 connexion to Wikimedia Commons, and that requires a set of oauth credentials tied to a particular callback URL. Four sets of credentials are provided:
+- for localhost testing
+- for the [Gouvernathor](parliamentdiagram.gouvernathor.fr) domain name
+- for the [main Toolforge](https://parliamentdiagram.toolforge.org/) domain
+- for the [beta Toolforge](https://parliamentdiagram-beta.toolforge.org/) domain
+
+Building the app without specifying any configuration will build it with the OAuth-dependent features disabled.
+
+A CI workflow exists to deploy to the Gouvernathor website, using either Gitlab CI for Gitlab Pages, or Forgejo Actions for Codeberg Pages. It is triggered by pushes on this repo and so is up-to-date with the latest state of the main branch.
+
+Deployment on Toolforge is a bit more complex and triggered from the tool server, not from the pushes on this repo. It is handled using the [Toolforge deployer](https://codeberg.org/Gouvernathor/ParliamentDiagram-Toolforge-deployer) side repo.
+
 ## Development server
 
 To start a local development server, run:
@@ -20,8 +36,6 @@ To start a local development server, run:
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Building
 
