@@ -66,4 +66,9 @@
     the total number of abstentions is halved and rounded down to get the number of left-abstains
     listing all abstentions from left to right, the parties in the left half are placed in the left-abstain zone, the parties in the right half are placed in the right-abstain zone, and the party in the middle (if any) is split between both
      -->
+
+    @let diagram = this.diagram();
+    @if (diagram) {
+        <div [appContents]="diagram"></div>
+    }
 </app-standard-page>
