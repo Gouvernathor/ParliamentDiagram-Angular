@@ -1,6 +1,7 @@
 import { Service } from "@angular/core";
 import { getSVGFromAttribution, GetSVGFromAttributionOptions, SeatData } from "@parliamentarch/svg";
 import { FieldState } from "@angular/forms/signals";
+import { Writeable } from "../shared/utils/types";
 
 interface Party {
     readonly name: string;
@@ -78,6 +79,9 @@ export class CalculatorService {
 
             // could also display yea-nay-abstain
             return new Map([...yea, ...abstain, ...nay]);
+
+        // TODO case where abstain is not displayed
+
         } else {
             const leftAbstain: [SeatData, number][] = [];
             const rightAbstain: [SeatData, number][] = [];
@@ -140,9 +144,34 @@ export class CalculatorService {
     }
 
     private getOptions({
-    }: Pick<CalculatorData, never>): Partial<Readonly<GetSVGFromAttributionOptions>> {
-        // TODO
-        // majorityLineCheckpoints: nSeats, round, ratio
-        return {};
+        majorityRatio,
+        majorityThreshold,
+    }: Pick<CalculatorData, "majorityRatio"|"majorityThreshold">): Partial<Readonly<GetSVGFromAttributionOptions>> {
+        const checkpoint: Writeable<GetSVGFromAttributionOptions["majorityLines"][number]> = {
+            // TODO (maybe)
+            // data,
+            // color,
+            // width,
+            // dasharray,
+
+            // round,
+        };
+
+        if (majorityRatio != null) {
+            checkpoint.ratio = majorityRatio;
+        } else if (majorityThreshold != null) {
+            checkpoint.nSeats = majorityThreshold;
+        }
+
+        return {
+            // TODO (maybe)
+            // seatRadiusFactor,
+            // minNRows,
+            // fillingStrategy,
+            // spanAngle,
+            seatNumberFontSizeFactor: 0,
+
+            majorityLineCheckpoints: [],
+        };
     }
 }
