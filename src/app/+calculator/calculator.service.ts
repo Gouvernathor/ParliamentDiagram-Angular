@@ -39,8 +39,9 @@ export class CalculatorService {
 
     private getAttrib({
         parties,
+        countAbstainAsAgainst,
         borderThickness,
-    }: Pick<CalculatorData, "parties"|"borderThickness">): ReadonlyMap<SeatData, number> {
+    }: Pick<CalculatorData, "parties"|"countAbstainAsAgainst"|"borderThickness">): ReadonlyMap<SeatData, number> {
         const computedParties = parties.map(p => ({ nAbstain: p.nSeats-(p.nYea+p.nNay), ...p }));
         const totalNAbstain = computedParties.reduce((a, p) => a + p.nAbstain, 0);
         const nLeftAbstain = Math.trunc(totalNAbstain/2);
@@ -64,34 +65,49 @@ export class CalculatorService {
             })
             .filter(p => p != null);
 
-        const leftAbstain: [SeatData, number][] = [];
-        const rightAbstain: [SeatData, number][] = [];
-        let nPlacedLeftAbstain = 0;
-        const abstainPartiesToPop = computedParties.slice();
-        while (nPlacedLeftAbstain < nLeftAbstain) {
-            const party = abstainPartiesToPop.shift();
-            if (party == null) {
-                throw new Error("bad computation of the number of left-abstain parties");
+        if (countAbstainAsAgainst) {
+            const abstain = computedParties
+                .map<[SeatData, number]|null>(p => {
+                    if (p.nNay <= 0) {
+                        return null;
+                    }
+
+                    return [this.abstainParty(p.name, p.color, borderThickness), p.nAbstain];
+                })
+                .filter(p => p != null);
+
+            // could also display yea-nay-abstain
+            return new Map([...yea, ...abstain, ...nay]);
+        } else {
+            const leftAbstain: [SeatData, number][] = [];
+            const rightAbstain: [SeatData, number][] = [];
+            let nPlacedLeftAbstain = 0;
+            const abstainPartiesToPop = computedParties.slice();
+            while (nPlacedLeftAbstain < nLeftAbstain) {
+                const party = abstainPartiesToPop.shift();
+                if (party == null) {
+                    throw new Error("bad computation of the number of left-abstain parties");
+                }
+
+                if (party.nAbstain + nPlacedLeftAbstain > nLeftAbstain) {
+                    const nPlacedLeft = nLeftAbstain - nPlacedLeftAbstain;
+                    leftAbstain.push([this.abstainParty(party.name, party.color, borderThickness), nPlacedLeft]);
+                    nPlacedLeftAbstain = nLeftAbstain;
+
+                    // add the right part to rightAbstain
+                    rightAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain-nPlacedLeft]);
+                } else {
+                    leftAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain]);
+                    nPlacedLeftAbstain += party.nAbstain;
+                }
+            }
+            // map the remaining abstainPartiesToPop and append them to rightAbstain
+            for (const party of abstainPartiesToPop) {
+                rightAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain]);
             }
 
-            if (party.nAbstain + nPlacedLeftAbstain > nLeftAbstain) {
-                const nPlacedLeft = nLeftAbstain - nPlacedLeftAbstain;
-                leftAbstain.push([this.abstainParty(party.name, party.color, borderThickness), nPlacedLeft]);
-                nPlacedLeftAbstain = nLeftAbstain;
-
-                // add the right part to rightAbstain
-                rightAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain-nPlacedLeft]);
-            } else {
-                leftAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain]);
-                nPlacedLeftAbstain += party.nAbstain;
-            }
+            return new Map([...leftAbstain, ...yea, ...nay, ...rightAbstain]);
         }
-        // map the remaining abstainPartiesToPop and append them to rightAbstain
-        for (const party of abstainPartiesToPop) {
-            rightAbstain.push([this.abstainParty(party.name, party.color, borderThickness), party.nAbstain]);
-        }
-
-        return new Map([...leftAbstain, ...yea, ...nay, ...rightAbstain]);
     }
 
     private yeaParty(name: string, color: string): SeatData {
