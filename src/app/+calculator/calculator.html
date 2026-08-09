@@ -35,9 +35,7 @@
             majority ratio OR number of seats
              -->
 
-        <div class="abstention-options">
-            <h4>Abstentions</h4>
-
+        <div>
             <mat-checkbox [formField]="form.countAbstainAsAgainst">
                 Count abstentions as votes against
             </mat-checkbox>
@@ -47,17 +45,23 @@
             </mat-checkbox>
         </div>
 
-            <!-- TODO
-            enable editing the party list (when enabled, reset the current preset)
-             -->
+        <div>
+            <mat-checkbox [formField]="form.editPartyList">
+                Edit the parties
+            </mat-checkbox>
+        </div>
+
 
             <!-- TODO
             also same options as for the arch (except that the number of seats is hidden, at least by default)
              -->
 
-            <!-- TODO
-            against border thickness, and abstain border thickness (or just one for both)
-             -->
+        <div class="formField">
+            <label for="borderThickness">Border thickness for "against" and "abstain" votes</label>
+            <mat-slider [min]="0" [max]="1" [step]=".01" [discrete]="true">
+                <input id="borderThickness" matSliderThumb [formField]="form.borderThickness" />
+            </mat-slider>
+        </div>
     </mat-expansion-panel>
 
     <!-- TODO list the parties, for each:
