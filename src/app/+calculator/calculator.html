@@ -19,7 +19,7 @@
         </mat-expansion-panel-header>
 
         <mat-form-field>
-            <mat-label>Preset</mat-label>
+            <mat-label>Assembly preset</mat-label>
 
             <mat-select
                 [value]="currentPreset()" (selectionChange)="usePreset($event.value)"
@@ -31,25 +31,33 @@
             </mat-select>
         </mat-form-field>
 
-        <!-- TODO options
-        majority ratio OR number of seats
-         -->
+            <!-- TODO options
+            majority ratio OR number of seats
+             -->
 
-        <!-- TODO
-        whether to count the abstentions as votes against, and if not, whether to display them at all
-         -->
+        <div class="abstention-options">
+            <h4>Abstentions</h4>
 
-        <!-- TODO
-        enable editing the party list (when enabled, reset the current preset)
-         -->
+            <mat-checkbox [formField]="form.countAbstainAsAgainst">
+                Count abstentions as votes against
+            </mat-checkbox>
 
-        <!-- TODO
-        also same options as for the arch (except that the number of seats is hidden, at least by default)
-         -->
+            <mat-checkbox [formField]="form.displayAbstainIfNotCountedAsAgainst" [disabled]="form.countAbstainAsAgainst().value()">
+                Display abstention votes
+            </mat-checkbox>
+        </div>
 
-        <!-- TODO
-        against border thickness, and abstain border thickness (or just one for both)
-         -->
+            <!-- TODO
+            enable editing the party list (when enabled, reset the current preset)
+             -->
+
+            <!-- TODO
+            also same options as for the arch (except that the number of seats is hidden, at least by default)
+             -->
+
+            <!-- TODO
+            against border thickness, and abstain border thickness (or just one for both)
+             -->
     </mat-expansion-panel>
 
     <!-- TODO list the parties, for each:

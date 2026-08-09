@@ -4,7 +4,7 @@ import { FieldState } from "@angular/forms/signals";
 import { Writeable } from "../shared/utils/types";
 import { Party as PresetParty } from "./presets";
 
-interface Party extends PresetParty {
+export interface Party extends PresetParty {
     readonly nYea: number;
     readonly nNay: number;
 }

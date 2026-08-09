@@ -1,14 +1,15 @@
 import { Component, computed, effect, inject, signal } from "@angular/core";
-import { applyEach, form, max, min, minLength, validate } from "@angular/forms/signals";
+import { applyEach, form, max, min, minLength, validate, FormField } from "@angular/forms/signals";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSelectModule } from "@angular/material/select";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
-import { CalculatorData, CalculatorService } from "./calculator.service";
+import { CalculatorData, CalculatorService, Party } from "./calculator.service";
 import { Preset, presets } from "./presets";
 
 @Component({
-    imports: [StandardPage, Contents, MatExpansionModule, MatSelectModule],
+    imports: [StandardPage, Contents, FormField, MatCheckboxModule, MatExpansionModule, MatSelectModule],
     templateUrl: "./calculator.html",
     styleUrl: "./calculator.scss",
 })
@@ -40,8 +41,11 @@ export class CalculatorPage {
                 return;
             });
         });
-        validate(schemaPath.parties, ({ value }) => {
-            const totalNSeats = value().reduce((a, p) => a + p.nSeats, 0);
+        validate(schemaPath, ({ value }) => {
+            const nSeats: (p: Party) => number = value().countAbstainAsAgainst || value().displayAbstainIfNotCountedAsAgainst ?
+                p => p.nSeats :
+                p => p.nYea+p.nNay;
+            const totalNSeats = value().parties.reduce((a, p) => a + nSeats(p), 0);
             if (totalNSeats <= 0) {
                 return {
                     kind: "minimum seats",
