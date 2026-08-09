@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { environment } from '../environments/environment';
 import { ArchPage } from './+arch/arch';
 import { WestminsterPage } from './+westminster/westminster';
+import { CalculatorPage } from './+calculator/calculator';
 import { OauthCallbackPage } from './+oauth-callback/oauth-callback';
 
 export const routes: Routes = [
@@ -38,6 +39,12 @@ export const routes: Routes = [
         path: "westminster",
         component: WestminsterPage,
         title: "Westminster-style parliament diagram generator",
+    },
+
+    {
+        path: "calculator",
+        component: CalculatorPage,
+        title: "Parliament majority calculator",
     },
 
     {
