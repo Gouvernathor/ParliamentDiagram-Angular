@@ -40,51 +40,51 @@ export const presets: readonly Preset[] = [{
     name: "Assemblée Nationale (France)",
     about: "XVIIe législature, up to date as to 6 aug. 2026",
     parties: [{
-        color: "#DD0000",
+        color: "#830e21",
         name: "Gauche Démocrate et Républicaine",
         nSeats: 17,
     }, {
-        color: "#CC2443",
+        color: "#c00d0d",
         name: "La France Insoumise",
         nSeats: 71,
     }, {
-        color: "#00C000",
+        color: "#77aa79",
         name: "Écologiste et Social",
         nSeats: 38,
     }, {
-        color: "#FF8080",
+        color: "#f5b4ce",
         name: "Socialistes",
         nSeats: 68,
     }, {
-        color: "#E1A5E1",
+        color: "#ffd96f",
         name: "Libertés, Indépendants, Outre-mer et Territoires",
         nSeats: 23,
     }, {
-        color: "#FF9900",
+        color: "#f07e26",
         name: "Les Démocrates",
         nSeats: 37,
     }, {
-        color: "#FFEB00",
+        color: "#7b4591",
         name: "Ensemble pour la République",
         nSeats: 90,
     }, {
-        color: "#0001B8",
+        color: "#b5e2f9",
         name: "Horizons",
         nSeats: 36,
     }, {
-        color: "#0066CC",
+        color: "#8cb0dc",
         name: "Droite Républicaine",
         nSeats: 48,
     }, {
-        color: "#162561",
+        color: "#3367a7",
         name: "Union des droites pour la République",
         nSeats: 17,
     }, {
-        color: "#0D378A",
+        color: "#313567",
         name: "Rassemblement national",
         nSeats: 122,
     }, {
-        color: "#DDDDDD",
+        color: "#8d949a",
         name: "Non-inscrits",
         nSeats: 10,
     }],
