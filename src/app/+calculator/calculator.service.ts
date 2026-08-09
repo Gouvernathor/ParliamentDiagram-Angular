@@ -67,7 +67,7 @@ export class CalculatorService {
         if (countAbstainAsAgainst) {
             const abstain = computedParties
                 .map<[SeatData, number]|null>(p => {
-                    if (p.nNay <= 0) {
+                    if (p.nAbstain <= 0) {
                         return null;
                     }
 
