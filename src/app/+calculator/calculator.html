@@ -44,31 +44,20 @@
         when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
      -->
 
-    <!-- TODO visualization
+    <!-- TODO
     a bar
     with a majority threshold visible, and another for the reached percentage
     not counting the abstentions unless counted as nay
     different colors and patterns on both sides of the bar
     the result of the vote as text
-
-    an arch, updated automatically
-        maybe using a dedicated component, but may just use the contents directive
-    from left to right, the zones are:
-        the left-abstain parties (see below)
-            hollow with a dashed border
-        the yea parties
-            solid color
-        the against parties
-            hollow with a solid color border
-        the right-abstain parties
-    within each zone, the parties are stablely sorted, so from left to right
-    each party where not all members vote the same will appear in several zones
-    the total number of abstentions is halved and rounded down to get the number of left-abstains
-    listing all abstentions from left to right, the parties in the left half are placed in the left-abstain zone, the parties in the right half are placed in the right-abstain zone, and the party in the middle (if any) is split between both
      -->
 
     @let diagram = this.diagram();
     @if (diagram) {
+        <!--
+        an arch, updated automatically
+        maybe use a dedicated component, but for now just use the contents directive
+         -->
         <div [appContents]="diagram"></div>
     }
 </app-standard-page>
