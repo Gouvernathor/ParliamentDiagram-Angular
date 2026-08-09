@@ -51,12 +51,12 @@
             </mat-checkbox>
         </div>
 
-
             <!-- TODO
             also same options as for the arch (except that the number of seats is hidden, at least by default)
              -->
 
         <div class="formField">
+            <!-- TODO display the error if out of bounds -->
             <label for="borderThickness">Border thickness for "against" and "abstain" votes</label>
             <mat-slider [min]="0" [max]="1" [step]=".01" [discrete]="true">
                 <input id="borderThickness" matSliderThumb [formField]="form.borderThickness" />
@@ -73,10 +73,10 @@
         when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
      -->
 
-    @if (form().dirty() && form().errorSummary().length) {
+    @if (form().dirty() && errorMessages().length) {
         <div class="errorcontainer">
-            @for (error of form().errorSummary(); track $index) {
-                <p>{{error.message}}</p>
+            @for (message of errorMessages(); track $index) {
+                <p>{{message}}</p>
             }
         </div>
     }

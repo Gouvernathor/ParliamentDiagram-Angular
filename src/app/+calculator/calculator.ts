@@ -60,6 +60,9 @@ export class CalculatorPage {
         max(schemaPath.borderThickness, 1);
     });
 
+    protected readonly errorMessages = computed(() =>
+        this.form().errorSummary().map(e => e.message).filter(m => m));
+
     protected readonly diagram = computed<Element|null>(() => this.service.getDiagram(this.form()));
 
     constructor() {
