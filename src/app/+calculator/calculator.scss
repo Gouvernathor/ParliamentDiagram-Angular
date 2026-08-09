@@ -7,3 +7,24 @@ mat-slider {
 .errorcontainer {
     @include error-container;
 }
+
+.partygrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+
+    .party {
+        flex: 1 1 auto;
+
+        .partyname {
+            border-radius: 10000px;
+            padding: .5em;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            background-color: var(--party-color);
+            color: contrast-color(var(--party-color));
+        }
+    }
+}

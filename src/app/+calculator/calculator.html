@@ -72,6 +72,15 @@
         custom handles, one draggable on the top, the other rotated 180° and draggable on the bottom
         when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
      -->
+    <div class="partygrid">
+        @for (party of form.parties().value(); track $index) {
+            <div class="party">
+                <p class="partyname"
+                    [style.--party-color]="party.color"
+                >{{party.name}}</p>
+            </div>
+        }
+    </div>
 
     @if (form().dirty() && errorMessages().length) {
         <div class="errorcontainer">
