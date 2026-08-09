@@ -19,7 +19,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution, GetSVGFromAttributionOptions } from "@parliamentarch/svg";
-import { Resolvers, Writeable } from "../shared/utils/types";
+import { Resolvers } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
 import { ReorderingService } from "../shared/reordering.service";
