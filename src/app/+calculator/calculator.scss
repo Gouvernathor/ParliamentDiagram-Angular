@@ -1,5 +1,9 @@
 @use "../shared/common-style.scss" as *;
 
 mat-slider {
-    width: 250px;
+    max-width: 250px;
+}
+
+.errorcontainer {
+    @include error-container;
 }

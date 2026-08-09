@@ -73,7 +73,13 @@
         when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
      -->
 
-    <!-- TODO display error messages if any -->
+    @if (form().dirty() && form().errorSummary().length) {
+        <div class="errorcontainer">
+            @for (error of form().errorSummary(); track $index) {
+                <p>{{error.message}}</p>
+            }
+        </div>
+    }
 
     <!-- TODO
     a bar
