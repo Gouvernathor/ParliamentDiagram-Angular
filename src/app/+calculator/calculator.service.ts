@@ -18,7 +18,7 @@ export interface CalculatorData {
     readonly countAbstainAsAgainst: boolean;
     readonly displayAbstainIfNotCountedAsAgainst: boolean;
 
-    readonly editPartyList: boolean; // TODO set to true by default, and to false when selecting a preset
+    readonly editPartyList: boolean;
 
     // display options
     readonly borderThickness: number; // maybe double this for Nay and Abstain separately
