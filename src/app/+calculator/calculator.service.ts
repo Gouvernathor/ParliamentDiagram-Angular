@@ -44,7 +44,7 @@ export class CalculatorService {
         displayAbstainIfNotCountedAsAgainst,
         borderThickness,
     }: Pick<CalculatorData, "parties"|"countAbstainAsAgainst"|"displayAbstainIfNotCountedAsAgainst"|"borderThickness">): ReadonlyMap<SeatData, number> {
-        const computedParties = parties.map(p => ({ nAbstain: p.nSeats-(p.nYea+p.nNay), ...p }));
+        const computedParties = parties.map(p => ({ nAbstain: p.nSeats - (p.nYea + p.nNay), ...p }));
         const totalNAbstain = computedParties.reduce((a, p) => a + p.nAbstain, 0);
         const nLeftAbstain = Math.trunc(totalNAbstain/2);
 
