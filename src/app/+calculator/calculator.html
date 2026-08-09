@@ -12,4 +12,58 @@
             Please submit bug reports and feature requests at the project's <a href="https://codeberg.org/Gouvernathor/ParliamentDiagram-Angular/issues">issue tracker</a>.
         </p>
     </div>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Presets</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- TODO list presets in a @for loop
+        US House and Senate presets, with dummy 50/50 values (the parties are always the same)
+        french assemblée nationale (up to date values and parties)
+        each party is represented with a single color, no border
+        the presets may have default values for global settings (such as filling strategy or span angle)
+        leave a comment at data definition inviting people to contribute updates or additions
+         -->
+    </mat-expansion-panel>
+
+    <!-- TODO options
+    majority ratio OR number of seats
+    whether to count the abstentions as votes against, and if not, whether to display them at all
+    enable editing the party list
+    also same options as for the arch (except that the number of seats is hidden, at least by default)
+    against border thickness, and abstain border thickness (or just one for both)
+     -->
+
+    <!-- TODO list the parties, for each:
+    only if editing is enabled:
+        the name, color, and number of seats
+    a triple inline radio button For/Abstain/Against (or Yea/Present/Nay)
+    a double slider, green on the left, red on the right, and grey in the middle (with patterns if possible)
+        custom handles, one draggable on the top, the other rotated 180° and draggable on the bottom
+        when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
+     -->
+
+    <!-- TODO visualization
+    a bar
+    with a majority threshold visible, and another for the reached percentage
+    not counting the abstentions unless counted as nay
+    different colors and patterns on both sides of the bar
+    the result of the vote as text
+
+    an arch, updated automatically
+        maybe using a dedicated component, but may just use the contents directive
+    from left to right, the zones are:
+        the left-abstain parties (see below)
+            hollow with a dashed border
+        the yea parties
+            solid color
+        the against parties
+            hollow with a solid color border
+        the right-abstain parties
+    within each zone, the parties are stablely sorted, so from left to right
+    each party where not all members vote the same will appear in several zones
+    the total number of abstentions is halved and rounded down to get the number of left-abstains
+    listing all abstentions from left to right, the parties in the left half are placed in the left-abstain zone, the parties in the right half are placed in the right-abstain zone, and the party in the middle (if any) is split between both
+     -->
 </app-standard-page>
