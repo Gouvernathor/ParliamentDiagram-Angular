@@ -19,7 +19,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
-import { getSVGFromAttribution } from "@parliamentarch/svg";
+import { getSVGFromAttribution, GetSVGFromAttributionOptions } from "@parliamentarch/svg";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
@@ -192,7 +192,7 @@ export class ArchPage implements OnInit {
                 fp.nSeats,
             ]),
         );
-        const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
+        const options: Partial<GetSVGFromAttributionOptions> = {
             seatRadiusFactor: value.seatRadiusFactor,
             seatNumberFontSizeFactor: value.seatNumberFontSizeFactor,
             fillingStrategy: value.fillingStrategy,
