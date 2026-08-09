@@ -109,7 +109,7 @@ export class ArchPage implements OnInit {
         });
         validate(schemaPath.parties, ({ value }) => {
             const totalNSeats = value().reduce((a, p) => a+p.nSeats, 0);
-            if (!totalNSeats) {
+            if (totalNSeats <= 0) {
                 return { kind: "minimum seats", message: "There must be at least one seat" };
             }
             return;
