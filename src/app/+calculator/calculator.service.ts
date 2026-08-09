@@ -2,12 +2,9 @@ import { Service } from "@angular/core";
 import { getSVGFromAttribution, GetSVGFromAttributionOptions, SeatData } from "@parliamentarch/svg";
 import { FieldState } from "@angular/forms/signals";
 import { Writeable } from "../shared/utils/types";
+import { Party as PresetParty } from "./presets";
 
-interface Party {
-    readonly name: string;
-    readonly nSeats: number;
-    readonly color: string;
-
+interface Party extends PresetParty {
     readonly nYea: number;
     readonly nNay: number;
 }
