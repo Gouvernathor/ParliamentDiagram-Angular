@@ -1,30 +1,9 @@
-import { Component, signal } from "@angular/core";
-import { form, max, min, minLength, validate } from "@angular/forms/signals";
+import { Component, computed, inject, signal } from "@angular/core";
+import { applyEach, form, max, min, minLength, validate } from "@angular/forms/signals";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
-
-interface Party {
-    readonly name: string;
-    readonly nSeats: number;
-    readonly color: string;
-}
-
-interface CalculatorData {
-    readonly parties: readonly Party[];
-
-    // calculation options
-    readonly majorityRatio: number|null;
-    readonly majorityThreshold: number|null;
-    readonly countAbstainAsAgainst: boolean;
-    readonly displayAbstainIfNotCountedAsAgainst: boolean;
-
-    readonly editPartyList: boolean; // TODO set to true by default, and to false when selecting a preset
-
-    // display options
-    readonly borderThickness: number; // maybe double this for Nay and Abstain separately
-    // …other global arch settings
-}
+import { CalculatorData, CalculatorService } from "./calculator.service";
 
 @Component({
     imports: [StandardPage, MatExpansionModule, Contents],
@@ -32,6 +11,8 @@ interface CalculatorData {
     styleUrl: "./calculator.scss",
 })
 export class CalculatorPage {
+    private readonly service = inject(CalculatorService);
+
     protected readonly form = form(signal<CalculatorData>({
         parties: [],
         majorityRatio: null,
@@ -42,6 +23,18 @@ export class CalculatorPage {
         borderThickness: .1, // TODO tweak
     }), schemaPath => {
         minLength(schemaPath.parties, 1);
+        applyEach(schemaPath.parties, party => {
+            validate(party, ({ value }) => {
+                const { name, nSeats, nYea, nNay } = value();
+                if (nSeats < nYea+nNay) {
+                    return {
+                        kind: "number of seats",
+                        message: `The number of expressed votes is higher than the number of seats for party ${name}`,
+                    };
+                }
+                return;
+            });
+        });
         validate(schemaPath.parties, ({ value }) => {
             const totalNSeats = value().reduce((a, p) => a + p.nSeats, 0);
             if (totalNSeats <= 0) {
@@ -57,5 +50,5 @@ export class CalculatorPage {
         max(schemaPath.borderThickness, 1);
     });
 
-    protected readonly diagram = signal<Element|null>(null); // TODO turn into a computed signal
+    protected readonly diagram = computed<Element|null>(() => this.service.getDiagram(this.form()));
 }
