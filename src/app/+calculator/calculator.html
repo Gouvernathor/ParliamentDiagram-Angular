@@ -18,19 +18,17 @@
             <mat-panel-title>Presets</mat-panel-title>
         </mat-expansion-panel-header>
 
-        <!-- TODO list presets in a @for loop
-        US House and Senate presets, with dummy 50/50 values (the parties are always the same)
-        french assemblée nationale (up to date values and parties)
-        each party is represented with (a name and number of seats and) a single color, no border
-        the presets may have default values for global settings (such as filling strategy or span angle)
-        leave a comment at data definition inviting people to contribute updates or additions
-         -->
+        <mat-select [value]="currentPreset()" (valueChange)="usePreset($event)">
+            @for (preset of presets; track $index) {
+                <mat-option [value]="preset">{{preset.name}}</mat-option>
+            }
+        </mat-select>
     </mat-expansion-panel>
 
     <!-- TODO options
     majority ratio OR number of seats
     whether to count the abstentions as votes against, and if not, whether to display them at all
-    enable editing the party list
+    enable editing the party list (when enabled, reset the current preset)
     also same options as for the arch (except that the number of seats is hidden, at least by default)
     against border thickness, and abstain border thickness (or just one for both)
      -->
