@@ -20,7 +20,7 @@ export class CalculatorPage {
         countAbstainAsAgainst: false,
         displayAbstainIfNotCountedAsAgainst: true,
         editPartyList: true,
-        borderThickness: .1, // TODO tweak
+        borderThickness: .2,
     }), schemaPath => {
         minLength(schemaPath.parties, 1);
         applyEach(schemaPath.parties, party => {
