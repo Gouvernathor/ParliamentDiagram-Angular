@@ -24,7 +24,7 @@ A part of the features depend on being able to establish an OAuth 2 connexion to
 
 Building the app without specifying any configuration will build it with the OAuth-dependent features disabled.
 
-A CI workflow exists to deploy to the Gouvernathor website, using either Gitlab CI for Gitlab Pages, or Forgejo Actions for Codeberg Pages. It is triggered by pushes on this repo and so is up-to-date with the latest state of the main branch.
+A CI workflow exists to deploy to the Gouvernathor website, using Forgejo Actions for Codeberg Pages. It is triggered by pushes on this repo and so is up-to-date with the latest state of the main branch.
 
 Deployment on Toolforge is a bit more complex and triggered from the tool server, not from the pushes on this repo. It is handled using the [Toolforge deployer](https://codeberg.org/Gouvernathor/ParliamentDiagram-Toolforge-deployer) side repo.
 
