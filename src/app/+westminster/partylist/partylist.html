@@ -19,10 +19,10 @@
 
                     <div class="formField">
                         <label for="color{{$index}}">Color</label>
-                        <color-input
-                            id="color{{$index}}"
-                            [attr.value]="party.color().value()"
-                            (change)="party.color().value.set($any($event).detail.value)"
+                        <app-color-input
+                            inputId="color{{$index}}"
+                            [value]="party.color().value()"
+                            (valueChange)="party.color().value.set($event)"
                         />
                     </div>
 
@@ -35,10 +35,11 @@
 
                     <div class="formField" [hidden]="party.borderWidth().value() <= 0">
                         <label for="borderColor{{$index}}">Border color</label>
-                        <color-input no-alpha
-                            id="borderColor{{$index}}"
-                            [attr.value]="party.borderColor().value()"
-                            (change)="party.borderColor().value.set($any($event).detail.value)"
+                        <app-color-input
+                            inputId="color{{$index}}"
+                            [value]="party.borderColor().value()"
+                            [alpha]="false"
+                            (valueChange)="party.borderColor().value.set($event)"
                         />
                     </div>
 

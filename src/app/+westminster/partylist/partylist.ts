@@ -14,6 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
 import { ColorService } from "../../shared/color.service";
 import { ReorderingService } from "../../shared/reordering.service";
+import { ColorInput } from "../../shared/color-input/color-input";
 
 export interface Party {
     name: string;
@@ -27,6 +28,7 @@ export interface Party {
 @Component({
     selector: "app-partylist",
     imports: [
+        ColorInput,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatDividerModule, MatFormFieldModule, FormField,
         MatSliderModule, MatInputModule,
@@ -34,7 +36,6 @@ export interface Party {
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
     changeDetection: ChangeDetectionStrategy.Eager,
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Partylist {
     private readonly colorService = inject(ColorService);

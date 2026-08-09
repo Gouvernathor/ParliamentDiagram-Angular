@@ -28,6 +28,7 @@ import { downloadJson } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
+import { ColorInput } from "../shared/color-input/color-input";
 
 interface Party {
     name: string;
@@ -48,7 +49,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, FileInputDrop,
+        StandardPage, DiagramsList, FileInputDrop, ColorInput,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -57,7 +58,6 @@ interface DiagramData {
     templateUrl: "./arch.html",
     styleUrl: "./arch.scss",
     changeDetection: ChangeDetectionStrategy.Eager,
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);

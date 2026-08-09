@@ -1,0 +1,6 @@
+<color-input
+    [id]="inputId()"
+    [attr.value]="value()"
+    [attr.no-alpha]="alpha() || null"
+    (change)="valueChange.emit($any($event).detail.value)"
+/>
