@@ -19,7 +19,7 @@ This is a static web[site/app] able to be deployed on about any domain.
 
 A part of the features depend on being able to establish an OAuth 2 connexion to Wikimedia Commons, and that requires a set of oauth credentials tied to a particular callback URL. Four sets of credentials are provided:
 - for localhost testing
-- for the [Gouvernathor](parliamentdiagram.gouvernathor.fr) domain name
+- for the [Gouvernathor](https://parliamentdiagram.gouvernathor.fr) domain name
 - for the [main Toolforge](https://parliamentdiagram.toolforge.org/) domain
 - for the [beta Toolforge](https://parliamentdiagram-beta.toolforge.org/) domain
 
