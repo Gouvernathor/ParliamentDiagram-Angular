@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { DiagramCard } from "../diagram-card/diagram-card";
 import { Diagram } from "../wikipedia-diagram.service";
@@ -7,6 +7,7 @@ import { Diagram } from "../wikipedia-diagram.service";
     selector: "app-diagrams-list",
     imports: [DiagramCard, MatExpansionModule],
     templateUrl: "./diagrams-list.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./diagrams-list.scss",
 })
 export class DiagramsList {

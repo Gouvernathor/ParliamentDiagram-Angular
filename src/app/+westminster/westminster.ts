@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import { applyEach, form, max, min, validate, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -15,7 +15,7 @@ import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 
 const shapes = ["speak", "government", "opposition", "cross"] as const;
-type Shape = typeof shapes[number];
+type Shape = (typeof shapes)[number];
 
 interface DiagramData {
     parties: {
@@ -45,6 +45,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
     ],
     templateUrl: "./westminster.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./westminster.scss",
 })
 export class WestminsterPage {
@@ -75,7 +76,7 @@ export class WestminsterPage {
                 max(party.roundingRadius, 1);
             });
         }
-        validate(schemaPath.parties, ({value}) => {
+        validate(schemaPath.parties, ({ value }) => {
             const v = value();
             const totalNSeats = shapes.flatMap(s => v[s]).reduce((a, p) => a+p.nSeats, 0);
             if (totalNSeats <= 0) {
@@ -117,15 +118,15 @@ export class WestminsterPage {
     protected generateDiagram() {
         const value = this.diagramForm().value();
         const attrib = shapes.flatMap(shape => value.parties[shape].map(p =>({
-            area: shape,
-            nSeats: p.nSeats,
+                area: shape,
+                nSeats: p.nSeats,
 
-            data: p.name,
-            color: p.color,
-            borderSize: p.borderWidth,
-            borderColor: p.borderColor,
-            roundingRadius: p.roundingRadius,
-        })));
+                data: p.name,
+                color: p.color,
+                borderSize: p.borderWidth,
+                borderColor: p.borderColor,
+                roundingRadius: p.roundingRadius,
+            })));
         const options = {
             wingNRows: value.wingNRows,
             crossNCols: value.crossNCols,
@@ -139,9 +140,12 @@ export class WestminsterPage {
             .flatMap(s => value.parties[s]);
 
         const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [ {
-            svg: diagram,
-            legend: this.wikipediaDiagramService.getLegend(partiesForLegend),
-        }, ...l ]);
+        this.diagrams.update(l => [
+            {
+                svg: diagram,
+                legend: this.wikipediaDiagramService.getLegend(partiesForLegend),
+            },
+            ...l,
+        ]);
     }
 }

@@ -1,4 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core";
+import {
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    inject,
+    input,
+    ChangeDetectionStrategy,
+} from "@angular/core";
 import { FieldTree, FormField } from "@angular/forms/signals";
 import { CdkDropList, CdkDrag, CdkDragHandle } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
@@ -27,6 +33,7 @@ export interface Party {
     ],
     templateUrl: "./partylist.html",
     styleUrl: "./partylist.scss",
+    changeDetection: ChangeDetectionStrategy.Eager,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Partylist {

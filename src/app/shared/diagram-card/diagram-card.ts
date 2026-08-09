@@ -1,4 +1,11 @@
-import { Component, inject, input, linkedSignal, signal } from "@angular/core";
+import {
+    Component,
+    inject,
+    input,
+    linkedSignal,
+    signal,
+    ChangeDetectionStrategy,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -14,6 +21,7 @@ import { form, FormField } from "@angular/forms/signals";
     selector: "app-diagram-card",
     imports: [Contents, MatButtonModule, MatExpansionModule, MatFormFieldModule, MatTooltip, MatInput, FormField],
     templateUrl: "./diagram-card.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./diagram-card.scss",
 })
 export class DiagramCard {
@@ -23,11 +31,11 @@ export class DiagramCard {
     readonly diagram = input.required<Diagram>();
 
     protected readonly preFilenameForm = form(signal({
-        year: this.currentYear(),
-        country: "",
-        locality: "",
-        bodyName: "",
-    }));
+            year: this.currentYear(),
+            country: "",
+            locality: "",
+            bodyName: "",
+        }));
     protected readonly fileName = linkedSignal(() => {
         const filenameElements: string[] = [];
         const filenameForm = this.preFilenameForm().value();
@@ -68,7 +76,7 @@ export class DiagramCard {
     private currentYear(): number {
         // @ts-ignore
         return globalThis.Temporal?.Now
-            .plainDateISO().year ??
+.plainDateISO().year ??
             (new Date()).getFullYear();
     }
 }

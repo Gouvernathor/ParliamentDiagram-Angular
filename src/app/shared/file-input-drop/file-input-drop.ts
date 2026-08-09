@@ -1,10 +1,11 @@
-import { Component, output } from "@angular/core";
+import { Component, output, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
     selector: "file-input-drop",
     imports: [],
     templateUrl: "./file-input-drop.html",
     styleUrl: "./file-input-drop.scss",
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         "(drop)": "handleDrop($event)",
     },

@@ -1,4 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input, OnInit, signal } from "@angular/core";
+import {
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    inject,
+    input,
+    OnInit,
+    signal,
+    ChangeDetectionStrategy,
+} from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
 import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
@@ -46,8 +54,9 @@ interface DiagramData {
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
     ],
-    templateUrl: './arch.html',
-    styleUrl: './arch.scss',
+    templateUrl: "./arch.html",
+    styleUrl: "./arch.scss",
+    changeDetection: ChangeDetectionStrategy.Eager,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ArchPage implements OnInit {
@@ -98,7 +107,7 @@ export class ArchPage implements OnInit {
             min(party.borderWidth, 0);
             max(party.borderWidth, 1);
         });
-        validate(schemaPath.parties, ({value}) => {
+        validate(schemaPath.parties, ({ value }) => {
             const totalNSeats = value().reduce((a, p) => a+p.nSeats, 0);
             if (!totalNSeats) {
                 return { kind: "minimum seats", message: "There must be at least one seat" };
@@ -111,10 +120,13 @@ export class ArchPage implements OnInit {
 
         min(schemaPath.seatNumberFontSizeFactor, 0);
 
-        validate(schemaPath.minNRows, ({value}) => {
+        validate(schemaPath.minNRows, ({ value }) => {
             const v = value();
             if (!(v == null || 0 <= v)) {
-                return { kind: "bound", message: "The minimum number of rows cannot be less than 0" };
+                return {
+                    kind: "bound",
+                    message: "The minimum number of rows cannot be less than 0",
+                };
             }
             return;
         });
@@ -169,12 +181,17 @@ export class ArchPage implements OnInit {
 
     protected generateDiagram() {
         const value = this.diagramForm().value();
-        const attrib = new Map(value.parties.map(fp => [{
-            data: fp.name,
-            color: fp.color,
-            borderSize: fp.borderWidth,
-            borderColor: fp.borderColor,
-        }, fp.nSeats]));
+        const attrib = new Map(
+            value.parties.map(fp => [
+                {
+                    data: fp.name,
+                    color: fp.color,
+                    borderSize: fp.borderWidth,
+                    borderColor: fp.borderColor,
+                },
+                fp.nSeats,
+            ]),
+        );
         const options: Writeable<Parameters<typeof getSVGFromAttribution>[1]> = {
             seatRadiusFactor: value.seatRadiusFactor,
             seatNumberFontSizeFactor: value.seatNumberFontSizeFactor,
@@ -188,9 +205,12 @@ export class ArchPage implements OnInit {
         }
 
         const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [ {
-            svg: diagram,
-            legend: this.wikipediaDiagramService.getLegend(value.parties),
-        }, ...l ]);
+        this.diagrams.update(l => [
+            {
+                svg: diagram,
+                legend: this.wikipediaDiagramService.getLegend(value.parties),
+            },
+            ...l,
+        ]);
     }
 }

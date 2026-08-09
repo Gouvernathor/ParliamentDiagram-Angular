@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from "@angular/core";
+import { Component, inject, input, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { callbackUrlParameterName } from "@gouvernathor/m3api-oauth2";
 import { Resolvers } from "../shared/utils/types";
@@ -8,6 +8,7 @@ import { SESSION_SERVICE } from "../shared/oauth/conditional-inject";
 @Component({
     imports: [StandardPage, MatButtonModule],
     templateUrl: "./oauth-callback.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./oauth-callback.scss",
 })
 export class OauthCallbackPage implements OnInit {

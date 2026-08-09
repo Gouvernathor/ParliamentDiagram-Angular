@@ -1,15 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ThemeingService } from './shared/themeing';
+import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { ThemeingService } from "./shared/themeing";
 
 @Component({
-    selector: 'app-root',
+    selector: "app-root",
     imports: [RouterOutlet],
-    templateUrl: './app.html',
-    styleUrl: './app.scss'
+    templateUrl: "./app.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: "./app.scss",
 })
 export class App {
-    protected readonly title = signal('ParliamentDiagram');
+    protected readonly title = signal("ParliamentDiagram");
 
     constructor() {
         const themeingService = inject(ThemeingService);
