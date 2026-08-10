@@ -32,10 +32,11 @@
                 }
             </mat-select>
         </mat-form-field>
-
-            <!-- TODO options
-            majority ratio OR number of seats
-             -->
+        <div>
+            <mat-checkbox [formField]="form.editPartyList">
+                Edit the parties
+            </mat-checkbox>
+        </div>
 
         <div>
             <mat-checkbox [formField]="form.countAbstainAsAgainst">
@@ -47,14 +48,12 @@
             </mat-checkbox>
         </div>
 
-        <div>
-            <mat-checkbox [formField]="form.editPartyList">
-                Edit the parties
-            </mat-checkbox>
-        </div>
+            <!-- TODO options
+            majority ratio OR number of seats
 
-            <!-- TODO
-            also same options as for the arch (except that the number of seats is hidden, at least by default)
+            options to style the majority line (or with the )
+
+            same options as for the arch (except that the number of seats is hidden, at least by default)
              -->
 
         <div class="formField">
