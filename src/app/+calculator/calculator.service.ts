@@ -119,14 +119,14 @@ export class CalculatorService {
     }
 
     private abstainParty(name: string, color: string, borderThickness: number): SeatData {
+        const fillRatio = 1/10;
+        const nDashes = 12;
         return {
             data: name,
             color: "transparent",
             borderColor: color,
-
-            // TODO support dashed line in ParliamentArch (proportional to the seat radius),
-            // and then remove this /3
-            borderSize: borderThickness/3,
+            borderSize: borderThickness*.6,
+            borderDasharray: [fillRatio*10/nDashes, (1-fillRatio)*10/12],
         };
     }
 
