@@ -124,8 +124,7 @@ export class CalculatorService {
             color: "transparent",
             borderColor: color,
 
-            // TODO support dashed line in ParliamentArch,
-            // or set it using a class with ng-deep,
+            // TODO support dashed line in ParliamentArch (proportional to the seat radius),
             // and then remove this /3
             borderSize: borderThickness/3,
         };
