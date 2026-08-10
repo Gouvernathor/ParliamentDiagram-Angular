@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, signal } from "@angular/core";
 import { applyEach, form, max, min, minLength, validate, FormField } from "@angular/forms/signals";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSelectModule } from "@angular/material/select";
@@ -10,7 +11,7 @@ import { CalculatorData, CalculatorService, Party } from "./calculator.service";
 import { Preset, presets } from "./presets";
 
 @Component({
-    imports: [StandardPage, Contents, FormField, MatCheckboxModule, MatExpansionModule, MatSelectModule, MatSliderModule],
+    imports: [StandardPage, Contents, FormField, MatButtonToggleModule, MatCheckboxModule, MatExpansionModule, MatSelectModule, MatSliderModule],
     templateUrl: "./calculator.html",
     styleUrl: "./calculator.scss",
 })

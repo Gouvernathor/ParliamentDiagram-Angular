@@ -73,14 +73,38 @@
         when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
      -->
     <div class="partygrid">
-        @for (party of form.parties().value(); track $index) {
+        @for (party of form.parties; track $index) {
+            @let value = party().value();
             <div class="party">
                 <p class="partyname"
-                    [style.--party-color]="party.color"
+                    [style.--party-color]="value.color"
                 >
-                    {{party.name}}
+                    {{value.name}}
                 </p>
-                <p>{{party.nSeats}} seat{{party.nSeats > 1 ? "s" : ""}}</p>
+                <p>{{value.nSeats}} seat{{value.nSeats > 1 ? "s" : ""}}</p>
+
+                <mat-button-toggle-group
+                    aria-label="Whole party voting position"
+                >
+                    <mat-button-toggle
+                        [checked]="value.nSeats === value.nYea"
+                        (change)="[
+                            party.nYea().value.set(value.nSeats),
+                            party.nNay().value.set(0)]"
+                    >For</mat-button-toggle>
+                    <mat-button-toggle
+                        [checked]="value.nYea + value.nNay === 0"
+                        (change)="[
+                            party.nYea().value.set(0),
+                            party.nNay().value.set(0)]"
+                    >Abstain</mat-button-toggle>
+                    <mat-button-toggle
+                        [checked]="value.nSeats === value.nNay"
+                        (change)="[
+                            party.nYea().value.set(0),
+                            party.nNay().value.set(value.nSeats)]"
+                    >Against</mat-button-toggle>
+                </mat-button-toggle-group>
             </div>
         }
     </div>
