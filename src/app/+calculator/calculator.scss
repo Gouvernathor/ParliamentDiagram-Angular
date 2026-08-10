@@ -10,7 +10,7 @@ mat-slider {
 
 .partygrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
     .party {
         flex: 1 1 auto;
