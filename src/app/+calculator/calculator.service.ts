@@ -126,8 +126,8 @@ export class CalculatorService {
 
             // TODO support dashed line in ParliamentArch,
             // or set it using a class with ng-deep,
-            // and then remove this /2
-            borderSize: borderThickness/2,
+            // and then remove this /3
+            borderSize: borderThickness/3,
         };
     }
 
