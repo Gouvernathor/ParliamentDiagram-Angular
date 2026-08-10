@@ -1,4 +1,11 @@
+@use '@angular/material' as mat;
 @use "../shared/common-style.scss" as *;
+
+.options-expansion {
+    @include mat.expansion-overrides((
+        container-background-color: var(--mat-sys-surface-container),
+    ));
+}
 
 mat-slider {
     max-width: 250px;
