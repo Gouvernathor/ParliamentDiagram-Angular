@@ -77,12 +77,8 @@
     <div class="partygrid">
         @for (party of form.parties; track $index) {
             @let value = party().value();
-            <div class="party">
-                <p class="partyname"
-                    [style.--party-color]="value.color"
-                >
-                    {{value.name}}
-                </p>
+            <div class="party" [style.--party-color]="value.color">
+                <p class="partyname">{{value.name}}</p>
                 <p>{{value.nSeats}} seat{{value.nSeats > 1 ? "s" : ""}}</p>
 
                 <!-- TODO make the 3 values above editable if editPartyList -->
