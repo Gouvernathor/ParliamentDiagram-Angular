@@ -71,11 +71,8 @@
     }
 }
 
-@mixin error-container {
-    color: var(--mat-sys-error);
-    background-color: var(--mat-sys-error-container);
-
-    padding: 16px;
+@mixin text-container {
+    padding: 1em;
     border-radius: var(--mat-sys-corner-medium);
 
     > :first-child {
@@ -84,4 +81,11 @@
     > :last-child {
         margin-block-end: 0;
     }
+}
+
+@mixin error-container {
+    color: var(--mat-sys-error);
+    background-color: var(--mat-sys-error-container);
+
+    @include text-container;
 }
