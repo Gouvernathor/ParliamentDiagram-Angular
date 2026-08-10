@@ -13,6 +13,8 @@
         </p>
     </div>
 
+    @let currentPreset = this.currentPreset();
+
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
             <mat-panel-title>Options</mat-panel-title>
@@ -22,7 +24,7 @@
             <mat-label>Assembly preset</mat-label>
 
             <mat-select
-                [value]="currentPreset()" (selectionChange)="usePreset($event.value)"
+                [value]="currentPreset" (selectionChange)="usePreset($event.value)"
                 [panelWidth]="null"
             >
                 @for (preset of presets; track $index) {
@@ -63,6 +65,14 @@
             </mat-slider>
         </div>
     </mat-expansion-panel>
+
+
+    @if (currentPreset) {
+        <div class="presetdisplay">
+            <p><b>{{currentPreset.name}}</b></p>
+            <p>{{currentPreset.about}}</p>
+        </div>
+    }
 
     <!-- TODO list the parties, for each:
     only if editing is enabled:
