@@ -144,7 +144,7 @@ export class CalculatorService {
         majorityRatio,
         majorityThreshold,
     }: Pick<CalculatorData, "majorityRatio"|"majorityThreshold">): Partial<Readonly<GetSVGFromAttributionOptions>> {
-        const checkpoint: Writeable<GetSVGFromAttributionOptions["majorityLines"][number]> = {
+        const line: Writeable<GetSVGFromAttributionOptions["majorityLines"][number]> = {
             // TODO (maybe)
             // data,
             // color,
@@ -155,9 +155,9 @@ export class CalculatorService {
         };
 
         if (majorityRatio != null) {
-            checkpoint.ratio = majorityRatio;
+            line.ratio = majorityRatio;
         } else if (majorityThreshold != null) {
-            checkpoint.nSeats = majorityThreshold;
+            line.nSeats = majorityThreshold;
         }
 
         return {
@@ -168,7 +168,7 @@ export class CalculatorService {
             // spanAngle,
             seatNumberFontSizeFactor: 0,
 
-            majorityLines: [checkpoint],
+            majorityLines: [line],
         };
     }
 }
