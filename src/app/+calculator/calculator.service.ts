@@ -168,7 +168,7 @@ export class CalculatorService {
             // spanAngle,
             seatNumberFontSizeFactor: 0,
 
-            majorityLineCheckpoints: [],
+            majorityLines: [checkpoint],
         };
     }
 }
