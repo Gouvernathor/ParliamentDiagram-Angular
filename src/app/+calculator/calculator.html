@@ -77,7 +77,10 @@
             <div class="party">
                 <p class="partyname"
                     [style.--party-color]="party.color"
-                >{{party.name}}</p>
+                >
+                    {{party.name}}
+                </p>
+                <p>{{party.nSeats}} seat{{party.nSeats > 1 ? "s" : ""}}</p>
             </div>
         }
     </div>
