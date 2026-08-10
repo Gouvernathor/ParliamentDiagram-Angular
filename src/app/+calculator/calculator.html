@@ -74,14 +74,6 @@
         </div>
     }
 
-    <!-- TODO list the parties, for each:
-    only if editing is enabled:
-        the name, color, and number of seats
-    a triple inline radio button For/Abstain/Against (or Yea/Present/Nay)
-    a double slider, green on the left, red on the right, and grey in the middle (with patterns if possible)
-        custom handles, one draggable on the top, the other rotated 180° and draggable on the bottom
-        when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
-     -->
     <div class="partygrid">
         @for (party of form.parties; track $index) {
             @let value = party().value();
@@ -92,6 +84,8 @@
                     {{value.name}}
                 </p>
                 <p>{{value.nSeats}} seat{{value.nSeats > 1 ? "s" : ""}}</p>
+
+                <!-- TODO make the 3 values above editable if editPartyList -->
 
                 <mat-button-toggle-group
                     aria-label="Whole party voting position"
@@ -115,8 +109,16 @@
                             party.nNay().value.set(value.nSeats)]"
                     >Against</mat-button-toggle>
                 </mat-button-toggle-group>
+
+                <!-- TODO
+                a double slider, green on the left, red on the right, and grey in the middle (with patterns if possible)
+                    custom handles, one draggable on the top, the other rotated 180° and draggable on the bottom
+                    when the number of abstentions is 0, add a (visible or not) drag handle in the middle that moves both
+                 -->
             </div>
         }
+
+        <!-- TODO button to add a party -->
     </div>
 
     @if (form().dirty() && errorMessages().length) {
