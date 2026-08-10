@@ -31,8 +31,24 @@ export class CalculatorPage {
     }), schemaPath => {
         minLength(schemaPath.parties, 1);
         applyEach(schemaPath.parties, party => {
+            min(party.nYea, 0);
+            min(party.nNay, 0);
+
             validate(party, ({ value }) => {
                 const { name, nSeats, nYea, nNay } = value();
+                if (nSeats < nYea) {
+                    return {
+                        kind: "number of votes for",
+                        message: `The number of votes for is higher than the number of seats for party ${name}`,
+                    };
+                }
+                if (nSeats < nNay) {
+                    return {
+                        kind: "number of votes against",
+                        message: `The number of votes against is higher than the number of seats for party ${name}`,
+                    };
+                }
+
                 if (nSeats < nYea+nNay) {
                     return {
                         kind: "number of seats",
