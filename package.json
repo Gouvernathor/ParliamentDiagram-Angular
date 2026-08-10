@@ -21,7 +21,7 @@
     "@angular/router": "^22.1.1",
     "@gouvernathor/m3api-oauth2": "^2.0.1",
     "@parliamentarch/core": "^5.1.0",
-    "@parliamentarch/svg": "^5.1.1",
+    "@parliamentarch/svg": "^5.2.0",
     "@parliamentarch/westminster-svg": "^1.0.1",
     "canvas-blob-manager": "^1.2.1",
     "hdr-color-input": "^0.4.0",
