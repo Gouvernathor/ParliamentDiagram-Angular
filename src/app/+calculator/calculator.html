@@ -75,7 +75,7 @@
     }
 
     <div class="partygrid">
-        @for (party of form.parties; track $index) {
+        @for (party of form.parties; track party) {
             @let value = party().value();
             <div class="party" [style.--party-color]="value.color">
                 <p class="partyname">{{value.name}}</p>
