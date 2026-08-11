@@ -65,11 +65,8 @@ export class CalculatorPage {
             });
         });
         validate(schemaPath, ({ value }) => {
-            const nSeats: (p: Party) => number = value().countAbstainAsAgainst || value().displayAbstainIfNotCountedAsAgainst ?
-                p => p.nSeats :
-                p => p.nYea+p.nNay;
-            const totalNSeats = value().parties.reduce((a, p) => a + nSeats(p), 0);
-            if (totalNSeats <= 0) {
+            const nSeatsToDisplay = this.nSeatsToDisplay();
+            if (nSeatsToDisplay <= 0) {
                 return {
                     kind: "minimum seats",
                     message: "There must be at least one seat",
@@ -77,7 +74,7 @@ export class CalculatorPage {
             }
 
             const thresh = value().majorityThreshold;
-            if (thresh && totalNSeats < thresh) {
+            if (thresh && nSeatsToDisplay < thresh) {
                 return {
                     kind: "threshold too high",
                     message: "The threshold cannot be higher than the number of seats",
@@ -92,6 +89,18 @@ export class CalculatorPage {
 
         min(schemaPath.borderThickness, 0.0000000000000000000001);
         max(schemaPath.borderThickness, 1);
+    });
+
+    protected readonly totalNSeats = computed(() =>
+        this.form.parties().value().reduce((a, p) => a + p.nSeats, 0));
+    /**
+     * Takes into account that abstain votes are sometimes not displayed
+     */
+    protected readonly nSeatsToDisplay = computed(() => {
+        if (this.form.countAbstainAsAgainst().value() || this.form.displayAbstainIfNotCountedAsAgainst().value()) {
+            return this.totalNSeats();
+        }
+        return this.form.parties().value().reduce((a, p) => a + p.nYea+p.nNay, 0);
     });
 
     protected readonly errorMessages = computed(() =>

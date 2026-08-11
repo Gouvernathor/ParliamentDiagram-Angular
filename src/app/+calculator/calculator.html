@@ -74,13 +74,11 @@
     }
 
     <div class="partygrid">
-        @let totalNSeats = form.parties().value().reduce((a, p) => a + p.nSeats, 0);
-
         @for (party of form.parties; track party) {
             @let value = party().value();
             <div class="party" [style.--party-color]="value.color">
                 <p class="partyname">{{value.name}}</p>
-                <p>{{value.nSeats}} seat{{value.nSeats > 1 ? "s" : ""}} ({{ value.nSeats/totalNSeats | percent:'1.0-1' }})</p>
+                <p>{{value.nSeats}} seat{{value.nSeats > 1 ? "s" : ""}} ({{ value.nSeats/totalNSeats() | percent:'1.0-1' }})</p>
 
                 <!-- TODO make the 3 values above editable if editPartyList -->
 
