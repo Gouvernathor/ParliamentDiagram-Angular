@@ -64,20 +64,12 @@ export class CalculatorPage {
                 return;
             });
         });
-        validate(schemaPath, ({ value }) => {
+        validate(schemaPath.parties, () => {
             const nSeatsToDisplay = this.nSeatsToDisplay();
             if (nSeatsToDisplay <= 0) {
                 return {
                     kind: "minimum seats",
                     message: "There must be at least one seat",
-                };
-            }
-
-            const thresh = value().majorityThreshold;
-            if (thresh && nSeatsToDisplay < thresh) {
-                return {
-                    kind: "threshold too high",
-                    message: "The threshold cannot be higher than the number of seats",
                 };
             }
             return;
@@ -86,6 +78,16 @@ export class CalculatorPage {
         min(schemaPath.majorityRatio, 0);
         max(schemaPath.majorityRatio, 1);
         min(schemaPath.majorityThreshold, 0);
+        validate(schemaPath.majorityThreshold, ({ value }) => {
+            const thresh = value();
+            if (thresh && this.nSeatsToDisplay() < thresh) {
+                return {
+                    kind: "threshold too high",
+                    message: "The threshold cannot be higher than the number of seats",
+                };
+            }
+            return;
+        });
 
         min(schemaPath.borderThickness, 0.0000000000000000000001);
         max(schemaPath.borderThickness, 1);
