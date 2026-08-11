@@ -13,7 +13,8 @@ export interface CalculatorData {
     readonly parties: readonly Party[];
 
     // calculation options
-    readonly majorityRatio: number | null;
+    readonly useMajorityRatio: boolean;
+    readonly majorityRatio: number;
     readonly majorityThreshold: number | null;
     readonly countAbstainAsAgainst: boolean;
     readonly displayAbstainIfNotCountedAsAgainst: boolean;
@@ -140,9 +141,10 @@ export class CalculatorService {
     }
 
     private getOptions({
+        useMajorityRatio,
         majorityRatio,
         majorityThreshold,
-    }: Pick<CalculatorData, "majorityRatio"|"majorityThreshold">): Partial<Readonly<GetSVGFromAttributionOptions>> {
+    }: Pick<CalculatorData, "useMajorityRatio"|"majorityRatio"|"majorityThreshold">): Partial<Readonly<GetSVGFromAttributionOptions>> {
         const line: Writeable<GetSVGFromAttributionOptions["majorityLines"][number]> = {
             // TODO (maybe)
             // data,
@@ -153,10 +155,10 @@ export class CalculatorService {
             // round,
         };
 
-        if (majorityRatio != null) {
-            line.ratio = majorityRatio;
-        } else if (majorityThreshold != null) {
+        if (majorityThreshold != null && !useMajorityRatio) {
             line.nSeats = majorityThreshold;
+        } else {
+            line.ratio = majorityRatio;
         }
 
         return {
