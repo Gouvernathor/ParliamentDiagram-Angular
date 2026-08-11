@@ -86,6 +86,8 @@ export class CalculatorPage {
             return;
         });
 
+        min(schemaPath.majorityRatio, 0);
+        max(schemaPath.majorityRatio, 1);
         min(schemaPath.majorityThreshold, 0);
 
         min(schemaPath.borderThickness, 0.0000000000000000000001);
