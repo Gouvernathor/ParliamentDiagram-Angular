@@ -81,15 +81,8 @@ export class CalculatorPage {
         max(schemaPath.majorityRatio, 1);
         disabled(schemaPath.majorityThreshold, { when: ({valueOf}) => valueOf(schemaPath.useMajorityRatio)});
         min(schemaPath.majorityThreshold, 0);
-        validate(schemaPath.majorityThreshold, ({ value }) => {
-            const thresh = value();
-            if (thresh && this.nSeatsToDisplay() < thresh) {
-                return {
-                    kind: "threshold too high",
-                    message: "The threshold cannot be higher than the number of seats",
-                };
-            }
-            return;
+        max(schemaPath.majorityThreshold, () => this.nSeatsToDisplay(), {
+            message: "The threshold cannot be higher than the number of seats",
         });
 
         min(schemaPath.borderThickness, 0.0000000000000000000001);
