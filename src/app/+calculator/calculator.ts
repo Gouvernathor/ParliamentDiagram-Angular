@@ -75,8 +75,18 @@ export class CalculatorPage {
                     message: "There must be at least one seat",
                 };
             }
+
+            const thresh = value().majorityThreshold;
+            if (thresh && totalNSeats < thresh) {
+                return {
+                    kind: "threshold too high",
+                    message: "The threshold cannot be higher than the number of seats",
+                };
+            }
             return;
         });
+
+        min(schemaPath.majorityThreshold, 0);
 
         min(schemaPath.borderThickness, 0.0000000000000000000001);
         max(schemaPath.borderThickness, 1);
