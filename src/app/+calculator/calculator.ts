@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, signal } from "@angular/core";
 import { PercentPipe } from "@angular/common";
-import { applyEach, form, max, min, minLength, validate, FormField } from "@angular/forms/signals";
+import { applyEach, form, max, min, minLength, validate, FormField, disabled } from "@angular/forms/signals";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -8,7 +8,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSliderModule } from "@angular/material/slider";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
-import { CalculatorData, CalculatorService, Party } from "./calculator.service";
+import { CalculatorData, CalculatorService } from "./calculator.service";
 import { Preset, presets } from "./presets";
 
 @Component({
@@ -28,7 +28,8 @@ export class CalculatorPage {
     protected readonly currentPreset = signal<Preset|null>(null);
     protected readonly form = form(signal<CalculatorData>({
         parties: [],
-        majorityRatio: null,
+        useMajorityRatio: true,
+        majorityRatio: .5,
         majorityThreshold: null,
         countAbstainAsAgainst: false,
         displayAbstainIfNotCountedAsAgainst: true,
@@ -75,8 +76,10 @@ export class CalculatorPage {
             return;
         });
 
+        disabled(schemaPath.majorityRatio, { when: ({valueOf}) => !valueOf(schemaPath.useMajorityRatio)});
         min(schemaPath.majorityRatio, 0);
         max(schemaPath.majorityRatio, 1);
+        disabled(schemaPath.majorityThreshold, { when: ({valueOf}) => valueOf(schemaPath.useMajorityRatio)});
         min(schemaPath.majorityThreshold, 0);
         validate(schemaPath.majorityThreshold, ({ value }) => {
             const thresh = value();
@@ -114,6 +117,17 @@ export class CalculatorPage {
         effect(() => {
             if (this.form.editPartyList().value()) {
                 this.currentPreset.set(null);
+            }
+        });
+
+        effect(() => {
+            if (!this.form.useMajorityRatio().value()) {
+                const thresh = this.form.majorityThreshold().value();
+                const nSeatsToDisplay = this.nSeatsToDisplay();
+                if (thresh == null || thresh > nSeatsToDisplay) {
+                    const half = Math.ceil(nSeatsToDisplay / 2);
+                    this.form.majorityThreshold().value.set(half);
+                }
             }
         });
     }
