@@ -6,6 +6,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSliderModule } from "@angular/material/slider";
+import { validateIsInteger } from "../shared/validation";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Contents } from "../shared/contents.directive";
 import { CalculatorData, CalculatorService } from "./calculator.service";
@@ -38,15 +39,20 @@ export class CalculatorPage {
     }), schemaPath => {
         minLength(schemaPath.parties, 1);
         applyEach(schemaPath.parties, party => {
+            min(party.nSeats, 0);
+            validate(party.nSeats, validateIsInteger);
+
             min(party.nYea, 0);
             max(party.nYea, ({valueOf}) => valueOf(party.nSeats), {
                 message: "The number of votes for is higher than the number of seats",
             });
+            validate(party.nYea, validateIsInteger);
 
             min(party.nNay, 0);
             max(party.nNay, ({valueOf}) => valueOf(party.nSeats), {
                 message: "The number of votes against is higher than the number of seats",
             });
+            validate(party.nNay, validateIsInteger);
 
             validate(party, ({ value }) => {
                 const { name, nSeats, nYea, nNay } = value();
