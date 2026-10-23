@@ -163,9 +163,9 @@ export class ArchPage implements OnInit {
         };
     }
 
-    protected savePreset() {
+    /* private savePreset() {
         downloadJson(this.diagramForm.parties().value());
-    }
+    } */
 
     protected generateDiagram() {
         const value = this.diagramForm().value();

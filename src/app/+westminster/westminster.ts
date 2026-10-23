@@ -100,9 +100,9 @@ export class WestminsterPage {
 
     protected readonly diagrams = signal<readonly Diagram[]>([]);
 
-    protected savePreset() {
+    /* private savePreset() {
         downloadJson(this.diagramForm.parties().value());
-    }
+    } */
 
     protected generateDiagram() {
         const value = this.diagramForm().value();
