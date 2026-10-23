@@ -36,17 +36,45 @@ export class FileDrop {
      */
     readonly files = output<readonly File[] | FileList>();
 
-    protected onDropped(event: Event) {
-        // TODO
+    constructor() {
+        this.files.subscribe(files => {
+            for (const file of files) {
+                this.file.emit(file);
+            }
+        });
+    }
+
+    protected onDropped(event: DragEvent) {
+        const files = event.dataTransfer?.files;
+        if (files?.length) {
+            if (!this.multiple() && files.length > 1) {
+                console.warn("Multiple file drop not authorized");
+                return;
+            }
+
+            const allowedTypes = this.allowedTypes();
+            if (!allowedTypes.some(t => t.includes("*"))) {
+                const errors = [];
+                for (const file of files) {
+                    if (!allowedTypes.includes(file.type)) {
+                        errors.push(`File ${file.name} is of unsupported MIME type (${file.type}).`);
+                    }
+                }
+
+                if (errors.length) {
+                    errors.forEach(e => console.warn(e));
+                    return;
+                }
+            }
+
+            this.files.emit(files);
+        }
     }
 
     protected onSelected(event: Event) {
         const files = this.inputElement().nativeElement.files;
         if (files?.length) {
             this.files.emit(files);
-            for (const file of files) {
-                this.file.emit(file);
-            }
         }
     }
 }
