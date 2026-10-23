@@ -25,11 +25,10 @@ import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { ReorderingService } from "../shared/reordering.service";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { SvgFileParse } from "../shared/svg-file-parse.js";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
-import type { Party } from "./types.js";
 import { SvgToPreset } from "./svg-to-preset.js";
+import type { Party } from "./types.js";
 
 interface DiagramData {
     parties: readonly Party[];
@@ -57,7 +56,6 @@ export class ArchPage implements OnInit {
     protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
-    private readonly svgFileParseService = inject(SvgFileParse);
     private readonly svgToPresetService = inject(SvgToPreset);
 
     protected readonly FillingStrategy = FillingStrategy;
@@ -164,7 +162,7 @@ export class ArchPage implements OnInit {
     }
 
     protected async loadPresetFromFile(file: File) {
-        this.applyPreset(this.svgToPresetService.toPreset(await this.svgFileParseService.extract(file)));
+        this.applyPreset(await this.svgToPresetService.extract(file));
     }
 
     /* private savePreset() {

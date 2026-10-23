@@ -1,9 +1,10 @@
 import { Service } from "@angular/core";
+import { BaseSvgConverter } from "../shared/base-svg-converter.js";
 import type { Party } from "./types.js";
 
 @Service()
-export class SvgToPreset {
-    toPreset(svg: SVGSVGElement): readonly Party[] {
+export class SvgToPreset extends BaseSvgConverter<readonly Party[]> {
+    protected override convert(svg: SVGSVGElement): readonly Party[] {
         const parties = [];
 
         let foundUnknownGElements = false;
