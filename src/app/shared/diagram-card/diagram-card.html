@@ -52,7 +52,7 @@
         <button matButton="filled"
             [disabled]="!sessionService.isLoggedIn()"
             [disabledInteractive]="true"
-            matTooltip="You must log in before doing that"
+            [matTooltip]="sessionService.isLoggedIn() ? null : 'You must log in before doing that'"
             (click)="sessionService.isLoggedIn() && uploadDiagram()"
         >
             Upload
