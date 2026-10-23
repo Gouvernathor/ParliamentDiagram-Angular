@@ -22,7 +22,6 @@ import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { ColorService } from "../shared/color.service";
-import { downloadJson } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
