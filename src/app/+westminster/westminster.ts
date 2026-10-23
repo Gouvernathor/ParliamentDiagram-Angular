@@ -8,17 +8,14 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { Party, Partylist } from "./partylist/partylist";
+import { Partylist } from "./partylist/partylist";
+import { Party } from "./types";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
-
-const areas = ["speak", "government", "opposition", "cross"] as const;
-type Area = (typeof areas)[number];
+import { areas, type PartiesPerArea } from "./types.js";
 
 interface DiagramData {
-    parties: {
-        [s in Area]: readonly Party[];
-    };
+    parties: PartiesPerArea;
     wingNRows: number;
     crossNCols: number;
     packed: boolean;

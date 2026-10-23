@@ -14,15 +14,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { ColorService } from "../../shared/color.service";
 import { ReorderingService } from "../../shared/reordering.service";
 import { ColorInput } from "../../shared/color-input/color-input";
-
-export interface Party {
-    name: string;
-    nSeats: number;
-    color: string;
-    borderWidth: number;
-    borderColor: string;
-    roundingRadius: number|null;
-}
+import type { Party } from "../types.js";
 
 @Component({
     selector: "app-partylist",
