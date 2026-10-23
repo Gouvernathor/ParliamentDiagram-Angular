@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: npm ci
-      - run: npm run build --if-present
+      - run: npm run build --if-present -- --configuration production,gouvernathor-fr
 
       # redirects
       - run: cp ./codeberg_pages_redirects ${{ env.BUILD_LOC }}/_redirects
