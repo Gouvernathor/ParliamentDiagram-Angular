@@ -71,7 +71,7 @@ export class FileDrop {
         }
     }
 
-    protected onSelected(event: Event) {
+    protected onSelected() {
         const files = this.inputElement().nativeElement.files;
         if (files?.length) {
             this.files.emit(files);
