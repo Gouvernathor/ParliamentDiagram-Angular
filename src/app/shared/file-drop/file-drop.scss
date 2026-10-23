@@ -1,0 +1,16 @@
+:host {
+    display: block;
+
+    margin: 1rem;
+    padding: 1rem;
+    border: 2px dashed black;
+    min-height: 2rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+/* input {
+    display: none;
+    visibility: hidden;
+} */

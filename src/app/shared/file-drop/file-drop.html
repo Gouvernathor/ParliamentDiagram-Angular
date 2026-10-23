@@ -1,0 +1,12 @@
+<label [for]="inputId">Drop files here</label>
+
+<input
+    hidden
+    #fileInput
+    type="file"
+    [multiple]="multiple()"
+    [accept]="allowedTypes()"
+    (change)="onSelected($event)"
+/>
+
+<button (click)="fileInput.click()">Select files</button>
