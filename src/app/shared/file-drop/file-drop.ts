@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { Component, input, output, viewChild, type ElementRef } from "@angular/core";
 
 let allAcrossId = 0;
 
@@ -15,6 +15,7 @@ let allAcrossId = 0;
 })
 export class FileDrop {
     protected readonly inputId = `file-input-${++allAcrossId}`;
+    private readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>("fileInput");
 
     /**
      * Whether to allow multiple files to be input at once
@@ -33,13 +34,19 @@ export class FileDrop {
     /**
      * Emits with all the files from a single drop.
      */
-    readonly files = output<readonly File[]>();
+    readonly files = output<readonly File[] | FileList>();
 
     protected onDropped(event: Event) {
         // TODO
     }
 
     protected onSelected(event: Event) {
-        // TODO
+        const files = this.inputElement().nativeElement.files;
+        if (files?.length) {
+            this.files.emit(files);
+            for (const file of files) {
+                this.file.emit(file);
+            }
+        }
     }
 }
