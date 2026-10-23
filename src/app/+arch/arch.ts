@@ -1,6 +1,5 @@
 import {
     Component,
-    CUSTOM_ELEMENTS_SCHEMA,
     inject,
     input,
     OnInit,
@@ -22,7 +21,6 @@ import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
 import { ColorService } from "../shared/color.service";
 import { downloadJson } from "../shared/download";
 import { ReorderingService } from "../shared/reordering.service";
@@ -49,7 +47,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, FileInputDrop, ColorInput,
+        StandardPage, DiagramsList, ColorInput,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -167,16 +165,6 @@ export class ArchPage implements OnInit {
 
     protected savePreset() {
         downloadJson(this.diagramForm.parties().value());
-    }
-    protected async loadPreset(files: FileList) {
-        const file = files[0];
-
-        if (file.size > 10_000) {
-            throw new Error("file too heavy");
-        }
-
-        const parsed = JSON.parse(await file.text());
-        this.diagramForm.parties().value.set(parsed);
     }
 
     protected generateDiagram() {

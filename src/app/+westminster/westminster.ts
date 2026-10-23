@@ -10,7 +10,6 @@ import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { downloadJson } from "../shared/download";
 import { Party, Partylist } from "./partylist/partylist";
-import { FileInputDrop } from "../shared/file-input-drop/file-input-drop";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 
@@ -39,7 +38,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, DiagramsList, FileInputDrop,
+        StandardPage, Partylist, DiagramsList,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -103,16 +102,6 @@ export class WestminsterPage {
 
     protected savePreset() {
         downloadJson(this.diagramForm.parties().value());
-    }
-    protected async loadPreset(files: FileList) {
-        const file = files[0];
-
-        if (file.size > 10_000) {
-            throw new Error("file too heavy");
-        }
-
-        const parsed = JSON.parse(await file.text());
-        this.diagramForm.parties().value.set(parsed);
     }
 
     protected generateDiagram() {
