@@ -2,7 +2,9 @@ import { DOCUMENT, inject, Injectable, signal } from "@angular/core";
 
 const THEMES = [ "light", "dark" ] as const;
 export type Theme = typeof THEMES[number];
-const isATheme: (t: any) => t is Theme = ((t: any) => THEMES.includes(t)) as any;
+function isATheme(t: any): t is Theme {
+    return THEMES.includes(t);
+}
 
 @Injectable({
     providedIn: "root",
