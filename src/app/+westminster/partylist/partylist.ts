@@ -1,6 +1,5 @@
 import {
     Component,
-    CUSTOM_ELEMENTS_SCHEMA,
     inject,
     input,
     ChangeDetectionStrategy,
