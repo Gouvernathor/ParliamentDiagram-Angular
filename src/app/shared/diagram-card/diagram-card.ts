@@ -76,7 +76,7 @@ export class DiagramCard {
     private currentYear(): number {
         // @ts-ignore
         return globalThis.Temporal?.Now
-.plainDateISO().year ??
+            .plainDateISO().year ??
             (new Date()).getFullYear();
     }
 }
