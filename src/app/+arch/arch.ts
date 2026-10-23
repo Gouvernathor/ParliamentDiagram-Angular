@@ -1,10 +1,10 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     inject,
     input,
     OnInit,
     signal,
-    ChangeDetectionStrategy,
 } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
 import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
@@ -19,21 +19,17 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
-import { Resolvers, Writeable } from "../shared/utils/types";
-import { StandardPage } from "../shared/standard-page/standard-page";
-import { ColorService } from "../shared/color.service";
-import { ReorderingService } from "../shared/reordering.service";
-import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
-import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { ColorInput } from "../shared/color-input/color-input";
-
-interface Party {
-    name: string;
-    nSeats: number;
-    color: string;
-    borderWidth: number;
-    borderColor: string;
-}
+import { ColorService } from "../shared/color.service";
+import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
+import { FileDrop } from "../shared/file-drop/file-drop";
+import { ReorderingService } from "../shared/reordering.service";
+import { StandardPage } from "../shared/standard-page/standard-page";
+import { SvgFileParse } from "../shared/svg-file-parse.js";
+import { Resolvers, Writeable } from "../shared/utils/types";
+import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
+import type { Party } from "./types.js";
+import { SvgToPreset } from "./svg-to-preset.js";
 
 interface DiagramData {
     parties: readonly Party[];
@@ -46,7 +42,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, ColorInput,
+        StandardPage, DiagramsList, ColorInput, FileDrop,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -61,6 +57,8 @@ export class ArchPage implements OnInit {
     protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
+    private readonly svgFileParseService = inject(SvgFileParse);
+    private readonly svgToPresetService = inject(SvgToPreset);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -137,8 +135,11 @@ export class ArchPage implements OnInit {
         this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
     }
 
+    private applyPreset(preset: readonly Party[]) {
+        this.diagramForm.parties().value.set(preset);
+    }
     protected applyUSPreset() {
-        this.diagramForm.parties().value.set(this.newUSPreset());
+        this.applyPreset(this.newUSPreset());
     }
 
     private newUSPreset() {
@@ -160,6 +161,10 @@ export class ArchPage implements OnInit {
             borderWidth: 0,
             borderColor: "black",
         };
+    }
+
+    protected async loadPresetFromFile(file: File) {
+        this.applyPreset(this.svgToPresetService.toPreset(await this.svgFileParseService.extract(file)));
     }
 
     /* private savePreset() {
