@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { ArchPage } from './+arch/arch';
 import { WestminsterPage } from './+westminster/westminster';
 import { OauthCallbackPage } from './+oauth-callback/oauth-callback';
+import { NotFoundPage } from './+not-found/not-found.js';
 
 export const routes: Routes = [
     {
@@ -86,3 +87,8 @@ if (environment.legacyRoutes) {
         pathMatch: "full" as const,
     }))));
 }
+
+routes.push({
+    path: "**",
+    component: NotFoundPage,
+});
