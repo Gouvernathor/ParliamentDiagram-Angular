@@ -45,6 +45,8 @@ export class FileDrop {
     }
 
     protected onDropped(event: DragEvent) {
+        event.preventDefault();
+
         const files = event.dataTransfer?.files;
         if (files?.length) {
             if (!this.multiple() && files.length > 1) {
