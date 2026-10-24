@@ -8,8 +8,8 @@ let allAcrossId = 0;
     templateUrl: "./file-drop.html",
     styleUrl: "./file-drop.scss",
     host: {
-        "(dragover)": "$event.preventDefault()",
         "(dragenter)": "onEnter($event)",
+        "(dragover)": "onOver($event)",
         "(dragleave)": "onLeave($event)",
         "(drop)": "onDropped($event)",
         "[class.dragged-over]": "draggedOver()",
@@ -91,6 +91,10 @@ export class FileDrop {
     }
 
     protected onEnter(event: DragEvent) {
+        event.preventDefault();
+        this.draggedOver.set(true);
+    }
+    protected onOver(event: DragEvent) {
         event.preventDefault();
         this.draggedOver.set(true);
     }
