@@ -45,10 +45,10 @@ export class FileDrop {
     }
 
     protected onDropped(event: DragEvent) {
-        event.preventDefault();
-
         const files = event.dataTransfer?.files;
         if (files?.length) {
+            event.preventDefault();
+
             if (!this.multiple() && files.length > 1) {
                 console.warn("Multiple file drop not authorized");
                 return;
