@@ -33,7 +33,12 @@
 
         <button matButton (click)="applyUSPreset()">Use the United States dual party preset</button>
 
-        <file-drop prompt="Drop a diagram here" [multiple]="false" [allowedTypes]="['image/svg+xml']" (file)="loadPresetFromFile($event)" />
+        <file-drop
+            prompt="Drop a diagram here"
+            [multiple]="false" [allowedTypes]="['image/svg+xml']"
+            [converter]="svgToPresetService"
+            (preset)="applyPreset($event)"
+        />
     </mat-expansion-panel>
 
     <mat-expansion-panel>

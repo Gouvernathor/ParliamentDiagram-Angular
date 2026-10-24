@@ -23,6 +23,7 @@ import { ColorInput } from "../shared/color-input/color-input";
 import { ColorService } from "../shared/color.service";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { FileDrop } from "../shared/file-drop/file-drop";
+import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { ReorderingService } from "../shared/reordering.service";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Resolvers, Writeable } from "../shared/utils/types";
@@ -41,7 +42,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, ColorInput, FileDrop,
+        StandardPage, DiagramsList, ColorInput, FileDrop, ExtractDiagram,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -56,7 +57,7 @@ export class ArchPage implements OnInit {
     protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
-    private readonly svgToPresetService = inject(SvgToPreset);
+    protected readonly svgToPresetService = inject(SvgToPreset);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -133,7 +134,7 @@ export class ArchPage implements OnInit {
         this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
     }
 
-    private applyPreset(preset: readonly Party[]) {
+    protected applyPreset(preset: readonly Party[]) {
         this.diagramForm.parties().value.set(preset);
     }
     protected applyUSPreset() {
@@ -159,17 +160,6 @@ export class ArchPage implements OnInit {
             borderWidth: 0,
             borderColor: "black",
         };
-    }
-
-    protected async loadPresetFromFile(file: File) {
-        try {
-            this.applyPreset(await this.svgToPresetService.extract(file));
-        } catch (e) {
-            this.snackbar.open(`Error when extracting data from diagram : ${e}`, undefined, {
-                duration: 5000,
-                horizontalPosition: "right",
-            });
-        }
     }
 
     /* private savePreset() {
