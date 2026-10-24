@@ -162,7 +162,14 @@ export class ArchPage implements OnInit {
     }
 
     protected async loadPresetFromFile(file: File) {
-        this.applyPreset(await this.svgToPresetService.extract(file));
+        try {
+            this.applyPreset(await this.svgToPresetService.extract(file));
+        } catch (e) {
+            this.snackbar.open(`Error when extracting data from diagram : ${e}`, undefined, {
+                duration: 5000,
+                horizontalPosition: "right",
+            });
+        }
     }
 
     /* private savePreset() {
