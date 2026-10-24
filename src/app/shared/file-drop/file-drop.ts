@@ -28,6 +28,10 @@ export class FileDrop {
      * The allowed MIME types.
      */
     readonly allowedTypes = input.required<readonly string[]>();
+    /**
+     * The text invite for user to drop files.
+     */
+    readonly prompt = input("Drop files here");
 
     /**
      * Emits for each dropped file.
