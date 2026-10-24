@@ -9,4 +9,4 @@
     (change)="onSelected()"
 />
 
-<button matButton="text" (click)="fileInput.click()">Select files</button>
+<button matButton="text" (click)="fileInput.click()">Select file{{multiple() ? "s" : ""}}</button>
