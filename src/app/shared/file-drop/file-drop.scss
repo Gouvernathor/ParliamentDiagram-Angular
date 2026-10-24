@@ -3,7 +3,8 @@
 
     margin: 1rem;
     padding: 1rem;
-    border: 2px dashed black;
+    border: 2px dashed var(--mat-sys-on-surface);
+    color: var(--mat-sys-on-surface);
     min-height: 2rem;
     display: flex;
     flex-flow: column;
@@ -13,9 +14,11 @@
     transition: all 0.2s linear;
 
     &.dragged-over {
-        border-color: greenyellow;
+        background-color: var(--mat-sys-surface-container);
+        border-color: var(--mat-sys-primary);
         margin-inline: 1.5rem;
-        color: greenyellow;
+        border-radius: 1.5rem;
+        color: var(--mat-sys-primary);
         font-weight: bold;
     }
 }
