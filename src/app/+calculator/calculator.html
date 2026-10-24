@@ -49,11 +49,43 @@
             </mat-checkbox>
         </div>
 
+        <div class="majorityOptions">
+            <label id="majorityChoice">Majority</label>
+            <mat-radio-group
+                aria-labelledby="majorityChoice"
+                class="majorityChoiceRadioGroup"
+                [value]="form.useMajorityRatio().value()"
+                (change)="form.useMajorityRatio().value.set($event.value)"
+            >
+                <mat-radio-button [value]="true">
+                    Ratio
+
+                    <mat-slider [min]="0" [max]="1" [step]=".01" [discrete]="true">
+                        <input
+                            aria-label="Ratio"
+                            matSliderThumb
+                            [formField]="form.majorityRatio"
+                        />
+                    </mat-slider>
+                </mat-radio-button>
+                <mat-radio-button [value]="false">
+                    Threshold
+
+                    <mat-form-field>
+                        <mat-label>Number of seats</mat-label>
+                        <input
+                            type="number" matInput
+                            [formField]="form.majorityThreshold"
+                            [step]="1"
+                        />
+                    </mat-form-field>
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <!-- TODO options to style the majority line -->
+        </div>
+
             <!-- TODO options
-            majority ratio OR number of seats
-
-            options to style the majority line (or with the )
-
             same options as for the arch (except that the number of seats is hidden, at least by default)
              -->
 

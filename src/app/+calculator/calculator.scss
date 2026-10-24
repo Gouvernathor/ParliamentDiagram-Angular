@@ -11,6 +11,19 @@ mat-slider {
     max-width: 250px;
 }
 
+.majorityOptions {
+    background-color: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface-container-high);
+
+    @include generic-container;
+
+    .majorityChoiceRadioGroup {
+        display: flex;
+        flex-direction: column;
+        margin-block: 1em;
+    }
+}
+
 .presetdisplay {
     background-color: var(--mat-sys-surface-variant);
     color: var(--mat-sys-on-surface-variant);
