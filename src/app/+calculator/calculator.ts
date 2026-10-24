@@ -4,6 +4,8 @@ import { applyEach, form, max, min, minLength, validate, FormField, disabled } f
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatInputModule } from "@angular/material/input";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSliderModule } from "@angular/material/slider";
 import { validateIsInteger } from "../shared/validation";
@@ -16,7 +18,7 @@ import { Preset, presets } from "./presets";
     imports: [
         StandardPage, Contents,
         FormField, PercentPipe,
-        MatButtonToggleModule, MatCheckboxModule, MatExpansionModule, MatSelectModule, MatSliderModule,
+        MatButtonToggleModule, MatCheckboxModule, MatExpansionModule, MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
     ],
     templateUrl: "./calculator.html",
     styleUrl: "./calculator.scss",
@@ -129,5 +131,7 @@ export class CalculatorPage {
         this.currentPreset.set(preset);
         this.form.parties().value.set(preset.parties.map(p => ({ ...p, nYea: 0, nNay: 0 })));
         this.form.editPartyList().value.set(false);
+        this.form.useMajorityRatio().value.set(true);
+        this.form.majorityThreshold().value.set(null);
     }
 }
