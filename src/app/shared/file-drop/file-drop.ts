@@ -1,10 +1,11 @@
 import { Component, input, output, signal, viewChild, type ElementRef } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 
 let allAcrossId = 0;
 
 @Component({
     selector: "file-drop",
-    imports: [],
+    imports: [MatButtonModule],
     templateUrl: "./file-drop.html",
     styleUrl: "./file-drop.scss",
     host: {
