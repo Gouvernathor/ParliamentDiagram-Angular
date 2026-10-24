@@ -75,6 +75,8 @@ export class FileDrop {
 
             this.files.emit(files);
         }
+
+        this.draggedOver.set(false);
     }
 
     protected onSelected() {
@@ -85,12 +87,10 @@ export class FileDrop {
     }
 
     protected onEnter(event: DragEvent) {
-        console.log("enter", event);
         event.preventDefault();
         this.draggedOver.set(true);
     }
     protected onLeave(event: DragEvent) {
-        console.log("leave", event);
         this.draggedOver.set(false);
     }
 }
