@@ -21,11 +21,22 @@
         </p>
     </div>
 
-    <!-- <mat-expansion-panel>
+    <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Presets</mat-panel-title>
         </mat-expansion-panel-header>
-    </mat-expansion-panel> -->
+
+        <!-- (later) query party list from a Commons diagram -->
+
+        <!-- (later) query party list from a country in a list -->
+
+        <file-drop
+            prompt="Drop a diagram here"
+            [multiple]="false" [allowedTypes]="['image/svg+xml']"
+            [converter]="svgToPresetService"
+            (preset)="applyPreset($event)"
+        />
+    </mat-expansion-panel>
 
     <mat-expansion-panel>
         <mat-expansion-panel-header>

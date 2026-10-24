@@ -13,6 +13,9 @@ import { Party } from "./types";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { areas, type PartiesPerArea } from "./types.js";
+import { FileDrop } from "../shared/file-drop/file-drop.js";
+import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
+import { SvgToPreset } from "./svg-to-preset.js";
 
 interface DiagramData {
     parties: PartiesPerArea;
@@ -34,7 +37,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, DiagramsList,
+        StandardPage, Partylist, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -45,6 +48,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 })
 export class WestminsterPage {
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
+    protected readonly svgToPresetService = inject(SvgToPreset);
 
     private readonly diagramModel = signal<DiagramData>({
         parties: {
@@ -95,6 +99,10 @@ export class WestminsterPage {
     });
 
     protected readonly diagrams = signal<readonly Diagram[]>([]);
+
+    protected applyPreset(preset: PartiesPerArea) {
+        this.diagramForm.parties().value.set(preset);
+    }
 
     /* private savePreset() {
         downloadJson(this.diagramForm.parties().value());
