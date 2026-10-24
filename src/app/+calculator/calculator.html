@@ -54,8 +54,7 @@
             <mat-radio-group
                 aria-labelledby="majorityChoice"
                 class="majorityChoiceRadioGroup"
-                [value]="form.useMajorityRatio().value()"
-                (change)="form.useMajorityRatio().value.set($event.value)"
+                [formField]="form.useMajorityRatio"
             >
                 <mat-radio-button [value]="true">
                     Ratio
