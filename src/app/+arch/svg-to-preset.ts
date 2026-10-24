@@ -7,13 +7,8 @@ export class SvgToPreset extends BaseSvgConverter<readonly Party[]> {
     protected override convert(svg: SVGSVGElement): readonly Party[] {
         const parties = [];
 
-        let foundUnknownGElements = false;
         for (const g of svg.querySelectorAll("g")) {
-            const name = g.querySelector("title")?.textContent;
-            if (!name) {
-                foundUnknownGElements = true;
-                continue;
-            }
+            const name = g.querySelector("title")?.textContent ?? "";
 
             const color = g.style.fill;
             if (!color) {
@@ -35,13 +30,7 @@ export class SvgToPreset extends BaseSvgConverter<readonly Party[]> {
         }
 
         if (!parties.length) {
-            if (foundUnknownGElements) {
-                throw new Error("Unrecognized diagram, could not extract party data.");
-            } else {
-                throw new Error("No party found in the diagram.");
-            }
-        } else if (foundUnknownGElements) {
-            console.warn("Found unrecognized contents in the diagram, some parties may have been missed.");
+            throw new Error("No party found in the diagram.");
         }
 
         return parties;
