@@ -1,4 +1,4 @@
-import { Component, input, output, viewChild, type ElementRef } from "@angular/core";
+import { Component, input, output, signal, viewChild, type ElementRef } from "@angular/core";
 
 let allAcrossId = 0;
 
@@ -9,8 +9,10 @@ let allAcrossId = 0;
     styleUrl: "./file-drop.scss",
     host: {
         "(dragover)": "$event.preventDefault()",
-        "(dragenter)": "$event.preventDefault()",
+        "(dragenter)": "onEnter($event)",
+        "(dragleave)": "onLeave($event)",
         "(drop)": "onDropped($event)",
+        "[class.dragged-over]": "draggedOver()",
     },
 })
 export class FileDrop {
@@ -35,6 +37,8 @@ export class FileDrop {
      * Emits with all the files from a single drop.
      */
     readonly files = output<readonly File[] | FileList>();
+
+    protected readonly draggedOver = signal(false);
 
     constructor() {
         this.files.subscribe(files => {
@@ -78,5 +82,15 @@ export class FileDrop {
         if (files?.length) {
             this.files.emit(files);
         }
+    }
+
+    protected onEnter(event: DragEvent) {
+        console.log("enter", event);
+        event.preventDefault();
+        this.draggedOver.set(true);
+    }
+    protected onLeave(event: DragEvent) {
+        console.log("leave", event);
+        this.draggedOver.set(false);
     }
 }

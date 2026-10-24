@@ -8,6 +8,16 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+
+    border-radius: 1rem;
+    transition: all 0.2s linear;
+
+    &.dragged-over {
+        border-color: greenyellow;
+        margin-inline: 1.5rem;
+        color: greenyellow;
+        font-weight: bold;
+    }
 }
 
 /* input {
