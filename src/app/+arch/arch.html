@@ -73,13 +73,12 @@
         <!-- number input for minNRows -->
 
         <div>
-            <label for="fillingStrategy"
+            <label id="fillingStrategyLabel"
                 matTooltip="How the seats are allocated among the rows."
             >Filling strategy</label>
             <mat-button-toggle-group
-                id="fillingStrategy" name="fillingStrategy" aria-label="Filling strategy"
-                [value]="diagramForm.fillingStrategy().value()"
-                (change)="diagramForm.fillingStrategy().value.set($event.value)"
+                aria-labelledby="fillingStrategyLabel"
+                [formField]="diagramForm.fillingStrategy"
             >
                 <mat-button-toggle
                     [value]="FillingStrategy.DEFAULT"
