@@ -1,0 +1,12 @@
+<label [for]="inputId">{{prompt()}}</label>
+
+<input
+    hidden
+    #fileInput
+    type="file"
+    [multiple]="multiple()"
+    [accept]="allowedTypes()"
+    (change)="onSelected()"
+/>
+
+<button matButton="text" (click)="fileInput.click()">Select file{{multiple() ? "s" : ""}}</button>

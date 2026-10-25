@@ -8,17 +8,17 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { Party, Partylist } from "./partylist/partylist";
+import { Partylist } from "./partylist/partylist";
+import { Party } from "./types";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
-
-const shapes = ["speak", "government", "opposition", "cross"] as const;
-type Shape = (typeof shapes)[number];
+import { areas, type PartiesPerArea } from "./types.js";
+import { FileDrop } from "../shared/file-drop/file-drop.js";
+import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
+import { SvgToPreset } from "./svg-to-preset.js";
 
 interface DiagramData {
-    parties: {
-        [s in Shape]: readonly Party[];
-    };
+    parties: PartiesPerArea;
     wingNRows: number;
     crossNCols: number;
     packed: boolean;
@@ -37,7 +37,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, DiagramsList,
+        StandardPage, Partylist, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -48,6 +48,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 })
 export class WestminsterPage {
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
+    protected readonly svgToPresetService = inject(SvgToPreset);
 
     private readonly diagramModel = signal<DiagramData>({
         parties: {
@@ -63,8 +64,8 @@ export class WestminsterPage {
         spacingFactor: .1,
     });
     protected readonly diagramForm = form(this.diagramModel, schemaPath => {
-        for (const shape of shapes) {
-            applyEach(schemaPath.parties[shape], party => {
+        for (const area of areas) {
+            applyEach(schemaPath.parties[area], party => {
                 min(party.nSeats, 0);
 
                 min(party.borderWidth, 0);
@@ -76,7 +77,7 @@ export class WestminsterPage {
         }
         validate(schemaPath.parties, ({ value }) => {
             const v = value();
-            const totalNSeats = shapes.flatMap(s => v[s]).reduce((a, p) => a+p.nSeats, 0);
+            const totalNSeats = areas.flatMap(a => v[a]).reduce((a, p) => a+p.nSeats, 0);
             if (totalNSeats <= 0) {
                 return {
                     kind: "minimum seats",
@@ -99,14 +100,18 @@ export class WestminsterPage {
 
     protected readonly diagrams = signal<readonly Diagram[]>([]);
 
+    protected applyPreset(preset: PartiesPerArea) {
+        this.diagramForm.parties().value.set(preset);
+    }
+
     /* private savePreset() {
         downloadJson(this.diagramForm.parties().value());
     } */
 
     protected generateDiagram() {
         const value = this.diagramForm().value();
-        const attrib = shapes.flatMap(shape => value.parties[shape].map(p =>({
-                area: shape,
+        const attrib = areas.flatMap(area => value.parties[area].map(p =>({
+                area,
                 nSeats: p.nSeats,
 
                 data: p.name,
@@ -123,9 +128,9 @@ export class WestminsterPage {
             spacingFactor: value.spacingFactor,
         };
 
-        const partiesForLegend = shapes
-            .filter(s => s != "speak")
-            .flatMap(s => value.parties[s]);
+        const partiesForLegend = areas
+            .filter(a => a != "speak")
+            .flatMap(a => value.parties[a]);
 
         const diagram = getSVGFromAttribution(attrib, options);
         this.diagrams.update(l => [

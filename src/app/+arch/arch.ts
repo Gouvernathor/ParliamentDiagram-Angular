@@ -1,10 +1,10 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     inject,
     input,
     OnInit,
     signal,
-    ChangeDetectionStrategy,
 } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
 import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
@@ -18,22 +18,18 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
-import { getSVGFromAttribution, GetSVGFromAttributionOptions } from "@parliamentarch/svg";
-import { Resolvers } from "../shared/utils/types";
-import { StandardPage } from "../shared/standard-page/standard-page";
-import { ColorService } from "../shared/color.service";
-import { ReorderingService } from "../shared/reordering.service";
-import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
-import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
+import { getSVGFromAttribution, type GetSVGFromAttributionOptions } from "@parliamentarch/svg";
 import { ColorInput } from "../shared/color-input/color-input";
-
-interface Party {
-    name: string;
-    nSeats: number;
-    color: string;
-    borderWidth: number;
-    borderColor: string;
-}
+import { ColorService } from "../shared/color.service";
+import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
+import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
+import { FileDrop } from "../shared/file-drop/file-drop";
+import { ReorderingService } from "../shared/reordering.service";
+import { StandardPage } from "../shared/standard-page/standard-page";
+import { Resolvers } from "../shared/utils/types";
+import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
+import { SvgToPreset } from "./svg-to-preset.js";
+import type { Party } from "./types.js";
 
 interface DiagramData {
     parties: readonly Party[];
@@ -46,7 +42,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, ColorInput,
+        StandardPage, DiagramsList, ColorInput, FileDrop, ExtractDiagram,
         FormField,
         CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
@@ -61,6 +57,7 @@ export class ArchPage implements OnInit {
     protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
+    protected readonly svgToPresetService = inject(SvgToPreset);
 
     protected readonly FillingStrategy = FillingStrategy;
 
@@ -137,8 +134,11 @@ export class ArchPage implements OnInit {
         this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
     }
 
+    protected applyPreset(preset: readonly Party[]) {
+        this.diagramForm.parties().value.set(preset);
+    }
     protected applyUSPreset() {
-        this.diagramForm.parties().value.set(this.newUSPreset());
+        this.applyPreset(this.newUSPreset());
     }
 
     private newUSPreset() {
