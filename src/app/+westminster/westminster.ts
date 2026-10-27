@@ -1,5 +1,5 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
-import { applyEach, form, max, min, validate, FormField } from "@angular/forms/signals";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
+import { applyEach, form, FormField, max, min, validate } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatInputModule } from "@angular/material/input";
@@ -7,16 +7,15 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
-import { StandardPage } from "../shared/standard-page/standard-page";
-import { PartyList } from "../shared/party-list/party-list";
-import { Party } from "./types";
-import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
-import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
-import { areas, type PartiesPerArea } from "./types.js";
-import { FileDrop } from "../shared/file-drop/file-drop.js";
-import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
-import { SvgToPreset } from "./svg-to-preset.js";
 import { ColorService } from "../shared/color.service.js";
+import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
+import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
+import { FileDrop } from "../shared/file-drop/file-drop.js";
+import { PartyList } from "../shared/party-list/party-list";
+import { StandardPage } from "../shared/standard-page/standard-page";
+import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
+import { SvgToPreset } from "./svg-to-preset.js";
+import { areas, type PartiesPerArea, type Party } from "./types.js";
 
 interface DiagramData {
     parties: PartiesPerArea;
