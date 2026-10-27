@@ -5,7 +5,7 @@
 @if (list()().value().length) {
     <div class="partylist" cdkDropList (cdkDropListDropped)="reorderingService.drop(list()().value, $event)">
         @for (party of list(); track $index) {
-            <div class="party" cdkDrag cdkDragBoundary="app-partylist">
+            <div class="party" cdkDrag cdkDragBoundary="app-party-list">
                 <div class="partyform">
                     <mat-form-field>
                         <mat-label>Party name</mat-label>
