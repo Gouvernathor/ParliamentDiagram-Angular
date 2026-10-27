@@ -11,7 +11,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
-import { ColorInput } from "../color-input/color-input";
+import { ColorInput } from "../color-input.js";
 import { ReorderingService } from "../reordering.service";
 import type { BaseParty } from "./types.js";
 

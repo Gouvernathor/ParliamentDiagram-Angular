@@ -19,8 +19,8 @@
 
                     <div class="formField">
                         <label for="color{{id}}{{$index}}">Color</label>
-                        <app-color-input
-                            inputId="color{{id}}{{$index}}"
+                        <color-input
+                            id="color{{id}}{{$index}}"
                             [value]="party.color().value()"
                             (valueChange)="party.color().value.set($event)"
                         />
@@ -35,8 +35,8 @@
 
                     <div class="formField" [hidden]="party.borderWidth().value() <= 0">
                         <label for="borderColor{{id}}{{$index}}">Border color</label>
-                        <app-color-input
-                            inputId="borderColor{{id}}{{$index}}"
+                        <color-input
+                            id="borderColor{{id}}{{$index}}"
                             [value]="party.borderColor().value()"
                             [alpha]="false"
                             (valueChange)="party.borderColor().value.set($event)"

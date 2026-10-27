@@ -1,20 +1,21 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output } from "@angular/core";
-import { type ChangeDetail } from "hdr-color-input";
-import { ThemeingService } from "../themeing.js";
+import { computed, Directive, inject, input, output } from "@angular/core";
+import type { ChangeDetail } from "hdr-color-input";
+import { ThemeingService } from "./themeing.js";
 
 type ChangeEvent = Event & { readonly detail: ChangeDetail };
 
-@Component({
-    selector: "app-color-input",
-    imports: [],
-    templateUrl: "./color-input.html",
-    styleUrl: "./color-input.scss",
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+@Directive({
+    selector: "color-input",
+    host: {
+        "[attr.value]": "value()",
+        "[attr.no-alpha]": "alpha() || null",
+        "[attr.theme]": "theme()",
+        "(change)": "onChange($any($event))",
+    },
 })
 export class ColorInput {
     private readonly themeService = inject(ThemeingService);
 
-    readonly inputId = input<string>();
     readonly value = input<string>("black");
     readonly alpha = input<boolean>(true);
     readonly valueChange = output<string>();
