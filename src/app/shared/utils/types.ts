@@ -1,5 +1,5 @@
-import { InputSignal } from "@angular/core";
-import { ResolveFn } from "@angular/router";
+import type { InputSignal } from "@angular/core";
+import type { ResolveFn } from "@angular/router";
 
 export type Writeable<T> = {
     -readonly [P in keyof T]: T[P];
