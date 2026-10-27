@@ -1,18 +1,18 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     inject,
     input,
-    ChangeDetectionStrategy,
 } from "@angular/core";
 import { FieldTree, FormField } from "@angular/forms/signals";
-import { CdkDropList, CdkDrag, CdkDragHandle } from "@angular/cdk/drag-drop";
+import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
-import { ReorderingService } from "../reordering.service";
 import { ColorInput } from "../color-input/color-input";
+import { ReorderingService } from "../reordering.service";
 import type { BaseParty } from "./types.js";
 
 let idd = 0;

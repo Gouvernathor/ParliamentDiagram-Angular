@@ -1,9 +1,9 @@
-import { Component, inject, input, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { callbackUrlParameterName } from "@gouvernathor/m3api-oauth2";
-import { Resolvers } from "../shared/utils/types";
-import { StandardPage } from "../shared/standard-page/standard-page";
 import { SESSION_SERVICE } from "../shared/oauth/conditional-inject";
+import { StandardPage } from "../shared/standard-page/standard-page";
+import { Resolvers } from "../shared/utils/types";
 
 @Component({
     imports: [StandardPage, MatButtonModule],

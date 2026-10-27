@@ -1,21 +1,21 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     inject,
     input,
     linkedSignal,
     signal,
-    ChangeDetectionStrategy,
 } from "@angular/core";
+import { form, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
 import { MatTooltip } from "@angular/material/tooltip";
-import { diagramToBlob, downloadDiagram } from "../download";
 import { Contents } from "../contents.directive";
+import { diagramToBlob, downloadDiagram } from "../download";
 import { SESSION_SERVICE } from "../oauth/conditional-inject";
 import { Diagram, WikipediaDiagramService } from "../wikipedia-diagram.service";
-import { MatInput } from "@angular/material/input";
-import { form, FormField } from "@angular/forms/signals";
 
 @Component({
     selector: "app-diagram-card",
