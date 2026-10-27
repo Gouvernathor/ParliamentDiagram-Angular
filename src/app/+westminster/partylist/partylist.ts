@@ -16,6 +16,8 @@ import { ReorderingService } from "../../shared/reordering.service";
 import { ColorInput } from "../../shared/color-input/color-input";
 import type { Party } from "../types.js";
 
+let idd = 0;
+
 @Component({
     selector: "app-partylist",
     imports: [
@@ -31,6 +33,8 @@ import type { Party } from "../types.js";
 export class Partylist {
     private readonly colorService = inject(ColorService);
     protected readonly reorderingService = inject(ReorderingService);
+
+    protected readonly id = idd++;
 
     readonly list = input.required<FieldTree<readonly Party[]>>();
 

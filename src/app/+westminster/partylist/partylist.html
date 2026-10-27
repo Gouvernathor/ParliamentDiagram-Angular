@@ -18,25 +18,25 @@
                     </mat-form-field>
 
                     <div class="formField">
-                        <label for="color{{$index}}">Color</label>
+                        <label for="color{{id}}{{$index}}">Color</label>
                         <app-color-input
-                            inputId="color{{$index}}"
+                            inputId="color{{id}}{{$index}}"
                             [value]="party.color().value()"
                             (valueChange)="party.color().value.set($event)"
                         />
                     </div>
 
                     <div class="formField">
-                        <label for="borderWidth{{$index}}">Border width</label>
+                        <label for="borderWidth{{id}}{{$index}}">Border width</label>
                         <mat-slider [discrete]="true" [min]="0" [max]="1" [step]=".01">
-                            <input id="borderWidth{{$index}}" matSliderThumb [formField]="party.borderWidth" />
+                            <input id="borderWidth{{id}}{{$index}}" matSliderThumb [formField]="party.borderWidth" />
                         </mat-slider>
                     </div>
 
                     <div class="formField" [hidden]="party.borderWidth().value() <= 0">
-                        <label for="borderColor{{$index}}">Border color</label>
+                        <label for="borderColor{{id}}{{$index}}">Border color</label>
                         <app-color-input
-                            inputId="color{{$index}}"
+                            inputId="color{{id}}{{$index}}"
                             [value]="party.borderColor().value()"
                             [alpha]="false"
                             (valueChange)="party.borderColor().value.set($event)"
