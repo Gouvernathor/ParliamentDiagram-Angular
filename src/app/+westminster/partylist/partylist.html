@@ -61,5 +61,7 @@
         }
     </div>
 
-    <!-- TODO other button to add a party ? -->
+    @if (bottomAddPartyButton()) {
+        <button matButton="tonal" (click)="addParty()">+ Add a party manually</button>
+    }
 }

@@ -87,24 +87,28 @@
     <div>
         <app-partylist
             [list]="diagramForm.parties.speak"
+            [bottomAddPartyButton]="false"
         >
             <h3 data-label>Speaker parties</h3>
         </app-partylist>
 
         <app-partylist
             [list]="diagramForm.parties.government"
+            [bottomAddPartyButton]="false"
         >
             <h3 data-label>Government parties</h3>
         </app-partylist>
 
         <app-partylist
             [list]="diagramForm.parties.opposition"
+            [bottomAddPartyButton]="false"
         >
             <h3 data-label>Opposition parties</h3>
         </app-partylist>
 
         <app-partylist
             [list]="diagramForm.parties.cross"
+            [bottomAddPartyButton]="false"
         >
             <h3 data-label>Crossbench parties</h3>
         </app-partylist>

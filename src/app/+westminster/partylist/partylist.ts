@@ -37,6 +37,7 @@ export class Partylist {
     protected readonly id = idd++;
 
     readonly list = input.required<FieldTree<readonly Party[]>>();
+    readonly bottomAddPartyButton = input.required<boolean>();
 
     protected addParty() {
         this.reorderingService.add(this.list()().value, this.newParty());
