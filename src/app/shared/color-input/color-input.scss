@@ -1,9 +1,16 @@
-/* text input in the pop-over panel */
-color-input::part(output) {
-    display: none;
-}
+/* parts:
+trigger
+chip
+input (inline text input)
+error
+panel (full popover)
+output (text input in the pop-over panel)
+gamut (readonly, not to be confused with the color space)
+controls (slider bars section)
+area (2D gradient)
+*/
 
-/* readonly, not to be confused with the color space */
+color-input::part(output),
 color-input::part(gamut) {
     display: none;
 }
