@@ -68,22 +68,20 @@ export class SessionService {
         description,
         ignorewarnings = false,
     }: Readonly<UploadParameters>) {
-        const ignorewarningsObject: { ignorewarnings?: any } = {};
-        if (ignorewarnings) {
-            ignorewarningsObject.ignorewarnings = true;
-        }
-
-        return await this.session.request<UploadResult>({
+        const params: Parameters<typeof this.session.request>[0] = {
             action: "upload",
 
             filename,
             comment: "Direct upload from the ParliamentDiagram tool",
             // tags,
             text: description,
-            ...ignorewarningsObject,
             file,
             token,
-        }, {
+        };
+        if (ignorewarnings) {
+            params["ignorewarnings"] = true;
+        }
+        return await this.session.request<UploadResult>(params, {
             method: "POST",
             tokenType: "csrf",
         });
