@@ -41,6 +41,26 @@ export class SessionService {
         this.persistService.reset();
     }
 
+    readonly userInfo = resource({
+        params: () => this.session, // so that it reloads when the session changes
+        loader: () => this.getUserInfo(),
+    }).asReadonly();
+
+    /**
+     * Request user basic infos (such as the username)
+     * A cheap request that tests the credentials validity and erases them if obsolete
+     */
+    private async getUserInfo() {
+        if (this.isLoggedIn()) {
+            const uir = await this.session.request<UserInfoResult>({
+                action: "query",
+                meta: "userinfo",
+            });
+            return uir.query.userinfo;
+        }
+        return null;
+    }
+
     /**
      * Upload a file to Wikimedia commons
      * May throw a m3api ApiError in case of an error result
@@ -48,13 +68,14 @@ export class SessionService {
     async upload(options: Readonly<UploadParameters>) {
         const uploadResponseBody = await this.doUpload(await this.getCSRFToken(), options);
         // const result = uploadResponseBody["upload"]?.result;
+        // TODO handle the result
         console.log(uploadResponseBody.upload.result);
         console.log(uploadResponseBody);
         return uploadResponseBody;
     }
 
     private async getCSRFToken() {
-        const resp = await this.session.request<{"query": {"tokens": {"csrftoken": string}}}>({
+        const resp = await this.session.request<TokenResult>({
             action: "query",
             meta: "tokens",
             format: "json",
@@ -86,6 +107,24 @@ export class SessionService {
             tokenType: "csrf",
         });
     }
+}
+
+interface UserInfoResult {
+    batchcomplete: "";
+    query: {
+        userinfo: {
+            id: number;
+            name: string;
+        };
+    };
+}
+
+interface TokenResult {
+    query: {
+        tokens: {
+            csrftoken: string;
+        };
+    };
 }
 
 type UploadResult = UploadSuccessResult|UploadWarningResult;

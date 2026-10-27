@@ -18,7 +18,7 @@
 
         @if (sessionService) {
             @if (sessionService.isLoggedIn()) {
-                Logged in
+                Logged in as {{sessionService.userInfo.value()?.name}}
                 <button matButton="outlined" (click)="sessionService.logOut()">Log out</button>
             } @else {
                 <a matButton="filled"
