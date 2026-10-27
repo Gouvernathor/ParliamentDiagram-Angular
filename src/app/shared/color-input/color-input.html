@@ -2,5 +2,6 @@
     [id]="inputId()"
     [attr.value]="value()"
     [attr.no-alpha]="alpha() || null"
-    (change)="valueChange.emit($any($event).detail.value)"
+    [attr.theme]="theme()"
+    (change)="onChange($any($event))"
 />
