@@ -77,11 +77,14 @@ export class WestminsterPage {
         }
         validate(schemaPath.parties, ({ value }) => {
             const v = value();
-            const totalNSeats = areas.flatMap(a => v[a]).reduce((a, p) => a+p.nSeats, 0);
-            if (totalNSeats <= 0) {
+            const totalNSeatsNoSpeaker = areas
+                .filter(a => a !== "speak")
+                .flatMap(a => v[a])
+                .reduce((a, p) => a+p.nSeats, 0);
+            if (totalNSeatsNoSpeaker <= 0) {
                 return {
                     kind: "minimum seats",
-                    message: "There must be at least one seat",
+                    message: "There must be at least one non-speaker seat",
                 };
             }
             return;
