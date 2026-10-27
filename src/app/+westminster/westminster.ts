@@ -8,7 +8,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { StandardPage } from "../shared/standard-page/standard-page";
-import { Partylist } from "./partylist/partylist";
+import { PartyList } from "../shared/party-list/party-list";
 import { Party } from "./types";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
@@ -16,6 +16,7 @@ import { areas, type PartiesPerArea } from "./types.js";
 import { FileDrop } from "../shared/file-drop/file-drop.js";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { SvgToPreset } from "./svg-to-preset.js";
+import { ColorService } from "../shared/color.service.js";
 
 interface DiagramData {
     parties: PartiesPerArea;
@@ -37,7 +38,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, Partylist, DiagramsList, FileDrop, ExtractDiagram,
+        StandardPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -47,6 +48,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
     styleUrl: "./westminster.scss",
 })
 export class WestminsterPage {
+    private readonly colorService = inject(ColorService);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
     protected readonly svgToPresetService = inject(SvgToPreset);
 
@@ -105,6 +107,17 @@ export class WestminsterPage {
 
     protected applyPreset(preset: PartiesPerArea) {
         this.diagramForm.parties().value.set(preset);
+    }
+
+    protected newParty(): Party {
+        return {
+            name: "",
+            nSeats: 0,
+            color: this.colorService.randomColor(),
+            borderWidth: 0,
+            borderColor: "black",
+            roundingRadius: null,
+        };
     }
 
     /* private savePreset() {

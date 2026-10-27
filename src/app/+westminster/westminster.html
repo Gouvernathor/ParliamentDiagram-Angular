@@ -85,33 +85,37 @@
     </mat-expansion-panel>
 
     <div>
-        <app-partylist
+        <app-party-list
             [list]="diagramForm.parties.speak"
             [bottomAddPartyButton]="false"
+            [newParty]="newParty"
         >
             <h3 data-label>Speaker parties</h3>
-        </app-partylist>
+        </app-party-list>
 
-        <app-partylist
+        <app-party-list
             [list]="diagramForm.parties.government"
             [bottomAddPartyButton]="false"
+            [newParty]="newParty"
         >
             <h3 data-label>Government parties</h3>
-        </app-partylist>
+        </app-party-list>
 
-        <app-partylist
+        <app-party-list
             [list]="diagramForm.parties.opposition"
             [bottomAddPartyButton]="false"
+            [newParty]="newParty"
         >
             <h3 data-label>Opposition parties</h3>
-        </app-partylist>
+        </app-party-list>
 
-        <app-partylist
+        <app-party-list
             [list]="diagramForm.parties.cross"
             [bottomAddPartyButton]="false"
+            [newParty]="newParty"
         >
             <h3 data-label>Crossbench parties</h3>
-        </app-partylist>
+        </app-party-list>
     </div>
 
     <div>

@@ -1,7 +1,3 @@
-export interface Party {
-    name: string;
-    nSeats: number;
-    color: string;
-    borderWidth: number;
-    borderColor: string;
-}
+import { BaseParty } from "../shared/party-list/types.js";
+
+export interface Party extends BaseParty {}
