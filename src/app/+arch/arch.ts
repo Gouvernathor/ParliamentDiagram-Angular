@@ -7,7 +7,6 @@ import {
     signal,
 } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
-import { CdkDrag, CdkDragHandle, CdkDropList } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatDividerModule } from "@angular/material/divider";
@@ -19,11 +18,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
-import { ColorInput } from "../shared/color-input/color-input";
 import { ColorService } from "../shared/color.service";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
+import { PartyList } from "../shared/party-list/party-list";
 import { ReorderingService } from "../shared/reordering.service";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Resolvers, Writeable } from "../shared/utils/types";
@@ -42,9 +41,8 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, DiagramsList, ColorInput, FileDrop, ExtractDiagram,
+        StandardPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
-        CdkDrag, CdkDragHandle, CdkDropList,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
     ],
@@ -130,10 +128,6 @@ export class ArchPage implements OnInit {
 
     protected readonly diagrams = signal<readonly Diagram[]>([]);
 
-    protected addParty() {
-        this.reorderingService.add(this.diagramForm.parties().value, this.newParty());
-    }
-
     protected applyPreset(preset: readonly Party[]) {
         this.diagramForm.parties().value.set(preset);
     }
@@ -152,7 +146,7 @@ export class ArchPage implements OnInit {
         ];
     }
 
-    private newParty(): Party {
+    protected newParty(): Party {
         return {
             name: "",
             nSeats: 0,
