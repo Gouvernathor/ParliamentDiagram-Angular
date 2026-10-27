@@ -32,9 +32,18 @@
 
         padding: 16px;
 
+        .invisibleField {
+            visibility: hidden;
+        }
+
         @media (width < 1250px) {
             display: grid;
             gap: 10px;
+
+            .invisibleField {
+                visibility: collapse;
+                display: none;
+            }
         }
     }
 

@@ -33,7 +33,7 @@
                         </mat-slider>
                     </div>
 
-                    <div class="formField inline" [hidden]="party.borderWidth().value() <= 0">
+                    <div class="formField inline" [class.invisibleField]="party.borderWidth().value() <= 0">
                         <label for="borderColor{{id}}{{$index}}">Border color</label>
                         <color-input
                             id="borderColor{{id}}{{$index}}"
