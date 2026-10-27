@@ -1,17 +1,5 @@
 @use "../shared/common-style.scss" as *;
 
-.partylist {
-    @include party-list;
-}
-
-.party {
-    @include party-card;
-}
-
-.handle {
-    @include party-drag-handle;
-}
-
 .errorcontainer {
     @include error-container;
 }
