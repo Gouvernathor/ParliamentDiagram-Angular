@@ -1,0 +1,9 @@
+/* text input in the pop-over panel */
+color-input::part(output) {
+    display: none;
+}
+
+/* readonly, not to be confused with the color space */
+color-input::part(gamut) {
+    display: none;
+}
