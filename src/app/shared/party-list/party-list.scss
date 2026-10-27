@@ -69,4 +69,9 @@
 .formField:not([hidden]) {
     display: flex;
     flex-direction: column;
+
+    &.inline {
+        flex-direction: row;
+        gap: 1em;
+    }
 }

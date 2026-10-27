@@ -17,7 +17,7 @@
                         <input matInput type="number" [formField]="party.nSeats" />
                     </mat-form-field>
 
-                    <div class="formField">
+                    <div class="formField inline">
                         <label for="color{{id}}{{$index}}">Color</label>
                         <color-input
                             id="color{{id}}{{$index}}"
@@ -33,7 +33,7 @@
                         </mat-slider>
                     </div>
 
-                    <div class="formField" [hidden]="party.borderWidth().value() <= 0">
+                    <div class="formField inline" [hidden]="party.borderWidth().value() <= 0">
                         <label for="borderColor{{id}}{{$index}}">Border color</label>
                         <color-input
                             id="borderColor{{id}}{{$index}}"

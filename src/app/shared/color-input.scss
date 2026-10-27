@@ -10,7 +10,12 @@ controls (slider bars section)
 area (2D gradient)
 */
 
-color-input::part(output),
+color-input::part(input),
 color-input::part(gamut) {
     display: none;
 }
+
+/*
+In case we need to have different rules applied on the parts in different cases:
+add classes to the web-components, and add classes to the rules
+*/
