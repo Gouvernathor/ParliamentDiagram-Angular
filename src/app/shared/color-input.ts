@@ -8,7 +8,7 @@ type ChangeEvent = Event & { readonly detail: ChangeDetail };
     selector: "color-input",
     host: {
         "[attr.value]": "value()",
-        "[attr.no-alpha]": "alpha() || null",
+        "[attr.no-alpha]": "!alpha() || null",
         "[attr.theme]": "theme()",
         "(change)": "onChange($any($event))",
     },
