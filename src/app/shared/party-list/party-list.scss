@@ -36,6 +36,13 @@
             visibility: hidden;
         }
 
+        /* TODO in 840px <= width <= 1199px,
+        have 3 lines (using named grid areas?)
+        first name and nseats
+        second color and border
+        third delete button
+        */
+
         @media (width < 1200px) {
             display: grid;
             gap: 10px;
