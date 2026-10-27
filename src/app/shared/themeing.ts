@@ -1,7 +1,7 @@
 import { DOCUMENT, inject, Injectable, signal } from "@angular/core";
 
 const THEMES = [ "light", "dark" ] as const;
-export type Theme = typeof THEMES[number];
+export type Theme = typeof THEMES[number] | null;
 function isATheme(t: any): t is Theme {
     return THEMES.includes(t);
 }
@@ -14,7 +14,7 @@ export class ThemeingService {
 
     private readonly cachedPersistedTheme = signal(this.directGetUserPersistedTheme());
 
-    private directGetUserPersistedTheme(): Theme|null {
+    private directGetUserPersistedTheme(): Theme {
         const saved = globalThis.localStorage?.getItem("theme");
         if (isATheme(saved)) {
             return saved;
@@ -22,11 +22,11 @@ export class ThemeingService {
         return null;
     }
 
-    getUserPersistedTheme(): Theme|null {
+    getUserPersistedTheme(): Theme {
         return this.cachedPersistedTheme();
     }
 
-    setUserPersistedTheme(theme: Theme|null) {
+    setUserPersistedTheme(theme: Theme) {
         this.cachedPersistedTheme.set(theme);
         this.applyThemeOnPage(theme);
         if (theme) {
@@ -36,7 +36,7 @@ export class ThemeingService {
         }
     }
 
-    applyThemeOnPage(theme: Theme|null) {
+    applyThemeOnPage(theme: Theme) {
         const body = this.document.body;
         body.classList.remove(...THEMES.map(t => `${t}-mode`));
         if (theme != null) {
