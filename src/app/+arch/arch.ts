@@ -109,7 +109,7 @@ export class ArchPage implements OnInit {
             return;
         });
 
-        min(schemaPath.seatRadiusFactor, 0.0000000000000000000001);
+        min(schemaPath.seatRadiusFactor, .01);
         max(schemaPath.seatRadiusFactor, 1);
 
         min(schemaPath.seatNumberFontSizeFactor, 0);

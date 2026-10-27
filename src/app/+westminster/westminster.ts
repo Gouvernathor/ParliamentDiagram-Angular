@@ -94,7 +94,7 @@ export class WestminsterPage {
         min(schemaPath.roundingRadius, 0);
         max(schemaPath.roundingRadius, .5);
 
-        min(schemaPath.spacingFactor, 0.0000000000000000000001);
+        min(schemaPath.spacingFactor, .01);
         max(schemaPath.spacingFactor, 1);
     });
 
