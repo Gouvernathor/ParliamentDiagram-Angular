@@ -23,7 +23,6 @@ import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { PartyList } from "../shared/party-list/party-list";
-import { ReorderingService } from "../shared/reordering.service";
 import { StandardPage } from "../shared/standard-page/standard-page";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
@@ -52,7 +51,6 @@ interface DiagramData {
 })
 export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
-    protected readonly reorderingService = inject(ReorderingService);
     private readonly snackbar = inject(MatSnackBar);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
     protected readonly svgToPresetService = inject(SvgToPreset);
