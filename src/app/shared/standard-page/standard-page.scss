@@ -45,12 +45,12 @@ main {
     }
 
     // medium
-    @media (600px <= width <= 839px) {
+    @media (600px <= width < 840px) {
         --reactive-margin: 24px;
     }
 
     // expanded
-    @media (840px <= width <= 1199px) {
+    @media (840px <= width < 1200px) {
         --reactive-margin: 24px;
 
         // centered, width is lower boundary - 2*margin
@@ -59,7 +59,7 @@ main {
     }
 
     // large
-    @media (1200px <= width <= 1599px) {
+    @media (1200px <= width < 1600px) {
         --reactive-margin: 24px;
 
         // centered, width is lower boundary - 2*margin
@@ -68,7 +68,7 @@ main {
     }
 
     // extra-large
-    @media (1500px <= width) {
+    @media (1600px <= width) {
         --reactive-margin: 24px;
 
         // centered, width is lower boundary - 2*margin
