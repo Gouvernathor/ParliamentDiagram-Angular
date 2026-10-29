@@ -14,7 +14,6 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
@@ -24,6 +23,7 @@ import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { PartyList } from "../shared/party-list/party-list";
 import { StandardPage } from "../shared/standard-page/standard-page";
+import { Toast } from "../shared/toast.js";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { SvgToPreset } from "./svg-to-preset.js";
@@ -51,7 +51,7 @@ interface DiagramData {
 })
 export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
-    private readonly snackbar = inject(MatSnackBar);
+    private readonly toaster = inject(Toast);
     private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
     protected readonly svgToPresetService = inject(SvgToPreset);
 
@@ -74,10 +74,7 @@ export class ArchPage implements OnInit {
                 break;
 
             default:
-                this.snackbar.open("Unknown preset name", undefined, {
-                    duration: 5000,
-                    horizontalPosition: "right",
-                });
+                this.toaster.error(`Unknown preset name: ${this.preset()}`);
                 break;
         }
     }
