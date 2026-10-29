@@ -40,15 +40,23 @@
             visibility: hidden;
         }
 
-        /* TODO in 840px <= width <= 1199px,
-        have 3 lines (using named grid areas?)
-        first name and nseats
-        second color and border
-        third delete button
-        */
+        @media (840px <= width < 1200px) {
+            flex-direction: column;
 
-        @media (width < 1200px) {
-            display: grid;
+            .subform {
+                align-self: stretch;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        @media (width < 840px) {
+            flex-direction: column;
+            align-items: stretch;
             gap: 10px;
 
             .invisibleField {
