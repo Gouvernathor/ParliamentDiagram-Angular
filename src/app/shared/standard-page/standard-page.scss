@@ -5,9 +5,19 @@ mat-toolbar {
     // background-color: var(--mat-sys-primary);
     // color: var(--mat-sys-on-primary);
 
+    justify-content: space-between;
+
     mat-toolbar-row {
-        display: flex;
         gap: 10px;
+
+        &.left {
+            justify-content: start;
+        }
+
+        &.right {
+            justify-content: end;
+            flex-wrap: wrap;
+        }
     }
 
     .spacer {
@@ -17,6 +27,15 @@ mat-toolbar {
     .logo {
         height: 50%;
         filter: drop-shadow(0 0 2.5px contrast-color(var(--mat-sys-primary-container)));
+    }
+
+    @media (840px <= width) {
+        display: flex;
+        flex-direction: row;
+
+        mat-toolbar-row {
+            width: fit-content;
+        }
     }
 }
 
