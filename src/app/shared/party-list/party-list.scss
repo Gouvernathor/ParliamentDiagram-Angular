@@ -32,6 +32,10 @@
 
         padding: 16px;
 
+        .subform {
+            display: contents;
+        }
+
         .invisibleField {
             visibility: hidden;
         }

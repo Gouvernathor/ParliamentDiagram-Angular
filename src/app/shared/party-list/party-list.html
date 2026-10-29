@@ -7,43 +7,47 @@
         @for (party of list(); track $index) {
             <div class="party" cdkDrag cdkDragBoundary="app-party-list">
                 <div class="partyform">
-                    <mat-form-field>
-                        <mat-label>Party name</mat-label>
-                        <input matInput [formField]="party.name" />
-                    </mat-form-field>
+                    <div class="subform">
+                        <mat-form-field>
+                            <mat-label>Party name</mat-label>
+                            <input matInput [formField]="party.name" />
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-label>Seats</mat-label>
-                        <input matInput type="number" [formField]="party.nSeats" />
-                    </mat-form-field>
-
-                    <div class="formField inline">
-                        <label for="color{{id}}{{$index}}">Color</label>
-                        <color-input
-                            id="color{{id}}{{$index}}"
-                            [value]="party.color().value()"
-                            (valueChange)="party.color().value.set($event)"
-                        />
+                        <mat-form-field>
+                            <mat-label>Seats</mat-label>
+                            <input matInput type="number" [formField]="party.nSeats" />
+                        </mat-form-field>
                     </div>
 
-                    <div class="formField">
-                        <label for="borderWidth{{id}}{{$index}}">Border width</label>
-                        <mat-slider [discrete]="true" [min]="0" [max]="1" [step]=".01">
-                            <input id="borderWidth{{id}}{{$index}}" matSliderThumb [formField]="party.borderWidth" />
-                        </mat-slider>
-                    </div>
+                    <div class="subform">
+                        <div class="formField inline">
+                            <label for="color{{id}}{{$index}}">Color</label>
+                            <color-input
+                                id="color{{id}}{{$index}}"
+                                [value]="party.color().value()"
+                                (valueChange)="party.color().value.set($event)"
+                            />
+                        </div>
 
-                    <div class="formField inline" [class.invisibleField]="party.borderWidth().value() <= 0">
-                        <label for="borderColor{{id}}{{$index}}">Border color</label>
-                        <color-input
-                            id="borderColor{{id}}{{$index}}"
-                            [value]="party.borderColor().value()"
-                            [alpha]="false"
-                            (valueChange)="party.borderColor().value.set($event)"
-                        />
-                    </div>
+                        <div class="formField">
+                            <label for="borderWidth{{id}}{{$index}}">Border width</label>
+                            <mat-slider [discrete]="true" [min]="0" [max]="1" [step]=".01">
+                                <input id="borderWidth{{id}}{{$index}}" matSliderThumb [formField]="party.borderWidth" />
+                            </mat-slider>
+                        </div>
 
-                    <!-- TODO rounding radius for westminster -->
+                        <div class="formField inline" [class.invisibleField]="party.borderWidth().value() <= 0">
+                            <label for="borderColor{{id}}{{$index}}">Border color</label>
+                            <color-input
+                                id="borderColor{{id}}{{$index}}"
+                                [value]="party.borderColor().value()"
+                                [alpha]="false"
+                                (valueChange)="party.borderColor().value.set($event)"
+                            />
+                        </div>
+
+                        <!-- TODO rounding radius for westminster -->
+                    </div>
 
                     <button matButton="outlined" (click)="reorderingService.remove(list()().value, $index)">
                         Delete party
