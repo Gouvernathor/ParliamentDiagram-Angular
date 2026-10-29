@@ -1,25 +1,28 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    computed,
     inject,
     input,
     linkedSignal,
     signal,
 } from "@angular/core";
 import { form, FormField } from "@angular/forms/signals";
+import { CdkPortalOutlet, DomPortal } from "@angular/cdk/portal";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { MatTooltip } from "@angular/material/tooltip";
-import { Contents } from "../contents.directive";
 import { diagramToBlob, downloadDiagram } from "../download";
 import { SESSION_SERVICE } from "../oauth/conditional-inject";
 import { Diagram, WikipediaDiagramService } from "../wikipedia-diagram.service";
 
+const dummyRefDiv = document.createElement("div");
+
 @Component({
     selector: "app-diagram-card",
-    imports: [Contents, MatButtonModule, MatExpansionModule, MatFormFieldModule, MatTooltip, MatInput, FormField],
+    imports: [MatButtonModule, MatExpansionModule, MatFormFieldModule, MatTooltip, MatInput, FormField, CdkPortalOutlet],
     templateUrl: "./diagram-card.html",
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./diagram-card.scss",
@@ -30,12 +33,14 @@ export class DiagramCard {
 
     readonly diagram = input.required<Diagram>();
 
+    protected readonly domPortal = computed(() => new DomPortal(dummyRefDiv.appendChild(this.diagram().svg)));
+
     protected readonly preFilenameForm = form(signal({
-            year: this.currentYear(),
-            country: "",
-            locality: "",
-            bodyName: "",
-        }));
+        year: this.currentYear(),
+        country: "",
+        locality: "",
+        bodyName: "",
+    }));
     protected readonly fileName = linkedSignal(() => {
         const filenameElements: string[] = [];
         const filenameForm = this.preFilenameForm().value();

@@ -1,4 +1,4 @@
-<div [appContents]="diagram().svg"></div>
+<ng-template [cdkPortalOutlet]="domPortal()" />
 
 <button matButton="tonal" (click)="downloadDiagram()">
     Download SVG diagram
