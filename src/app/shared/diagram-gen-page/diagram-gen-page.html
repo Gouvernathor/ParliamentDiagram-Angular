@@ -38,7 +38,9 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-    <ng-content />
+    <div class="partylistarea">
+        <ng-content select="partylistarea" />
+    </div>
 
     <button matButton="filled"
         class="diagrammaker"

@@ -64,7 +64,7 @@
         <!-- auto-speaker ? -->
     </ng-container>
 
-    <div class="partylistarea">
+    <ng-container ngProjectAs="partylistarea">
         <app-party-list
             [list]="diagramForm.parties.speak"
             [bottomAddPartyButton]="false"
@@ -96,5 +96,5 @@
         >
             <h3 data-label>Crossbench parties</h3>
         </app-party-list>
-    </div>
+    </ng-container>
 </app-diagram-gen-page>
