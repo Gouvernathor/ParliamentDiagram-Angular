@@ -1,14 +1,20 @@
+@use '@angular/material' as mat;
+
 :host {
     display: block;
 
-    color: var(--mat-sys-on-surface-variant);
-    background-color: var(--mat-sys-surface-variant);
+    color: var(--mat-sys-on-surface);
+    background-color: var(--mat-sys-surface-container);
 
     // need to constrain the size of the diagram
     max-width: 800px;
 
     padding: 16px;
     border-radius: var(--mat-sys-corner-medium);
+
+    @include mat.expansion-overrides((
+        container-background-color: var(--mat-sys-surface-container-high),
+    ));
 }
 
 .legend {

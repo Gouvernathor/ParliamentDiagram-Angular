@@ -1,4 +1,11 @@
+@use '@angular/material' as mat;
 @use "../common-style.scss" as *;
+
+mat-accordion {
+    @include mat.expansion-overrides((
+        container-background-color: var(--mat-sys-surface-container-low),
+    ));
+}
 
 .partylistarea {
     margin-block-start: 20px;
