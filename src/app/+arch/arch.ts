@@ -7,14 +7,10 @@ import {
     signal,
 } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
-import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatDividerModule } from "@angular/material/divider";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
-import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { ColorService } from "../shared/color.service";
@@ -40,8 +36,7 @@ interface DiagramData {
     imports: [
         DiagramGenPage, PartyList, FileDrop, ExtractDiagram,
         FormField,
-        MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
-        MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
+        MatExpansionModule, MatInputModule, MatSliderModule, MatButtonToggleModule,
     ],
     templateUrl: "./arch.html",
     styleUrl: "./arch.scss",
