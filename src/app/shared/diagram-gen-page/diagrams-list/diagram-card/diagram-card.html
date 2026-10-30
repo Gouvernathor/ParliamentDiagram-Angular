@@ -49,7 +49,7 @@
             <p>I understand that images uploaded for private use can be deleted without notice and can lead to my username being blocked.</p>
         </div>
 
-        <button matButton="filled"
+        <button class="uploadButton" matButton="filled"
             [disabled]="!sessionService.isLoggedIn()"
             [disabledInteractive]="true"
             [matTooltip]="sessionService.isLoggedIn() ? null : 'You must log in before doing that'"
