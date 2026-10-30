@@ -24,7 +24,6 @@ import { FileDrop } from "../shared/file-drop/file-drop";
 import { PartyList } from "../shared/party-list/party-list";
 import { Toast } from "../shared/toast.js";
 import { Resolvers, Writeable } from "../shared/utils/types";
-import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { SvgToPreset } from "./svg-to-preset.js";
 import type { Party } from "./types.js";
 
@@ -51,7 +50,6 @@ interface DiagramData {
 export class ArchPage implements OnInit {
     private readonly colorService = inject(ColorService);
     private readonly toaster = inject(Toast);
-    private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
     protected readonly svgToPresetService = inject(SvgToPreset);
 
     protected readonly FillingStrategy = FillingStrategy;
@@ -119,8 +117,6 @@ export class ArchPage implements OnInit {
 
         // spanAngle null or (weird conditions)
     });
-
-    protected readonly diagrams = signal<readonly Diagram[]>([]);
 
     protected applyPreset(preset: readonly Party[]) {
         this.diagramForm.parties().value.set(preset);

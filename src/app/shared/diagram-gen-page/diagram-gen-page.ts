@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DiagramsList } from "./diagrams-list/diagrams-list";
 import { StandardPage } from "../standard-page/standard-page";
-import { WikipediaDiagramService, type Diagram, type PartyForLegend } from "../wikipedia-diagram.service.js";
+import { WikipediaDiagramService, type Diagram, type PartyForLegend } from "./wikipedia-diagram.service.js";
 import type { FieldState } from "@angular/forms/signals";
 
 @Component({

@@ -12,7 +12,6 @@ import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop.js";
 import { PartyList } from "../shared/party-list/party-list";
-import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { SvgToPreset } from "./svg-to-preset.js";
 import { areas, type PartiesPerArea, type Party } from "./types.js";
 
@@ -47,7 +46,6 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 })
 export class WestminsterPage {
     private readonly colorService = inject(ColorService);
-    private readonly wikipediaDiagramService = inject(WikipediaDiagramService);
     protected readonly svgToPresetService = inject(SvgToPreset);
 
     private readonly diagramModel = signal<DiagramData>({
@@ -100,8 +98,6 @@ export class WestminsterPage {
         min(schemaPath.spacingFactor, .01);
         max(schemaPath.spacingFactor, 1);
     });
-
-    protected readonly diagrams = signal<readonly Diagram[]>([]);
 
     protected applyPreset(preset: PartiesPerArea) {
         this.diagramForm.parties().value.set(preset);
