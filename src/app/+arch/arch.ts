@@ -18,11 +18,11 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { ColorService } from "../shared/color.service";
+import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { PartyList } from "../shared/party-list/party-list";
-import { StandardPage } from "../shared/standard-page/standard-page";
 import { Toast } from "../shared/toast.js";
 import { Resolvers, Writeable } from "../shared/utils/types";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
@@ -40,7 +40,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        StandardPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,

@@ -8,11 +8,11 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { ColorService } from "../shared/color.service.js";
+import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
 import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop.js";
 import { PartyList } from "../shared/party-list/party-list";
-import { StandardPage } from "../shared/standard-page/standard-page";
 import { Diagram, WikipediaDiagramService } from "../shared/wikipedia-diagram.service";
 import { SvgToPreset } from "./svg-to-preset.js";
 import { areas, type PartiesPerArea, type Party } from "./types.js";
@@ -37,7 +37,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        StandardPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
