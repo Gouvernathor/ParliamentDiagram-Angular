@@ -7,8 +7,8 @@
     // need to constrain the size of the diagram
     max-width: 800px;
 
-    padding: 1em;
-    border-radius: 1em;
+    padding: 16px;
+    border-radius: var(--mat-sys-corner-medium);
 }
 
 .legend {
