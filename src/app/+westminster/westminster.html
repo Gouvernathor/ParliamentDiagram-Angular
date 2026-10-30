@@ -1,4 +1,7 @@
-<app-diagram-gen-page>
+<app-diagram-gen-page
+    [diagramForm]="diagramForm()"
+    [diagramGenerator]="diagramGenerator"
+>
     <h2>Westminster-style parliament diagram generator</h2>
 
     <div id="presentation">
@@ -119,26 +122,4 @@
             <h3 data-label>Crossbench parties</h3>
         </app-party-list>
     </div>
-
-    <button matButton="filled"
-        class="diagrammaker"
-        [disabled]="!diagramForm().valid()"
-        [disabledInteractive]="true"
-        (click)="diagramForm().valid() && generateDiagram()"
-        [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
-    >
-        Make my diagram
-    </button>
-
-    @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
-        <div class="errorcontainer">
-            @for (error of diagramForm().errorSummary(); track $index) {
-                <p>{{error.message}}</p>
-            }
-        </div>
-    }
-
-    @if (diagrams().length) {
-        <app-diagrams-list [diagrams]="diagrams()" />
-    }
 </app-diagram-gen-page>

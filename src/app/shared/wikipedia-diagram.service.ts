@@ -5,7 +5,7 @@ export interface Diagram {
     readonly legend: string;
 }
 
-interface PartyForLegend {
+export interface PartyForLegend {
     color: string;
     name: string;
     nSeats: number;

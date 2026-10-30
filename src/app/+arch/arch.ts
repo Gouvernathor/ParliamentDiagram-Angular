@@ -19,7 +19,6 @@ import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { ColorService } from "../shared/color.service";
 import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
-import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop";
 import { PartyList } from "../shared/party-list/party-list";
@@ -40,7 +39,7 @@ interface DiagramData {
 
 @Component({
     imports: [
-        DiagramGenPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList, FileDrop, ExtractDiagram,
         FormField,
         MatButtonModule, MatFormFieldModule, MatDividerModule, MatInputModule,
         MatExpansionModule, MatSliderModule, MatButtonToggleModule, MatTooltipModule,
@@ -155,8 +154,7 @@ export class ArchPage implements OnInit {
         downloadJson(this.diagramForm.parties().value());
     } */
 
-    protected generateDiagram() {
-        const value = this.diagramForm().value();
+    protected diagramGenerator(value: DiagramData) {
         const attrib = new Map(
             value.parties.map(fp => [
                 {
@@ -181,12 +179,6 @@ export class ArchPage implements OnInit {
         }
 
         const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [
-            {
-                svg: diagram,
-                legend: this.wikipediaDiagramService.getLegend(value.parties),
-            },
-            ...l,
-        ]);
+        return [ diagram, value.parties ] as const;
     }
 }

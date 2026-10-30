@@ -9,7 +9,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { ColorService } from "../shared/color.service.js";
 import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
-import { DiagramsList } from "../shared/diagrams-list/diagrams-list";
 import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
 import { FileDrop } from "../shared/file-drop/file-drop.js";
 import { PartyList } from "../shared/party-list/party-list";
@@ -37,7 +36,7 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        DiagramGenPage, PartyList, DiagramsList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList, FileDrop, ExtractDiagram,
         FormField,
         MatExpansionModule,
         MatButtonModule, MatInputModule, MatSliderModule, MatSlideToggleModule, MatTooltipModule,
@@ -123,18 +122,17 @@ export class WestminsterPage {
         downloadJson(this.diagramForm.parties().value());
     } */
 
-    protected generateDiagram() {
-        const value = this.diagramForm().value();
+    protected diagramGenerator(value: DiagramData) {
         const attrib = areas.flatMap(area => value.parties[area].map(p =>({
-                area,
-                nSeats: p.nSeats,
+            area,
+            nSeats: p.nSeats,
 
-                data: p.name,
-                color: p.color,
-                borderSize: p.borderWidth,
-                borderColor: p.borderColor,
-                roundingRadius: p.roundingRadius,
-            })));
+            data: p.name,
+            color: p.color,
+            borderSize: p.borderWidth,
+            borderColor: p.borderColor,
+            roundingRadius: p.roundingRadius,
+        })));
         const options = {
             wingNRows: value.wingNRows,
             crossNCols: value.crossNCols,
@@ -148,12 +146,6 @@ export class WestminsterPage {
             .flatMap(a => value.parties[a]);
 
         const diagram = getSVGFromAttribution(attrib, options);
-        this.diagrams.update(l => [
-            {
-                svg: diagram,
-                legend: this.wikipediaDiagramService.getLegend(partiesForLegend),
-            },
-            ...l,
-        ]);
+        return [diagram, partiesForLegend] as const;
     }
 }

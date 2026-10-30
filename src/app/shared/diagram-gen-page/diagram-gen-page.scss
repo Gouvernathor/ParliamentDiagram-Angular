@@ -1,0 +1,11 @@
+@use "../common-style.scss" as *;
+
+.diagrammaker {
+    margin-block: 20px;
+}
+
+.errorcontainer {
+    @include error-container;
+
+    margin-block-end: 20px;
+}

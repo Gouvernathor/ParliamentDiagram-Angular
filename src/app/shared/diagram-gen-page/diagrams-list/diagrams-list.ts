@@ -1,7 +1,7 @@
 import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { DiagramCard } from "../diagram-card/diagram-card";
-import { Diagram } from "../wikipedia-diagram.service";
+import { DiagramCard } from "../../diagram-card/diagram-card";
+import { Diagram } from "../../wikipedia-diagram.service";
 
 @Component({
     selector: "app-diagrams-list",

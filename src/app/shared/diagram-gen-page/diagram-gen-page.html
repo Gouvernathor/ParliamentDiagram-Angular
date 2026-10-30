@@ -1,3 +1,25 @@
 <app-standard-page>
     <ng-content />
+
+    <button matButton="filled"
+        class="diagrammaker"
+        [disabled]="!diagramForm().valid()"
+        [disabledInteractive]="true"
+        (click)="diagramForm().valid() && generateDiagram()"
+        [matTooltip]="diagramForm().errorSummary().map(e => e.message).join('\n')"
+    >
+        Make my diagram
+    </button>
+
+    @if (diagramForm().dirty() && diagramForm().errorSummary().length) {
+        <div class="errorcontainer">
+            @for (error of diagramForm().errorSummary(); track $index) {
+                <p>{{error.message}}</p>
+            }
+        </div>
+    }
+
+    @if (diagrams().length) {
+        <app-diagrams-list [diagrams]="diagrams()" />
+    }
 </app-standard-page>
