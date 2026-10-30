@@ -101,12 +101,14 @@
     </mat-accordion>
 
     <app-party-list
+        class="partylistarea"
         [list]="diagramForm.parties"
         [bottomAddPartyButton]="true"
         [newParty]="newParty.bind(this)"
     />
 
     <button matButton="filled"
+        class="diagrammaker"
         [disabled]="!diagramForm().valid()"
         [disabledInteractive]="true"
         (click)="diagramForm().valid() && generateDiagram()"

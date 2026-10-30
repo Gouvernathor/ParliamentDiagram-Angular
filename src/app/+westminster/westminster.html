@@ -86,7 +86,7 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-    <div>
+    <div class="partylistarea">
         <app-party-list
             [list]="diagramForm.parties.speak"
             [bottomAddPartyButton]="false"
@@ -121,6 +121,7 @@
     </div>
 
     <button matButton="filled"
+        class="diagrammaker"
         [disabled]="!diagramForm().valid()"
         [disabledInteractive]="true"
         (click)="diagramForm().valid() && generateDiagram()"

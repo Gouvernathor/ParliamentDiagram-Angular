@@ -1,5 +1,15 @@
 @use "../shared/common-style.scss" as *;
 
+.partylistarea {
+    margin-block-start: 20px;
+}
+
+.diagrammaker {
+    margin-block: 20px;
+}
+
 .errorcontainer {
     @include error-container;
+
+    margin-block-end: 20px;
 }
