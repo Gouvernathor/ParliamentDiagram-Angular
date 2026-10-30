@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import { applyEach, form, FormField, max, min, validate } from "@angular/forms/signals";
-import { MatExpansionModule } from "@angular/material/expansion";
 import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSliderModule } from "@angular/material/slider";
 import { getSVGFromAttribution } from "@parliamentarch/westminster-svg";
 import { ColorService } from "../shared/color.service.js";
 import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
-import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
-import { FileDrop } from "../shared/file-drop/file-drop.js";
 import { PartyList } from "../shared/party-list/party-list";
 import { SvgToPreset } from "./svg-to-preset.js";
 import { areas, type PartiesPerArea, type Party } from "./types.js";
@@ -33,9 +30,9 @@ const INITIAL_SPEAKER: Readonly<Party> = {
 
 @Component({
     imports: [
-        DiagramGenPage, PartyList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList,
         FormField,
-        MatExpansionModule, MatInputModule, MatSliderModule, MatSlideToggleModule,
+        MatInputModule, MatSliderModule, MatSlideToggleModule,
     ],
     templateUrl: "./westminster.html",
     changeDetection: ChangeDetectionStrategy.Eager,

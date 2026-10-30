@@ -1,6 +1,8 @@
 <app-diagram-gen-page
     [diagramForm]="diagramForm()"
     [diagramGenerator]="diagramGenerator"
+    [converter]="svgToPresetService"
+    (preset)="applyPreset($event)"
 >
     <h2>Westminster-style parliament diagram generator</h2>
 
@@ -20,70 +22,47 @@
         </p>
     </ng-container>
 
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Presets</mat-panel-title>
-            </mat-expansion-panel-header>
+    <ng-container ngProjectAs="advanced-params">
+        <mat-slide-toggle
+            matTooltip="Whether parties in the same area are allowed to share a column (a row for crossbenchers)"
+            [formField]="diagramForm.packed"
+        >
+            Packed
+        </mat-slide-toggle>
 
-            <!-- (later) query party list from a Commons diagram -->
-
-            <!-- (later) query party list from a country in a list -->
-
-            <file-drop
-                prompt="Drop a diagram here"
-                [multiple]="false" [allowedTypes]="['image/svg+xml']"
-                [converter]="svgToPresetService"
-                (preset)="applyPreset($event)"
-            />
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Advanced parameters</mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <mat-slide-toggle
-                matTooltip="Whether parties in the same area are allowed to share a column (a row for crossbenchers)"
-                [formField]="diagramForm.packed"
+        <div>
+            <label for="spacingFactorInput"
+                matTooltip="The size of the squares that make up the seats. At 1, neighboring seats will be in contact with one another, at 0 the seats are invisible."
             >
-                Packed
-            </mat-slide-toggle>
+                Spacing factor
+            </label>
+            <mat-slider [discrete]="true" [min]=".01" [max]="1" [step]=".01">
+                <input id="spacingFactorInput" matSliderThumb [formField]="diagramForm.spacingFactor" />
+            </mat-slider>
+        </div>
 
-            <div>
-                <label for="spacingFactorInput"
-                    matTooltip="The size of the squares that make up the seats. At 1, neighboring seats will be in contact with one another, at 0 the seats are invisible."
-                >
-                    Spacing factor
-                </label>
-                <mat-slider [discrete]="true" [min]=".01" [max]="1" [step]=".01">
-                    <input id="spacingFactorInput" matSliderThumb [formField]="diagramForm.spacingFactor" />
-                </mat-slider>
-            </div>
+        <div>
+            <label for="roundingRadiusInput"
+                matTooltip="Whether and how much the corners of the seats are rounded. 0 will give you perfect squares, 0.5 will give you perfect circles. Can also be set for each party."
+            >
+                Rounding radius
+            </label>
+            <mat-slider [discrete]="true" [max]=".5" [step]=".01">
+                <input id="roundingRadiusInput" matSliderThumb [formField]="diagramForm.roundingRadius" />
+            </mat-slider>
+        </div>
 
-            <div>
-                <label for="roundingRadiusInput"
-                    matTooltip="Whether and how much the corners of the seats are rounded. 0 will give you perfect squares, 0.5 will give you perfect circles. Can also be set for each party."
-                >
-                    Rounding radius
-                </label>
-                <mat-slider [discrete]="true" [max]=".5" [step]=".01">
-                    <input id="roundingRadiusInput" matSliderThumb [formField]="diagramForm.roundingRadius" />
-                </mat-slider>
-            </div>
+        <mat-form-field matTooltip="Force a number of rows for the government and opposition wings. Ignored if 0, or less than the number of seats.">
+            <mat-label>Wing rows</mat-label>
+            <input matInput type="number" [formField]="diagramForm.wingNRows" />
+        </mat-form-field>
+        <mat-form-field matTooltip="Force a number of columns for the crossbenchers. Ignored if 0, or less than the number of seats.">
+            <mat-label>Cross-bench columns</mat-label>
+            <input matInput type="number" [formField]="diagramForm.crossNCols" />
+        </mat-form-field>
 
-            <mat-form-field matTooltip="Force a number of rows for the government and opposition wings. Ignored if 0, or less than the number of seats.">
-                <mat-label>Wing rows</mat-label>
-                <input matInput type="number" [formField]="diagramForm.wingNRows" />
-            </mat-form-field>
-            <mat-form-field matTooltip="Force a number of columns for the crossbenchers. Ignored if 0, or less than the number of seats.">
-                <mat-label>Cross-bench columns</mat-label>
-                <input matInput type="number" [formField]="diagramForm.crossNCols" />
-            </mat-form-field>
-
-            <!-- auto-speaker ? -->
-        </mat-expansion-panel>
-    </mat-accordion>
+        <!-- auto-speaker ? -->
+    </ng-container>
 
     <div class="partylistarea">
         <app-party-list

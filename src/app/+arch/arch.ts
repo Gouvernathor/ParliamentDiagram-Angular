@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from "@angular/core";
 import { applyEach, form, FormField, max, min, minLength, validate } from "@angular/forms/signals";
+import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatExpansionModule } from "@angular/material/expansion";
 import { MatInputModule } from "@angular/material/input";
 import { MatSliderModule } from "@angular/material/slider";
 import { FillingStrategy } from "@parliamentarch/core/geometry";
 import { getSVGFromAttribution } from "@parliamentarch/svg";
 import { ColorService } from "../shared/color.service";
 import { DiagramGenPage } from "../shared/diagram-gen-page/diagram-gen-page.js";
-import { ExtractDiagram } from "../shared/file-drop/extract-diagram.js";
-import { FileDrop } from "../shared/file-drop/file-drop";
 import { PartyList } from "../shared/party-list/party-list";
 import { Toast } from "../shared/toast.js";
 import { Resolvers, Writeable } from "../shared/utils/types";
@@ -27,9 +25,9 @@ interface DiagramData {
 
 @Component({
     imports: [
-        DiagramGenPage, PartyList, FileDrop, ExtractDiagram,
+        DiagramGenPage, PartyList,
         FormField,
-        MatExpansionModule, MatInputModule, MatSliderModule, MatButtonToggleModule,
+        MatButtonModule, MatInputModule, MatSliderModule, MatButtonToggleModule,
     ],
     templateUrl: "./arch.html",
     styleUrl: "./arch.scss",
