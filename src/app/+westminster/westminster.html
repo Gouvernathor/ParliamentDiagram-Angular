@@ -4,7 +4,7 @@
 >
     <h2>Westminster-style parliament diagram generator</h2>
 
-    <div id="presentation">
+    <ng-container ngProjectAs="presentation">
         <p>
             This is a tool to generate diagrams of a Westminster-style parliament, composed of a left bench, a right bench, an optional cross-bench group, and a speaker.
         </p>
@@ -18,11 +18,7 @@
             A button will enable you to download it.<br/>
             You can then freely use the diagram, but to use it in Wikipedia, you need to upload it to Wikimedia Commons.
         </p>
-
-        <p>
-            Please submit bug reports and feature requests at the project's <a href="https://codeberg.org/Gouvernathor/ParliamentDiagram-Angular/issues">issue tracker</a>.
-        </p>
-    </div>
+    </ng-container>
 
     <mat-accordion>
         <mat-expansion-panel>

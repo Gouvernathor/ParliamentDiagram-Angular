@@ -1,4 +1,14 @@
 <app-standard-page>
+    <ng-content select="h2" />
+
+    <div id="presentation">
+        <ng-content select="presentation" />
+
+        <p>
+            Please submit bug reports and feature requests at the project's <a href="https://codeberg.org/Gouvernathor/ParliamentDiagram-Angular/issues">issue tracker</a>.
+        </p>
+    </div>
+
     <ng-content />
 
     <button matButton="filled"
