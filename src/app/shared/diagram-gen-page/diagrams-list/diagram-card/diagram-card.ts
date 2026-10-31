@@ -63,14 +63,28 @@ export class DiagramCard {
         downloadDiagram(this.diagram().svg);
     }
 
-    protected uploadDiagram() {
-        // TODO read the result and do something about it (toast ?)
-        const diagram = this.diagram();
-        this.sessionService!.upload({
-            filename: this.fileName(),
-            file: diagramToBlob(diagram.svg),
-            description: this.wikipediaDiagramService.getDescription(diagram.legend),
-        });
+    protected readonly isUploading = linkedSignal<object|null>(() => {
+        this.preFilenameForm().value(); // reset when that is updated
+        return null;
+    });
+
+    protected async uploadDiagram() {
+        const uploadMarker = Object.create(null);
+        this.isUploading.set(uploadMarker);
+
+        try {
+            // TODO read the result and do something about it (toast ?)
+            const diagram = this.diagram();
+            await this.sessionService!.upload({
+                filename: this.fileName(),
+                file: diagramToBlob(diagram.svg),
+                description: this.wikipediaDiagramService.getDescription(diagram.legend),
+            });
+        } finally {
+            if (this.isUploading() === uploadMarker) {
+                this.isUploading.set(null);
+            }
+        }
     }
 
     private currentYear(): number {

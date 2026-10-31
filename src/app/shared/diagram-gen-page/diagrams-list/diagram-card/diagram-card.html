@@ -50,10 +50,10 @@
         </div>
 
         <button class="uploadButton" matButton="filled"
-            [disabled]="!sessionService.isLoggedIn()"
+            [disabled]="!(sessionService.isLoggedIn() && !isUploading())"
             [disabledInteractive]="true"
             [matTooltip]="sessionService.isLoggedIn() ? null : 'You must log in before doing that'"
-            (click)="sessionService.isLoggedIn() && uploadDiagram()"
+            (click)="(sessionService.isLoggedIn() && !isUploading()) && uploadDiagram()"
         >
             Upload
         </button>
