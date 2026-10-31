@@ -134,6 +134,7 @@ interface UploadSuccessResult {
         filename: string;
         result: "Success";
         imageinfo: {
+            descriptionurl: string;
             url: string;
             // …
         };

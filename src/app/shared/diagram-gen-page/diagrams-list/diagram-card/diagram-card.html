@@ -57,5 +57,16 @@
         >
             Upload
         </button>
+
+        @let result = this.result();
+        @if (result) {
+            <div>
+                @if (result.success) {
+                    Image successfully uploaded on <a [href]="result.href">Commons</a>.
+                } @else {
+                    {{result.message}}
+                }
+            </div>
+        }
     </mat-expansion-panel>
 }

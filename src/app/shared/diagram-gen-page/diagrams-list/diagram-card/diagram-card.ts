@@ -17,6 +17,14 @@ import { diagramToBlob, downloadDiagram } from "../../../download";
 import { SESSION_SERVICE } from "../../../oauth/conditional-inject";
 import { Diagram, WikipediaDiagramService } from "../../wikipedia-diagram.service";
 
+type Result = {
+    readonly success: true;
+    readonly href: string;
+} | {
+    readonly success: false;
+    readonly message: string;
+};
+
 @Component({
     selector: "app-diagram-card",
     imports: [Contents, MatButtonModule, MatExpansionModule, MatFormFieldModule, MatTooltip, MatInput, FormField],
@@ -68,6 +76,8 @@ export class DiagramCard {
         return null;
     });
 
+    protected readonly result = signal<Result|null>(null);
+
     protected async uploadDiagram() {
         const uploadMarker = Object.create(null);
         this.isUploading.set(uploadMarker);
@@ -75,11 +85,26 @@ export class DiagramCard {
         try {
             // TODO read the result and do something about it (toast ?)
             const diagram = this.diagram();
-            await this.sessionService!.upload({
-                filename: this.fileName(),
+            const filename = this.fileName();
+            const result = await this.sessionService!.upload({
+                filename,
                 file: diagramToBlob(diagram.svg),
                 description: this.wikipediaDiagramService.getDescription(diagram.legend),
             });
+
+            if (result.upload?.result === "Success") {
+                let href;
+                try {
+                    href = result.upload.imageinfo.descriptionurl;
+                } catch (e) {
+                    console.error(e);
+                }
+                href ||= "https://commons.wikimedia.org/wiki/File:" + filename.replace(" ", "_");
+
+                this.result.set({ success: true, href });
+            } // TODO
+        } catch (e) {
+            e; // TODO
         } finally {
             if (this.isUploading() === uploadMarker) {
                 this.isUploading.set(null);
