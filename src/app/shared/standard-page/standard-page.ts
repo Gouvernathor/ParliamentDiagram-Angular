@@ -3,13 +3,15 @@ import { RouterLink } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { IconsService } from "../icons/icons.service.js";
 import { SESSION_SERVICE } from "../oauth/conditional-inject";
 import { Theme, ThemeingService } from "../themeing";
 
 @Component({
     selector: "app-standard-page",
-    imports: [RouterLink, MatCardModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule],
+    imports: [RouterLink, MatCardModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatIconModule],
     templateUrl: "./standard-page.html",
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./standard-page.scss",
@@ -17,6 +19,7 @@ import { Theme, ThemeingService } from "../themeing";
 export class StandardPage {
     protected readonly themeingService = inject(ThemeingService);
     protected readonly sessionService = inject(SESSION_SERVICE);
+    protected readonly iconsService = inject(IconsService);
 
     readonly authInNewTab = input(true);
 

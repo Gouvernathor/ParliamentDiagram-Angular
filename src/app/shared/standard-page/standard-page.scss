@@ -48,6 +48,10 @@ mat-toolbar {
             width: fit-content;
         }
     }
+
+    mat-button-toggle-group[name="theme"] mat-icon {
+        color: var(--mat-sys-primary);
+    }
 }
 
 nav {

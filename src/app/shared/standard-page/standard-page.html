@@ -11,9 +11,15 @@
             [value]="themeingService.getUserPersistedTheme()"
             (change)="chooseTheme($event.value)"
         >
-            <mat-button-toggle [value]="null">C</mat-button-toggle>
-            <mat-button-toggle value="light">L</mat-button-toggle>
-            <mat-button-toggle value="dark">D</mat-button-toggle>
+            <mat-button-toggle [value]="null">
+                <mat-icon [svgIcon]="iconsService.iconNames.light_mode_auto" />
+            </mat-button-toggle>
+            <mat-button-toggle value="light">
+                <mat-icon [svgIcon]="iconsService.iconNames.light_mode" />
+            </mat-button-toggle>
+            <mat-button-toggle value="dark">
+                <mat-icon [svgIcon]="iconsService.iconNames.dark_mode" />
+            </mat-button-toggle>
         </mat-button-toggle-group>
 
         @if (sessionService) {
