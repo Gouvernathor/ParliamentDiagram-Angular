@@ -16,7 +16,18 @@ mat-toolbar {
 
         &.right {
             justify-content: end;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            min-width: 0;
+
+            > * {
+                flex-shrink: 0;
+            }
+
+            > .shrinkable {
+                flex-shrink: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 
