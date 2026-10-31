@@ -8,10 +8,11 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { IconsService } from "../icons/icons.service.js";
 import { SESSION_SERVICE } from "../oauth/conditional-inject";
 import { Theme, ThemeingService } from "../themeing";
+import { MatTooltip } from "@angular/material/tooltip";
 
 @Component({
     selector: "app-standard-page",
-    imports: [RouterLink, MatCardModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatIconModule],
+    imports: [RouterLink, MatCardModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatIconModule, MatTooltip],
     templateUrl: "./standard-page.html",
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./standard-page.scss",
