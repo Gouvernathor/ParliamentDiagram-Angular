@@ -33,7 +33,7 @@
                 <span class="shrinkable">Logged in as {{ sessionService.userInfo.value()?.name }}</span>
                 <button matButton="outlined" (click)="sessionService.logOut()">Log out</button>
             } @else {
-                <a matButton="filled"
+                <a matButton="filled" class="shrinkable"
                     [href]="sessionService.authorizationURL.value()"
                     [target]="authInNewTab() ? '_blank' : null"
                 >Log in to Wikimedia Commons</a>
