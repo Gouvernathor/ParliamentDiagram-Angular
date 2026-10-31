@@ -31,11 +31,11 @@ export class DiagramCard {
     readonly diagram = input.required<Diagram>();
 
     protected readonly preFilenameForm = form(signal({
-            year: this.currentYear(),
-            country: "",
-            locality: "",
-            bodyName: "",
-        }));
+        year: this.currentYear(),
+        country: "",
+        locality: "",
+        bodyName: "",
+    }));
     protected readonly fileName = linkedSignal(() => {
         const filenameElements: string[] = [];
         const filenameForm = this.preFilenameForm().value();
