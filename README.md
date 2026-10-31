@@ -13,6 +13,8 @@ The improvements are:
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
 
+***No AI used.***
+
 ## Deployment
 
 This is a static web[site/app] able to be deployed on about any domain.
