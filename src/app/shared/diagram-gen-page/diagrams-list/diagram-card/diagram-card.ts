@@ -10,8 +10,9 @@ import { form, FormField } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInput } from "@angular/material/input";
-import { MatTooltip } from "@angular/material/tooltip";
+import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { Contents } from "../../../contents.directive";
 import { diagramToBlob, downloadDiagram } from "../../../download";
 import { SESSION_SERVICE } from "../../../oauth/conditional-inject";
@@ -27,7 +28,11 @@ type Result = {
 
 @Component({
     selector: "app-diagram-card",
-    imports: [Contents, MatButtonModule, MatExpansionModule, MatFormFieldModule, MatTooltip, MatInput, FormField],
+    imports: [
+        Contents,
+        FormField,
+        MatButtonModule, MatExpansionModule, MatInputModule, MatFormFieldModule, MatProgressSpinnerModule, MatTooltipModule,
+    ],
     templateUrl: "./diagram-card.html",
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./diagram-card.scss",

@@ -55,7 +55,11 @@
             [matTooltip]="sessionService.isLoggedIn() ? null : 'You must log in before doing that'"
             (click)="(sessionService.isLoggedIn() && !isUploading()) && uploadDiagram()"
         >
-            Upload
+            @if (isUploading()) {
+                <mat-spinner [diameter]="20" />
+            } @else {
+                Upload
+            }
         </button>
 
         @let result = this.result();
