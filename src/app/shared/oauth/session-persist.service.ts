@@ -35,6 +35,7 @@ export class SessionPersistService {
         const serialization = this.getSerializationFromStorage();
         return new OAuthSession(this.apiUrl, {
             crossorigin: true,
+            errorformat: 'plaintext',
         }, {
             userAgent: "ParliamentDiagram-Angular",
             "m3api-oauth2/credentials": this.credentials,
