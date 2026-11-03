@@ -64,13 +64,16 @@
 
         @let result = this.result();
         @if (result) {
-            <div>
-                @if (result.success) {
-                    Image successfully uploaded on <a [href]="result.href">Commons</a>.
-                } @else {
-                    {{result.message}}
+            @if (result.success) {
+                <p class="success">Image successfully uploaded on <a [href]="result.href">Commons</a>.</p>
+            } @else {
+                @for (message of result.messages; track $index) {
+                    <p class="error">{{message}}</p>
                 }
-            </div>
+                @if (result.linkToTracker) {
+                    <p>Please raise an issue on the issue tracker if the error seems internal to ParliamentDiagram.</p>
+                }
+            }
         }
     </mat-expansion-panel>
 }

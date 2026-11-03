@@ -13,6 +13,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { ApiErrors } from "@gouvernathor/m3api";
 import { Contents } from "../../../contents.directive";
 import { diagramToBlob, downloadDiagram } from "../../../download";
 import { SESSION_SERVICE } from "../../../oauth/conditional-inject";
@@ -23,7 +24,8 @@ type Result = {
     readonly href: string;
 } | {
     readonly success: false;
-    readonly message: string;
+    readonly messages: readonly string[];
+    readonly linkToTracker: boolean;
 };
 
 @Component({
@@ -109,7 +111,13 @@ export class DiagramCard {
                 this.result.set({ success: true, href });
             } // TODO
         } catch (e) {
-            e; // TODO
+            let messages;
+            if (e instanceof ApiErrors) {
+                messages = e.errors.map(ee => `Error (code ${ee.code}): ${ee.text}`);
+            } else {
+                messages = [ String(e) ];
+            }
+            this.result.set({ success: false, messages, linkToTracker: true });
         } finally {
             if (this.isUploading() === uploadMarker) {
                 this.isUploading.set(null);
