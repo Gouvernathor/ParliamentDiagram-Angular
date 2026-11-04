@@ -28,6 +28,8 @@ type Result = {
     readonly linkToTracker: boolean;
 };
 
+const resultCache = new WeakMap<Diagram, Result>();
+
 @Component({
     selector: "app-diagram-card",
     imports: [
@@ -83,15 +85,19 @@ export class DiagramCard {
         return null;
     });
 
-    protected readonly result = signal<Result|null>(null);
+    protected readonly result = linkedSignal<Result|undefined>(() => resultCache.get(this.diagram())); // signal<Result|null>(null);
+    private setResult(result: Result, diagram = this.diagram()) {
+        resultCache.set(diagram, result);
+        this.result.set(result);
+    }
 
     protected async uploadDiagram() {
         const uploadMarker = Object.create(null);
         this.isUploading.set(uploadMarker);
 
+        const diagram = this.diagram();
         try {
             // TODO read the result and do something about it (toast ?)
-            const diagram = this.diagram();
             const filename = this.fileName();
             const result = await this.sessionService!.upload({
                 filename,
@@ -108,7 +114,7 @@ export class DiagramCard {
                 }
                 href ||= "https://commons.wikimedia.org/wiki/File:" + filename.replace(" ", "_");
 
-                this.result.set({ success: true, href });
+                this.setResult({ success: true, href }, diagram);
             } // TODO
         } catch (e) {
             let messages;
@@ -117,7 +123,7 @@ export class DiagramCard {
             } else {
                 messages = [ String(e) ];
             }
-            this.result.set({ success: false, messages, linkToTracker: true });
+            this.setResult({ success: false, messages, linkToTracker: true }, diagram);
         } finally {
             if (this.isUploading() === uploadMarker) {
                 this.isUploading.set(null);
