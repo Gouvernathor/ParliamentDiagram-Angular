@@ -1,18 +1,14 @@
-import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { DiagramCard } from "./diagram-card/diagram-card";
+import { Component, input } from "@angular/core";
 import { Diagram } from "../wikipedia-diagram.service";
+import { DiagramCard } from "./diagram-list-inner/diagram-card/diagram-card";
+import { DiagramListInner } from "./diagram-list-inner/diagram-list-inner";
 
 @Component({
     selector: "app-diagrams-list",
-    imports: [DiagramCard, MatExpansionModule],
+    imports: [DiagramCard, DiagramListInner],
     templateUrl: "./diagrams-list.html",
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: "./diagrams-list.scss",
 })
 export class DiagramsList {
     readonly diagrams = input.required<readonly Diagram[]>();
-
-    protected readonly first = computed(() => this.diagrams()[0]!);
-    protected readonly others = computed(() => this.diagrams().slice(1));
 }

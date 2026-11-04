@@ -1,13 +1,5 @@
-<app-diagram-card [diagram]="first()" />
-
-@if (others().length) {
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>Previous</mat-panel-title>
-        </mat-expansion-panel-header>
-
-        @for (diagram of others(); track diagram) {
-            <app-diagram-card [diagram]="diagram" />
-        }
-    </mat-expansion-panel>
-}
+<app-diagram-list-inner [haveMore]="diagrams().length > 1">
+    @for (diagram of diagrams(); track diagram) {
+        <app-diagram-card [class.latest]="$first" [diagram]="diagram" />
+    }
+</app-diagram-list-inner>

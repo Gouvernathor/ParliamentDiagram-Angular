@@ -1,0 +1,9 @@
+<ng-content select=".latest" />
+
+<mat-expansion-panel [hidden]="!haveMore()">
+    <mat-expansion-panel-header>
+        <mat-panel-title>Previous</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-content />
+</mat-expansion-panel>

@@ -14,10 +14,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { ApiErrors } from "@gouvernathor/m3api";
-import { Contents } from "../../../contents.directive";
-import { diagramToBlob, downloadDiagram } from "../../../download";
-import { SESSION_SERVICE } from "../../../oauth/conditional-inject";
-import { Diagram, WikipediaDiagramService } from "../../wikipedia-diagram.service";
+import { Contents } from "../../../../contents.directive";
+import { diagramToBlob, downloadDiagram } from "../../../../download";
+import { SESSION_SERVICE } from "../../../../oauth/conditional-inject";
+import { Diagram, WikipediaDiagramService } from "../../../wikipedia-diagram.service";
 
 type Result = {
     readonly success: true;
@@ -90,6 +90,12 @@ export class DiagramCard {
         this.isUploading.set(uploadMarker);
 
         try {
+            // mock
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => reject(null), 50000);
+            // });
+
+
             // TODO read the result and do something about it (toast ?)
             const diagram = this.diagram();
             const filename = this.fileName();
@@ -109,7 +115,28 @@ export class DiagramCard {
                 href ||= "https://commons.wikimedia.org/wiki/File:" + filename.replace(" ", "_");
 
                 this.result.set({ success: true, href });
-            } // TODO
+            } else if (result.upload?.warnings) {
+                let shouldRetry = true;
+                const messages = Object.entries(result.upload.warnings)?.map(([warning, value]) => {
+                    /*
+                    exists
+                        no-change (additional key)
+                        duplicateversions (additional key)
+                    was-deleted
+                    duplicate
+                    duplicate-archive
+                    badfilename
+                    */
+                    switch (warning) {
+                        case "no-change":
+                        case "duplicateversions":
+                            break; // handled separately
+
+                        case "exists":
+                            break; // should retry
+                    }
+                });
+            }
         } catch (e) {
             let messages;
             if (e instanceof ApiErrors) {
