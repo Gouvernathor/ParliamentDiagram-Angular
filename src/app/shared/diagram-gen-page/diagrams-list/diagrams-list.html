@@ -1,4 +1,6 @@
-<app-diagram-card [diagram]="first()" />
+@for (diagram of first(); track diagram) {
+    <app-diagram-card [diagram]="diagram" />
+}
 
 @if (others().length) {
     <mat-expansion-panel>

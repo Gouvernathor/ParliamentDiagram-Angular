@@ -13,6 +13,6 @@ import { Diagram } from "../wikipedia-diagram.service";
 export class DiagramsList {
     readonly diagrams = input.required<readonly Diagram[]>();
 
-    protected readonly first = computed(() => this.diagrams()[0]!);
+    protected readonly first = computed(() => this.diagrams().slice(0, 1));
     protected readonly others = computed(() => this.diagrams().slice(1));
 }
