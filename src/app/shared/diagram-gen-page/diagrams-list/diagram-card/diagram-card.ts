@@ -147,7 +147,7 @@ export class DiagramCard {
                     if ("was-deleted" in warnings) {
                         messages.push({
                             kind: "was-deleted",
-                            filename: warnings["was-deleted"],
+                            filename: warnings["was-deleted"], // TODO check what that value is
                         });
                     } else {
                         const href = `https://commons.wikipedia.org/wiki/File:${warnings["exists"]}`;
