@@ -152,10 +152,10 @@ interface UploadWarningResult {
 
 export type Warnings = {
 //     exists: string;
-//     "was-deleted": string;
+    "was-deleted"?: string;
 //     duplicate: string;
 //     "duplicate-archive": string;
 //     badfilename: string;
-// } & {
+} & {
     [k in string]?: unknown;
 };

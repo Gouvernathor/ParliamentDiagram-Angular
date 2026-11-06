@@ -171,7 +171,7 @@ export class DiagramCard {
                     } else {
                         messages.push({
                             kind: "was-deleted",
-                            filename: warnings["was-deleted"], // TODO check what that value is
+                            filename: warnings["was-deleted"]!,
                         });
                     }
                     delete warnings["exists"];
