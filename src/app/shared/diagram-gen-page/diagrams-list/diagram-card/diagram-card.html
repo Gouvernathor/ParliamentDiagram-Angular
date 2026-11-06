@@ -79,6 +79,20 @@
                                 <p class="error"><samp>{{ message.badfilename }}</samp> is not a valid filename for Wikimedia Commons. You can retry with a different one.</p>
                             }
 
+                            @case ("exists") {
+                                <div class="error">
+                                    <p>The file <a [href]="message.href">{{ message.filename }}</a> already exists on Commons.</p>
+                                    <p>
+                                        @if (message.isDefault) {
+                                            This is a testing file, which you can try to overwrite.
+                                        } @else {
+                                            If you have confirmed that you want to overwrite that file, you can try to overwrite it.
+                                        }
+                                    </p>
+                                    <p>Commons usually does not allow to do that, depending on your user rights. In any case, if you abuse this feature, you will be blocked.</p>
+                                </div>
+                            }
+
                             @case ("was-deleted") {
                                 <div class="error">
                                     <p>A file named <samp>{{ message.filename }}</samp> existed in the past but has been deleted since.</p>
@@ -101,7 +115,7 @@
                     }
                 }
                 @if (result.retryIgnoreWarnings) {
-                    <!-- TODO retry-ignore-warnings button -->
+                    <!-- TODO ignore-warnings-and-retry-upload button -->
                 }
             }
         }

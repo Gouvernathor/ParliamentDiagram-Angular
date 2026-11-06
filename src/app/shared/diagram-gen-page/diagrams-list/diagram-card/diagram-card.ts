@@ -36,6 +36,11 @@ type Message = {
     readonly kind: "badfilename";
     readonly badfilename: string;
 } | {
+    readonly kind: "exists";
+    readonly filename: string;
+    readonly href: string;
+    readonly isDefault: boolean;
+} | {
     readonly kind: "was-deleted";
     readonly filename: string;
 } | {
@@ -145,7 +150,8 @@ export class DiagramCard {
                     delete warnings["badfilename"];
                 } else if ("exists" in warnings || "was-deleted" in warnings) {
                     if ("exists" in warnings) {
-                        const href = `https://commons.wikipedia.org/wiki/File:${warnings["exists"]}`;
+                        const filename = warnings["exists"];
+                        const href = `https://commons.wikipedia.org/wiki/File:${filename}`;
                         if ("no-change" in warnings) {
                             /* messages.push({
                                 kind: ,
@@ -156,9 +162,11 @@ export class DiagramCard {
                                 kind: ,
                             }); */ // TODO
                         } else {
-                            /* messages.push({
-                                kind: ,
-                            }); */ // TODO
+                            messages.push({
+                                kind: "exists",
+                                filename, href,
+                                isDefault: filename.replace(" ", "_") === "My_Parliament.svg",
+                            });
                         }
                     } else {
                         messages.push({
