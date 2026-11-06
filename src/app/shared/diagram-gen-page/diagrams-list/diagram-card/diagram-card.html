@@ -79,17 +79,30 @@
                                 <p class="error"><samp>{{ message.badfilename }}</samp> is not a valid filename for Wikimedia Commons. You can retry with a different one.</p>
                             }
 
-                            @case ("unknown") {
+                            @case ("was-deleted") {
+                                <div class="error">
+                                    <p>A file named <samp>{{ message.filename }}</samp> existed in the past but has been deleted since.</p>
+                                    <p>Commons may or may not allow this, depending on your user rights. In any case, if you abuse this feature, you will be blocked.</p>
+                                </div>
+                            }
+
+                            <!-- @case ("unknown") -->
+                            @default {
                                 <div class="error">
                                     <p>An unknown warning has been returned by Wikimedia Commons : "<samp>{{ message.key }}</samp>" with value "<samp>{{ message.value }}</samp>"</p>
                                     <p>Please report this to the ParliamentDiagram issue tracker.</p>
+                                    @if (result.retryIgnoreWarnings) {
+                                        <p>You can retry to upload while ignoring this warning, at your own risk.</p>
+                                    }
                                 </div>
                             }
                         }
                         <p class="error">{{ message }}</p>
                     }
                 }
-                <!-- TODO retry-ignore-warnings button -->
+                @if (result.retryIgnoreWarnings) {
+                    <!-- TODO retry-ignore-warnings button -->
+                }
             }
         }
     </mat-expansion-panel>
