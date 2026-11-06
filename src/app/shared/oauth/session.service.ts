@@ -144,16 +144,18 @@ interface UploadSuccessResult {
 interface UploadWarningResult {
     upload: {
         result: "Warning";
-        warnings: {
-        //     exists: string;
-        //     "was-deleted": string;
-        //     duplicate: string;
-        //     "duplicate-archive": string;
-        //     badfilename: string;
-        // } & {
-            [k in string]?: unknown;
-        };
+        warnings: Warnings;
         filekey?: string;
         sessionkey?: string;
     };
 }
+
+export type Warnings = {
+//     exists: string;
+//     "was-deleted": string;
+//     duplicate: string;
+//     "duplicate-archive": string;
+//     badfilename: string;
+// } & {
+    [k in string]?: unknown;
+};
