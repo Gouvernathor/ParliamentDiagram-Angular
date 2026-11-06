@@ -1,5 +1,5 @@
-@use "../shared/common-style.scss" as *;
+@use "../shared/common-style.scss" as common;
 
 .errorcontainer {
-    @include error-container;
+    @include common.error-container;
 }

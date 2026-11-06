@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use "../common-style.scss" as *;
+@use "../common-style.scss" as common;
 
 mat-accordion {
     @include mat.expansion-overrides((
@@ -16,7 +16,7 @@ mat-accordion {
 }
 
 .errorcontainer {
-    @include error-container;
+    @include common.error-container;
 
     margin-block-end: 20px;
 }
