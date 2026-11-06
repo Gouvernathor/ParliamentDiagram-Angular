@@ -144,12 +144,7 @@ export class DiagramCard {
                     retryIgnoreWarnings = false;
                     delete warnings["badfilename"];
                 } else if ("exists" in warnings || "was-deleted" in warnings) {
-                    if ("was-deleted" in warnings) {
-                        messages.push({
-                            kind: "was-deleted",
-                            filename: warnings["was-deleted"], // TODO check what that value is
-                        });
-                    } else {
+                    if ("exists" in warnings) {
                         const href = `https://commons.wikipedia.org/wiki/File:${warnings["exists"]}`;
                         if ("no-change" in warnings) {
                             /* messages.push({
@@ -165,6 +160,11 @@ export class DiagramCard {
                                 kind: ,
                             }); */ // TODO
                         }
+                    } else {
+                        messages.push({
+                            kind: "was-deleted",
+                            filename: warnings["was-deleted"], // TODO check what that value is
+                        });
                     }
                     delete warnings["exists"];
                     delete warnings["no-change"];
