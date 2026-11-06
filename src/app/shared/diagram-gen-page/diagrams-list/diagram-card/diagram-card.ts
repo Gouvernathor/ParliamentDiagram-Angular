@@ -24,8 +24,24 @@ type Result = {
     readonly href: string;
 } | {
     readonly success: false;
-    readonly messages: readonly string[];
-    readonly linkToTracker: boolean;
+    readonly messages: Errors | readonly Message[];
+    readonly retryIgnoreWarnings: boolean;
+};
+
+type Errors = {
+    readonly errors: string[];
+};
+
+type Message = {
+    readonly kind: "badfilename";
+    readonly badfilename: string;
+} | {
+    readonly kind: "was-deleted";
+    readonly filename: string;
+} | {
+    readonly kind: "unknown";
+    readonly key: string;
+    readonly value: string;
 };
 
 const resultCache = new WeakMap<Diagram, Result>();
@@ -115,15 +131,79 @@ export class DiagramCard {
                 href ||= "https://commons.wikimedia.org/wiki/File:" + filename.replace(" ", "_");
 
                 this.setResult({ success: true, href }, diagram);
-            } // TODO
-        } catch (e) {
-            let messages;
-            if (e instanceof ApiErrors) {
-                messages = e.errors.map(ee => `Error (code ${ee.code}): ${ee.text}`);
-            } else {
-                messages = [ String(e) ];
+            } else if (result.upload.warnings) {
+                const warnings = Object.assign(Object.create(null), result.upload.warnings);
+                const messages: Message[] = [];
+                let retryIgnoreWarnings = true;
+
+                if ("badfilename" in warnings) {
+                    messages.push({
+                        kind: "badfilename",
+                        badfilename: warnings["badfilename"],
+                    });
+                    retryIgnoreWarnings = false;
+                    delete warnings["badfilename"];
+                } else if ("exists" in warnings || "was-deleted" in warnings) {
+                    if ("was-deleted" in warnings) {
+                        messages.push({
+                            kind: "was-deleted",
+                            filename: warnings["was-deleted"],
+                        });
+                    } else {
+                        const href = `https://commons.wikipedia.org/wiki/File:${warnings["exists"]}`;
+                        if ("no-change" in warnings) {
+                            /* messages.push({
+                                kind: ,
+                            }); */ // TODO
+                            retryIgnoreWarnings = false;
+                        } else if ("duplicateversions" in warnings) {
+                            /* messages.push({
+                                kind: ,
+                            }); */ // TODO
+                        } else {
+                            /* messages.push({
+                                kind: ,
+                            }); */ // TODO
+                        }
+                    }
+                    delete warnings["exists"];
+                    delete warnings["no-change"];
+                    delete warnings["duplicateversions"];
+                    delete warnings["was-deleted"];
+                } else if ("duplicate" in warnings || "duplicate-archive" in warnings) {
+                    if ("duplicate" in warnings) {
+                        /* messages.push({
+                            kind: ,
+                        }); */ // TODO
+                    }
+                    if ("duplicate-archive" in warnings) {
+                        /* messages.push({
+                            kind: ,
+                        }); */ // TODO
+                    }
+                    delete warnings["duplicate"];
+                    delete warnings["duplicate-archive"];
+                }
+                if (Object.keys(warnings).length) {
+                    for (const key in warnings) {
+                        const value = warnings[key];
+                        messages.push({
+                            kind: "unknown",
+                            key, value,
+                        });
+                    }
+                }
+
+                this.setResult({ success: false, messages, retryIgnoreWarnings });
             }
-            this.setResult({ success: false, messages, linkToTracker: true }, diagram);
+        } catch (e) {
+            let errors;
+            if (e instanceof ApiErrors) {
+                errors = e.errors.map(ee => `Error (code ${ee.code}): ${ee.text}`);
+            } else {
+                errors = [ String(e) ];
+            }
+            this.setResult({ success: false, messages: { errors }, retryIgnoreWarnings: false }, diagram);
         } finally {
             if (this.isUploading() === uploadMarker) {
                 this.isUploading.set(null);

@@ -67,12 +67,29 @@
             @if (result.success) {
                 <p class="success">Image successfully uploaded on <a [href]="result.href">Commons</a>.</p>
             } @else {
-                @for (message of result.messages; track $index) {
-                    <p class="error">{{message}}</p>
-                }
-                @if (result.linkToTracker) {
+                @if ("errors" in result.messages) {
+                    @for (errorMessage of result.messages.errors; track $index) {
+                        <p class="error">{{ errorMessage }}</p>
+                    }
                     <p>Please raise an issue on the issue tracker if the error seems internal to ParliamentDiagram.</p>
+                } @else {
+                    @for (message of result.messages; track $index) {
+                        @switch (message.kind) {
+                            @case ("badfilename") {
+                                <p class="error"><samp>{{ message.badfilename }}</samp> is not a valid filename for Wikimedia Commons. You can retry with a different one.</p>
+                            }
+
+                            @case ("unknown") {
+                                <div class="error">
+                                    <p>An unknown warning has been returned by Wikimedia Commons : "<samp>{{ message.key }}</samp>" with value "<samp>{{ message.value }}</samp>"</p>
+                                    <p>Please report this to the ParliamentDiagram issue tracker.</p>
+                                </div>
+                            }
+                        }
+                        <p class="error">{{ message }}</p>
+                    }
                 }
+                <!-- TODO retry-ignore-warnings button -->
             }
         }
     </mat-expansion-panel>
