@@ -194,7 +194,7 @@ export class DiagramCard {
                 }
                 if (Object.keys(warnings).length) {
                     for (const key in warnings) {
-                        const value = warnings[key];
+                        const value = JSON.stringify(warnings[key]);
                         messages.push({
                             kind: "unknown",
                             key, value,
