@@ -144,7 +144,7 @@ export class DiagramCard {
                 if ("badfilename" in warnings) {
                     messages.push({
                         kind: "badfilename",
-                        badfilename: warnings["badfilename"],
+                        badfilename: warnings["badfilename"]!,
                     });
                     retryIgnoreWarnings = false;
                     delete warnings["badfilename"];
