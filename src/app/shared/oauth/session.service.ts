@@ -151,7 +151,7 @@ interface UploadWarningResult {
         //     "duplicate-archive": string;
         //     badfilename: string;
         // } & {
-            [k in string]?: string;
+            [k in string]?: unknown;
         };
         filekey?: string;
         sessionkey?: string;
